@@ -1,4 +1,5 @@
-/sistac/nbproject/private/
+/sistac/nbproject/*
 bin/*
 .class
 build.xml
+/sistac/build/
