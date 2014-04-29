@@ -21,10 +21,10 @@ public class Curso {
     /**
      * Construtor Padrao
      */
-    public Aluno() {
+    public Curso() {
         this.nome = "";
-        this.codigo = "";
-        this.listaCategoria = ArrayList<Categoria>;
+        this.codigo = null;
+        this.listaCategoria = new ArrayList<>();
     }
     
     /**
@@ -34,7 +34,7 @@ public class Curso {
     public Curso(String nome, Integer codigo, ArrayList<Categoria> listaCategoria) {
         this.nome = nome;
         this.codigo = codigo;
-        this.listaCategoria = ArrayList<Categoria>;
+        this.listaCategoria = listaCategoria;
     }
     
     public String getNome() {
@@ -45,7 +45,7 @@ public class Curso {
         this.nome = nome;
     }
     
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
     
