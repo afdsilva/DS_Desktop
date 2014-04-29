@@ -23,21 +23,21 @@ public class Pedido {
      * Construtor Padrao
      */
     public Pedido() {
-        this.aluno = "";
-        this.ano = "";
-        this.semestre = "";
-        this.listaAtividadesComplementares = ArrayList<Atividade>;
+        this.aluno = null;
+        this.ano = null;
+        this.semestre = null;
+        this.listaAtividadesComplementares = new ArrayList<>();
     }
     
     /**
      * Construtor passando aluno, ano, semestre e listaAtividadesComplementares
      */
     
-    public Pedido(String aluno, Integer ano, Integer semetsre, ArrayList<Atividade> listaAtividadesComplementares) {
+    public Pedido(Aluno aluno, Integer ano, Integer semestre, ArrayList<Atividade> listaAtividadesComplementares) {
         this.aluno = aluno;
         this.ano = ano;
         this.semestre = semestre;
-        this.listaAtividadesComplementares = ArrayList<Atividade>;
+        this.listaAtividadesComplementares = listaAtividadesComplementares;
     }
     
     public Aluno getAluno() {
