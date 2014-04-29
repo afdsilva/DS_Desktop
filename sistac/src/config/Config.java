@@ -1,16 +1,20 @@
 package config;
 
+import java.util.logging.Logger;
+
 public class Config {
     
     private static volatile Config instance = null;
     private final int width;
     private final int height;
- 
+    private Logger logger;
+    
     private Config(){
         
         this.width = 800;
         this.height = 600;
         
+        this.logger = Logger.getLogger(Config.class.getName());
     }
     
     /**
@@ -36,5 +40,7 @@ public class Config {
         return this.height;
     }
     
-
+    public Logger getLog() {
+        return this.logger;
+    }
 }
