@@ -20,13 +20,16 @@ public class Aluno {
      * Construtor Padrao
      */
     public Aluno() {
-        this.nome = "";
-        this.matricula = "";
+        this.nome = null;
+        this.matricula = null;
         this.curso = new Curso();
     }
     
     /**
      * Construtor passando nome, matricula e curso
+     * @param nome
+     * @param matricula
+     * @param curso
      */
     
     public Aluno(String nome, String matricula, Curso curso) {

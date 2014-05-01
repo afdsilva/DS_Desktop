@@ -2,6 +2,7 @@
 import config.*;
 import java.awt.CardLayout;
 import system.*;
+import java.util.*;
 
 public class Janela extends javax.swing.JFrame {
 
@@ -18,6 +19,24 @@ public class Janela extends javax.swing.JFrame {
         this.setMinimumSize(new java.awt.Dimension(config.getWigth(), config.getHeight()));
         this.janelas = (CardLayout) painelBase.getLayout();    
         this.janelas.show(painelBase, "painelHome");
+        
+        //codigo para teste enquanto nao carrega do arquivo as listas
+        ArrayList<Curso> teste = new ArrayList<>();
+        teste.add(new Curso("teste1", null, null));
+        teste.add(new Curso("teste2", null, null));
+        Curso.setListaCursos(teste);
+        
+        ArrayList<Categoria> teste1 = new ArrayList<>();
+        teste1.add(new Categoria("ensino1", null));
+        teste1.add(new Categoria("pesquisa2", null));
+        teste1.add(new Categoria("extensao3", null));
+        Categoria.setListaCategorias(teste1);
+        
+        ArrayList<TipoAtividade> teste2 = new ArrayList<>();
+        teste2.add(new TipoAtividade("monitoria1", null,null,null,null));
+        teste2.add(new TipoAtividade("monitoria2", null,null,null,null));
+        TipoAtividade.setListaTipoAtividades(teste2);
+        //fim teste
         
         setComboCursoIdentificacao();
         setComboCursoAtividades();
@@ -82,7 +101,6 @@ public class Janela extends javax.swing.JFrame {
         botaoVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         painelBase.setPreferredSize(new java.awt.Dimension(800, 600));
         painelBase.setLayout(new java.awt.CardLayout());
@@ -654,18 +672,26 @@ public class Janela extends javax.swing.JFrame {
     }
     
     private void setComboCursoIdentificacao(){
-        this.comboCursoIdentificacao.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Ciência da Computação", "Engenharia da Computação" })));
+        for (Curso curso : Curso.getListaCursos()){
+            this.comboCursoIdentificacao.addItem(curso.getNome());
+        }
     }
     
     private void setComboCursoAtividades(){
-        this.comboCursoAtividades.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Ciência da Computação", "Engenharia da Computação" })));
+        for (Curso curso : Curso.getListaCursos()){
+            this.comboCursoAtividades.addItem(curso.getNome());
+        }
     }
     
     private void setComboCategoriaAtividades(){
-        this.comboCategoriaAtividades.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Pesquisa", "Ensino", "Extensão" })));
+        for (Categoria categoria : Categoria.getListaCategorias()){
+            this.comboCategoriaAtividades.addItem(categoria.getNome());
+        }
     }
     
     private void setComboTipoAtividadeAtividades(){
-        this.comboTipoAtividadeAtividades.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Monitoria", "Iniciação Científica" })));
+        for (TipoAtividade ta : TipoAtividade.getListaTipoAtividades()){
+            this.comboTipoAtividadeAtividades.addItem(ta.getDescricao());
+        }
     }
 }
