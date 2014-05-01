@@ -1,21 +1,28 @@
 
 import config.*;
 import java.awt.CardLayout;
+import system.*;
 
 public class Janela extends javax.swing.JFrame {
 
     private Config config;
     private CardLayout janelas;
+    private Categoria categoria;
+    private TipoAtividade tipoAtividade;
+    private Curso curso;
     
     public Janela() {
         initComponents();
         this.config = Config.getInstancia();
         this.setSize(config.getWigth(), config.getHeight());
         this.setMinimumSize(new java.awt.Dimension(config.getWigth(), config.getHeight()));
-        this.janelas = (CardLayout) painelBase.getLayout();
-        
+        this.janelas = (CardLayout) painelBase.getLayout();    
         this.janelas.show(painelBase, "painelHome");
         
+        setComboCursoIdentificacao();
+        setComboCursoAtividades();
+        setComboTipoAtividadeAtividades();
+        setComboCategoriaAtividades();
     }
 
     /**
@@ -29,9 +36,9 @@ public class Janela extends javax.swing.JFrame {
 
         painelBase = new javax.swing.JPanel();
         painelHome = new javax.swing.JPanel();
-        botaoNovo = new javax.swing.JButton();
-        botaoCarregar = new javax.swing.JButton();
-        botaoRemover = new javax.swing.JButton();
+        botaoNovoPedido = new javax.swing.JButton();
+        botaoCarregarPedido = new javax.swing.JButton();
+        botaoRemoverPedido = new javax.swing.JButton();
         botaoTutorial = new javax.swing.JButton();
         botaoSair = new javax.swing.JButton();
         scrollTabelaHome = new javax.swing.JScrollPane();
@@ -64,8 +71,8 @@ public class Janela extends javax.swing.JFrame {
         labelUnidade = new javax.swing.JLabel();
         textUnidade = new javax.swing.JTextField();
         textDescricao = new javax.swing.JTextField();
-        comboTipoAtividade = new javax.swing.JComboBox();
-        Categoria = new javax.swing.JComboBox();
+        comboTipoAtividadeAtividades = new javax.swing.JComboBox();
+        comboCategoriaAtividades = new javax.swing.JComboBox();
         botaoCadastrar = new javax.swing.JButton();
         botaoLimpar = new javax.swing.JButton();
         botaoRemoverAtividade = new javax.swing.JButton();
@@ -82,33 +89,29 @@ public class Janela extends javax.swing.JFrame {
 
         painelHome.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        botaoNovo.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/novo2.png")); // NOI18N
-        botaoNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoNovo.setLabel("Novo");
-        botaoNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoNovo.addActionListener(new java.awt.event.ActionListener() {
+        botaoNovoPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoNovoPedido.setLabel("Novo");
+        botaoNovoPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoNovoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoNovoActionPerformed(evt);
+                botaoNovoPedidoActionPerformed(evt);
             }
         });
 
-        botaoCarregar.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/carregar2.png")); // NOI18N
-        botaoCarregar.setText("Carregar");
-        botaoCarregar.setToolTipText("");
-        botaoCarregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoCarregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoCarregar.addActionListener(new java.awt.event.ActionListener() {
+        botaoCarregarPedido.setText("Carregar");
+        botaoCarregarPedido.setToolTipText("");
+        botaoCarregarPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoCarregarPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoCarregarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCarregarActionPerformed(evt);
+                botaoCarregarPedidoActionPerformed(evt);
             }
         });
 
-        botaoRemover.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/remover2.png")); // NOI18N
-        botaoRemover.setText("Remover");
-        botaoRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoRemover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoRemoverPedido.setText("Remover");
+        botaoRemoverPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoRemoverPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        botaoTutorial.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/tutorial2.png")); // NOI18N
         botaoTutorial.setText("Tutorial");
         botaoTutorial.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoTutorial.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -118,7 +121,6 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
-        botaoSair.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sair.png")); // NOI18N
         botaoSair.setText("Sair");
         botaoSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -149,8 +151,6 @@ public class Janela extends javax.swing.JFrame {
         tabelaPedidos.setColumnSelectionAllowed(true);
         scrollTabelaHome.setViewportView(tabelaPedidos);
 
-        labelCabecalho.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sistac.jpg")); // NOI18N
-
         javax.swing.GroupLayout painelHomeLayout = new javax.swing.GroupLayout(painelHome);
         painelHome.setLayout(painelHomeLayout);
         painelHomeLayout.setHorizontalGroup(
@@ -161,11 +161,11 @@ public class Janela extends javax.swing.JFrame {
                 .addComponent(scrollTabelaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(painelHomeLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(botaoNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(botaoCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(botaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
@@ -177,9 +177,9 @@ public class Janela extends javax.swing.JFrame {
                 .addComponent(labelCabecalho)
                 .addGap(32, 32, 32)
                 .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCarregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoRemover, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoNovoPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoTutorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -193,8 +193,6 @@ public class Janela extends javax.swing.JFrame {
         painelIdentifica.setMinimumSize(new java.awt.Dimension(800, 600));
         painelIdentifica.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        labelCabecalhoIdentificacao.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sistac.jpg")); // NOI18N
-
         labelNomeIdentificacao.setText("Nome");
 
         labelMatriculaIdentificacao.setText("Matricula");
@@ -206,8 +204,6 @@ public class Janela extends javax.swing.JFrame {
                 textMatriculaIdentificacaoActionPerformed(evt);
             }
         });
-
-        comboCursoIdentificacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         botaoProximo.setText("Próximo");
         botaoProximo.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +265,7 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelar)
                     .addComponent(botaoProximo))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(408, Short.MAX_VALUE))
         );
 
         botaoProximo.getAccessibleContext().setAccessibleName("Proximo");
@@ -277,8 +273,6 @@ public class Janela extends javax.swing.JFrame {
         painelBase.add(painelIdentifica, "painelIdentifica");
 
         painelAtividades.setPreferredSize(new java.awt.Dimension(800, 600));
-
-        labelCabecalhoAtividades.setIcon(new javax.swing.ImageIcon("/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sistac.jpg")); // NOI18N
 
         painelGroupIdentificacaoAtividades.setBorder(javax.swing.BorderFactory.createTitledBorder("Identificação"));
 
@@ -293,8 +287,6 @@ public class Janela extends javax.swing.JFrame {
                 textMatriculaAtividadesActionPerformed(evt);
             }
         });
-
-        comboCursoAtividades.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout painelGroupIdentificacaoAtividadesLayout = new javax.swing.GroupLayout(painelGroupIdentificacaoAtividades);
         painelGroupIdentificacaoAtividades.setLayout(painelGroupIdentificacaoAtividadesLayout);
@@ -352,10 +344,6 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
-        comboTipoAtividade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout painelGroupAtividadeLayout = new javax.swing.GroupLayout(painelGroupAtividade);
         painelGroupAtividade.setLayout(painelGroupAtividadeLayout);
         painelGroupAtividadeLayout.setHorizontalGroup(
@@ -369,13 +357,13 @@ public class Janela extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
-                        .addComponent(comboTipoAtividade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboTipoAtividadeAtividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelUnidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
-                        .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGroupAtividadeLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -393,11 +381,11 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(labelTipoAtividade)
                     .addComponent(labelUnidade)
                     .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTipoAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboTipoAtividadeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCategoria)
-                    .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         botaoCadastrar.setText("Cadastrar");
@@ -528,10 +516,10 @@ public class Janela extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botaoSairActionPerformed
 
-    private void botaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoActionPerformed
+    private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
         // TODO add your handling code here:
         this.janelas.show(painelBase, "painelIdentifica");
-    }//GEN-LAST:event_botaoNovoActionPerformed
+    }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
         // TODO add your handling code here:
@@ -573,10 +561,10 @@ public class Janela extends javax.swing.JFrame {
         this.janelas.show(painelBase, "painelHome");
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
-    private void botaoCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarActionPerformed
+    private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
         // TODO add your handling code here:
         this.janelas.show(painelBase, "painelAtividades");
-    }//GEN-LAST:event_botaoCarregarActionPerformed
+    }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -614,22 +602,22 @@ public class Janela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox Categoria;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
-    private javax.swing.JButton botaoCarregar;
+    private javax.swing.JButton botaoCarregarPedido;
     private javax.swing.JButton botaoFinalizar;
     private javax.swing.JButton botaoLimpar;
-    private javax.swing.JButton botaoNovo;
+    private javax.swing.JButton botaoNovoPedido;
     private javax.swing.JButton botaoProximo;
-    private javax.swing.JButton botaoRemover;
     private javax.swing.JButton botaoRemoverAtividade;
+    private javax.swing.JButton botaoRemoverPedido;
     private javax.swing.JButton botaoSair;
     private javax.swing.JButton botaoTutorial;
     private javax.swing.JButton botaoVoltar;
+    private javax.swing.JComboBox comboCategoriaAtividades;
     private javax.swing.JComboBox comboCursoAtividades;
     private javax.swing.JComboBox comboCursoIdentificacao;
-    private javax.swing.JComboBox comboTipoAtividade;
+    private javax.swing.JComboBox comboTipoAtividadeAtividades;
     private javax.swing.JLabel labelCabecalho;
     private javax.swing.JLabel labelCabecalhoAtividades;
     private javax.swing.JLabel labelCabecalhoIdentificacao;
@@ -663,5 +651,21 @@ public class Janela extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limparCampos() {
+    }
+    
+    private void setComboCursoIdentificacao(){
+        this.comboCursoIdentificacao.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Ciência da Computação", "Engenharia da Computação" })));
+    }
+    
+    private void setComboCursoAtividades(){
+        this.comboCursoAtividades.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Ciência da Computação", "Engenharia da Computação" })));
+    }
+    
+    private void setComboCategoriaAtividades(){
+        this.comboCategoriaAtividades.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Pesquisa", "Ensino", "Extensão" })));
+    }
+    
+    private void setComboTipoAtividadeAtividades(){
+        this.comboTipoAtividadeAtividades.setModel((new javax.swing.DefaultComboBoxModel(new String[] { "Monitoria", "Iniciação Científica" })));
     }
 }

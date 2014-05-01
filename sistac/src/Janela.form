@@ -67,11 +67,11 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Component id="botaoNovo" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="botaoNovoPedido" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="botaoCarregar" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="botaoCarregarPedido" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="botaoRemover" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="botaoRemoverPedido" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="botaoTutorial" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -85,9 +85,9 @@
                       <Component id="labelCabecalho" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="botaoNovo" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="botaoCarregar" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="botaoRemover" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="botaoNovoPedido" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="botaoCarregarPedido" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="botaoRemoverPedido" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="botaoTutorial" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="botaoSair" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
@@ -99,38 +99,29 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="botaoNovo">
+            <Component class="javax.swing.JButton" name="botaoNovoPedido">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/novo2.png"/>
-                </Property>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="label" type="java.lang.String" value="Novo"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoNovoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoNovoPedidoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoCarregar">
+            <Component class="javax.swing.JButton" name="botaoCarregarPedido">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/carregar2.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Carregar"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCarregarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCarregarPedidoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoRemover">
+            <Component class="javax.swing.JButton" name="botaoRemoverPedido">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/remover2.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Remover"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -138,9 +129,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="botaoTutorial">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/tutorial2.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Tutorial"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -151,9 +139,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="botaoSair">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sair.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Sair"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -187,11 +172,6 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="labelCabecalho">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sistac.jpg"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -270,18 +250,13 @@
                           <Component id="botaoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoProximo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="260" max="32767" attributes="0"/>
+                      <EmptySpace pref="408" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelCabecalhoIdentificacao">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sistac.jpg"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelNomeIdentificacao">
               <Properties>
@@ -306,16 +281,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboCursoIdentificacao">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="botaoProximo">
               <Properties>
@@ -410,11 +375,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelCabecalhoAtividades">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/agpeil/faculdade/2014-1/ds/DS_Desktop/sistac/src/static/img/sistac.jpg"/>
-                </Property>
-              </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="painelGroupIdentificacaoAtividades">
               <Properties>
@@ -490,16 +450,6 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboCursoAtividades">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -533,14 +483,14 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="comboTipoAtividade" max="32767" attributes="0"/>
+                                  <Component id="comboTipoAtividadeAtividades" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="labelUnidade" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="textUnidade" min="-2" pref="148" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="Categoria" min="-2" pref="240" max="-2" attributes="0"/>
+                                  <Component id="comboCategoriaAtividades" min="-2" pref="240" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -564,12 +514,12 @@
                               <Component id="labelTipoAtividade" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="labelUnidade" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textUnidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboTipoAtividade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboTipoAtividadeAtividades" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="Categoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboCategoriaAtividades" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -603,29 +553,9 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textDescricaoActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTipoAtividade">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
+                <Component class="javax.swing.JComboBox" name="comboTipoAtividadeAtividades">
                 </Component>
-                <Component class="javax.swing.JComboBox" name="Categoria">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
+                <Component class="javax.swing.JComboBox" name="comboCategoriaAtividades">
                 </Component>
               </SubComponents>
             </Container>
