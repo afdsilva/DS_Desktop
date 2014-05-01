@@ -7,6 +7,8 @@
 
 package system;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author andref
@@ -30,13 +32,15 @@ public class Atividade {
      * Construtor passando descricao e tipoAtividade, categoria é carregado com o valor default do tipoAtividade
      * @param descricao
      * @param tipoAtividade 
+     * @param unidade 
      */
-    public Atividade(String descricao, TipoAtividade tipoAtividade) {
+    public Atividade(String descricao, TipoAtividade tipoAtividade, Integer unidade) {
         this.descricao = descricao;
         this.tipoAtividade = tipoAtividade;
-        this.unidadeAtividade = 0;
+        this.unidadeAtividade = unidade;
         this.categoria = tipoAtividade.getCategoria();
     }
+    
     /**
      * Construtor de copia
      * @param copia 
@@ -87,6 +91,10 @@ public class Atividade {
      */
     public void setUnidadeAtividade(Integer unidadeAtividade) {
         this.unidadeAtividade = unidadeAtividade;
+    }
+    
+    public Integer getUnidadeAtividadeAproveitada() {
+        return (this.unidadeAtividade > this.tipoAtividade.getMinHoras() ? this.tipoAtividade.getMinHoras() : this.unidadeAtividade );
     }
 
     /**

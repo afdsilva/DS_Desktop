@@ -16,20 +16,36 @@ import java.util.ArrayList;
 
 public class Categoria {
     
+    private static ArrayList<Categoria> listaCategorias;
+
+    /**
+     * @return the listaCategorias
+     */
+    public static ArrayList<Categoria> getListaCategorias() {
+        return listaCategorias;
+    }
+
+    /**
+     * @param aListaCategorias the listaCategorias to set
+     */
+    public static void setListaCategorias(ArrayList<Categoria> aListaCategorias) {
+        listaCategorias = aListaCategorias;
+    }
+    
     private String nome;
-    private Integer maxHoras;
+    private Integer cargaHoraria;
     public Categoria() {
         this.nome = null;
-        this.maxHoras = null;
+        this.cargaHoraria = null;
     }
-    public Categoria(String nome, Integer maxHoras) {
+    public Categoria(String nome, Integer cargaHoraria) {
         this.nome = nome;
-        this.maxHoras = maxHoras;
+        this.cargaHoraria = cargaHoraria;
     }
     
     public Categoria(Categoria copia) {
         this.nome = copia.getNome();
-        this.maxHoras = copia.getMaxHoras();
+        this.cargaHoraria = copia.getCargaHoraria();
     }
     /**
      * @return the nome
@@ -46,20 +62,19 @@ public class Categoria {
     }
 
     /**
-     * @return the maxHoras
+     * @return the cargaHoraria
      */
-    public Integer getMaxHoras() {
-        return maxHoras;
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
     }
 
     /**
-     * @param maxHoras the maxHoras to set
+     * @param maxHoras the cargaHoraria to set
      */
-    public void setMaxHoras(Integer maxHoras) {
-        this.maxHoras = maxHoras;
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
     }
     
-    static ArrayList<Categoria> listaCategorias;
     /**
      * Carrega as categorias do arquivo de configuracao para uma classe estatica 
      * que pode ser acessada globalmente
@@ -68,16 +83,16 @@ public class Categoria {
      */
     static void loadCategorias() {
         //cria ou limpa a lista de Categorias
-        if (Categoria.listaCategorias == null)
-            Categoria.listaCategorias = new ArrayList<>();
+        if (Categoria.getListaCategorias() == null)
+            Categoria.setListaCategorias(new ArrayList<Categoria>());
         else
-            Categoria.listaCategorias.clear();
+            Categoria.getListaCategorias().clear();
         Categoria pesquisa = new Categoria("Pesquisa", 100);
-        Categoria.listaCategorias.add(pesquisa);
+        Categoria.getListaCategorias().add(pesquisa);
         Categoria extensao = new Categoria("Extensao", 100);
-        Categoria.listaCategorias.add(extensao);
+        Categoria.getListaCategorias().add(extensao);
         Categoria ensino = new Categoria("Ensino", 100);
-        Categoria.listaCategorias.add(ensino);
+        Categoria.getListaCategorias().add(ensino);
     }
     /**
      * Busca uma categoria na lista(consistencia dos dados)
@@ -85,11 +100,12 @@ public class Categoria {
      * @return Categoria procurada, ou uma categoria dummy
      */
     static Categoria getCategoria(String procura) {
-        for (Categoria categoria : listaCategorias) {
+        for (Categoria categoria : getListaCategorias()) {
             if (categoria.getNome().toUpperCase().equals(procura.toUpperCase())) {
                 return categoria;
             }
         }
         return new Categoria("Nao encontrado",0);
     }
+    
 }
