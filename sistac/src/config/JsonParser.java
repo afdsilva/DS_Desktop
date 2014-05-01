@@ -129,7 +129,9 @@ public class JsonParser {
         for (Object activity : (JSONArray) category.get("activity")) {            
             obj = (JSONObject) activity;
             
-            list.add(new TipoAtividade((String) obj.get("name"), (int) (long) obj.get("maxHr"), new Categoria((String) category.get("name"), (int) (long) category.get("minHr")), (String) obj.get("unit")));
+            Categoria temp = new Categoria((String) category.get("name"), (int) (long) category.get("minHr"));
+            
+            list.add(new TipoAtividade((String) obj.get("name"), (int) (long) obj.get("hr"), (int) (long) obj.get("maxHr"), new Categoria((String) category.get("name"), (int) (long) category.get("minHr")), (String) obj.get("unit")));
         }
         
         return list;

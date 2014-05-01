@@ -54,6 +54,7 @@
 				{
 					"name" : "Livre ou Opcional",
 					"unit" : "horas",
+					"hr"	 : 34,
 					"maxHr" : 68
 				}
 			]
