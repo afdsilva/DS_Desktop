@@ -31,29 +31,33 @@ public class TipoAtividade {
     }
 
     private String descricao;
+    private Integer minHoras;
     private Integer maxHoras;
     private Categoria categoria;
     private String unidadeTipoAtividade;
 
     public TipoAtividade() {
         this.descricao = null;
+        this.minHoras = 0;
         this.maxHoras = 0;
         this.categoria = null;
         this.unidadeTipoAtividade = null;
     }
 
-    public TipoAtividade(String descricao, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
+    public TipoAtividade(String descricao, Integer minHoras, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
         this.descricao = descricao;
+        this.minHoras = minHoras;
         this.maxHoras = maxHoras;
         this.categoria = categoria;
         this.unidadeTipoAtividade = unidadeTipoAtividade;
     }
 
     public TipoAtividade(TipoAtividade copia) {
-        this.descricao = copia.descricao;
-        this.maxHoras = copia.maxHoras;
-        this.categoria = copia.categoria;
-        this.unidadeTipoAtividade = copia.unidadeTipoAtividade;
+        this.descricao = copia.getDescricao();
+        this.minHoras = copia.getMinHoras();
+        this.maxHoras = copia.getMaxHoras();
+        this.categoria = copia.getCategoria();
+        this.unidadeTipoAtividade = copia.getUnidadeTipoAtividade();
     }
 
     /**
@@ -131,9 +135,9 @@ public class TipoAtividade {
         Categoria ensino = Categoria.getCategoria("ensino");
         Categoria extensao = Categoria.getCategoria("extensao");
 
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Monitoria", 51, ensino, "horas"));
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Participação em Eventos Científicos Internacionais", 51, pesquisa, "unidade"));
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Bolsa de Graduação da UFPel", 200, extensao, "horas"));
+        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Monitoria", 51, 102, ensino, "horas"));
+        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Participação em Eventos Científicos Internacionais", 51, 102, pesquisa, "unidade"));
+        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Bolsa de Graduação da UFPel", 34, 68, extensao, "horas"));
     }
 
     /**
@@ -148,7 +152,21 @@ public class TipoAtividade {
                 return tipoAtividade;
             }
         }
-        return new TipoAtividade("Nao encontrado", 0, new Categoria(), "");
+        return new TipoAtividade("Nao encontrado", 0, 0, new Categoria(), "");
+    }
+
+    /**
+     * @return the minHoras
+     */
+    public Integer getMinHoras() {
+        return minHoras;
+    }
+
+    /**
+     * @param minHoras the minHoras to set
+     */
+    public void setMinHoras(Integer minHoras) {
+        this.minHoras = minHoras;
     }
 
 }

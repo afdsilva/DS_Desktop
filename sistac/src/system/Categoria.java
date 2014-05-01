@@ -33,19 +33,19 @@ public class Categoria {
     }
     
     private String nome;
-    private Integer maxHoras;
+    private Integer cargaHoraria;
     public Categoria() {
         this.nome = null;
-        this.maxHoras = null;
+        this.cargaHoraria = null;
     }
-    public Categoria(String nome, Integer maxHoras) {
+    public Categoria(String nome, Integer cargaHoraria) {
         this.nome = nome;
-        this.maxHoras = maxHoras;
+        this.cargaHoraria = cargaHoraria;
     }
     
     public Categoria(Categoria copia) {
         this.nome = copia.getNome();
-        this.maxHoras = copia.getMaxHoras();
+        this.cargaHoraria = copia.getCargaHoraria();
     }
     /**
      * @return the nome
@@ -62,17 +62,17 @@ public class Categoria {
     }
 
     /**
-     * @return the maxHoras
+     * @return the cargaHoraria
      */
-    public Integer getMaxHoras() {
-        return maxHoras;
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
     }
 
     /**
-     * @param maxHoras the maxHoras to set
+     * @param maxHoras the cargaHoraria to set
      */
-    public void setMaxHoras(Integer maxHoras) {
-        this.maxHoras = maxHoras;
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
     }
     
     /**
@@ -107,5 +107,5 @@ public class Categoria {
         }
         return new Categoria("Nao encontrado",0);
     }
-
+    
 }
