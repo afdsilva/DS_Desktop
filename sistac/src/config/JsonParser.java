@@ -10,6 +10,7 @@ package config;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,12 @@ public class JsonParser {
         this.test();
     }
     
+    /**
+     * 
+     * @param file nome do arquivo json a ser aberto
+     * @return objeto com o conteudo do json
+     */
+    
     private JSONObject parse(String file){
         Object obj = new Object();
         
@@ -57,6 +64,13 @@ public class JsonParser {
         
         return (JSONObject) obj;
     }
+    
+    /**
+     * 
+     * @param fileName nome do arquivo a ser salvo
+     * @param obj json a ser salvo
+     * @return true ou false
+     */
     
     private boolean create(String fileName, JSONObject obj){
         boolean created = false;
@@ -117,7 +131,7 @@ public class JsonParser {
      * 
      * @param course nome do curso a ter sua base carregada (ccomp ou gcomp)
      * @param index index da categoria dentro do json (0 -> Ensino, 1 -> Pesquisa, 2 -> Extensão)
-     * @return lista de atividades
+     * @return lista de atividades da categoria index
      */
     
     public final List<TipoAtividade> getTypesOfActivity(String course, Integer index){
@@ -129,12 +143,61 @@ public class JsonParser {
         for (Object activity : (JSONArray) category.get("activity")) {            
             obj = (JSONObject) activity;
             
-            Categoria temp = new Categoria((String) category.get("name"), (int) (long) category.get("minHr"));
-            
             list.add(new TipoAtividade((String) obj.get("name"), (int) (long) obj.get("hr"), (int) (long) obj.get("maxHr"), new Categoria((String) category.get("name"), (int) (long) category.get("minHr")), (String) obj.get("unit")));
         }
         
         return list;
+    }
+    
+    /**
+     * 
+     * @param course nome do curso a ter sua base carregada (ccomp ou gcomp)
+     * @return lista de atividades de todas as categorias
+     */
+    
+    public final List<TipoAtividade> getAllTypesOfActivity(String course){
+        List<TipoAtividade> list = new ArrayList<>();
+        
+        for(int i = 0; i < 3; i++){
+            list.addAll(this.getTypesOfActivity(course, i));
+        }
+        
+        return list;
+    }
+    
+    public boolean saveRequest(Pedido request){
+        JSONObject json = new JSONObject();
+        JSONObject temp;
+        
+        json.put("name", request.getAluno().getNome());
+        json.put("registry", request.getAluno().getMatricula());
+        json.put("course", request.getAluno().getCurso().getNome());
+        json.put("cod", request.getAluno().getCurso().getCodigo());
+        json.put("year", request.getAno());
+        json.put("semester", request.getSemestre());
+        
+        JSONArray list = new JSONArray();
+        
+        for(Atividade activity : request.getListaAtividadesComplementares()){
+            temp = new JSONObject();
+            
+            temp.put("description", activity.getDescricao());
+            temp.put("typeOfActivity", activity.getTipoAtividade().getDescricao());
+            temp.put("category", activity.getCategoria().getNome());
+            temp.put("time", activity.getUnidadeAtividadeAproveitada());
+            
+            list.add(temp);
+        }
+        
+        json.put("activity", list);
+        
+        String file = "save/";
+        
+        file = file.concat(request.getAluno().getMatricula());
+        
+        file = file.concat(".json");
+        
+        return this.create(file, json);
     }
     
     private void test(){
@@ -149,6 +212,16 @@ public class JsonParser {
         for(TipoAtividade activity : teste2){
             System.out.println(activity.getDescricao());
         }
+        
+        Curso curso = new Curso("Ciência da Computação", 313, (ArrayList<Categoria>) teste1);
+        Aluno aluno = new Aluno("GigaMax13", "14101401", curso);
+        List<Atividade> atividade = new ArrayList<>();
+        
+        atividade.add(new Atividade("Procrastinar", teste2.get(0), 313));
+        
+        Pedido teste3 = new Pedido(aluno, 2014, 9, (ArrayList<Atividade>) atividade);
+        
+        this.saveRequest(teste3);
     }
 
     /**
