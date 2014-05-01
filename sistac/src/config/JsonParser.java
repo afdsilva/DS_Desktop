@@ -38,6 +38,7 @@ public class JsonParser {
         this.base.put("ccomp", this.parse("base/ccomp.json"));
         this.base.put("gcomp", this.parse("base/gcomp.json"));
         
+        // usado para teste, pode ser removido na versao final
         this.test();
     }
     
@@ -165,6 +166,12 @@ public class JsonParser {
         return list;
     }
     
+    /**
+     * 
+     * @param request pedido a ser salvo
+     * @return boolean para saber se o arquivo foi criado
+     */
+    
     public boolean saveRequest(Pedido request){
         JSONObject json = new JSONObject();
         JSONObject temp;
@@ -200,6 +207,10 @@ public class JsonParser {
         return this.create(file, json);
     }
     
+    /**
+     * Método que mostra como usar o parser, remova a sua chamada do construtor
+     */
+    
     private void test(){
         List<Categoria> teste1 = this.getCategories("ccomp");
         
@@ -225,7 +236,7 @@ public class JsonParser {
     }
 
     /**
-     * @param args the command line arguments
+     * Usado para teste, pode ser removido
      */
     public static void main(String[] args) {        
         new JsonParser();
