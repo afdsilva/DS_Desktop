@@ -1,0 +1,177 @@
+{
+	"name" : "Engenharia da Computação",
+	"cod" : 313313,
+	"optional" : {
+		"name" : "Livre ou Opcional",
+		"minHa" : 544,
+		"maxHa" : [34,68]
+	},
+	"complementary" : {
+		"minHr" : 366.67,
+		"minHa" : 440
+	},
+	"category" : [
+		{
+			"name" : "Ensino",
+			"minHr" : 100,
+			"minHa" : 120,
+			"activity" : [
+				{
+					"name" : "Monitoria",
+					"unit" : "horas",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Projetos de Ensino",
+					"unit" : "horas",
+					"hr" : 34,
+					"maxHr" : 102,
+					"ha" : 40.8,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Semanas Acadêmicas",
+					"unit" : "horas",
+					"hr" : 34,
+					"maxHr" : 68,
+					"ha" : 40.8,
+					"maxHa" : 81.6
+				},
+				{
+					"name" : "Cursos e Escolas",
+					"unit" : "horas",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Representação Estudantil",
+					"unit" : "semestre",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Certificações profissionais",
+					"unit" : "horas",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Livre ou Opcional",
+					"unit" : "horas",
+					"maxHa" : 68
+				}
+			]
+		},
+		{
+			"name" : "Pesquisa",
+			"minHr" : 100,
+			"minHa" : 120,
+			"activity" : [
+				{
+					"name" : "Iniciação Científica",
+					"unit" : "horas",
+					"hr" : 51,
+					"maxHr" : 153,
+					"ha" : 61.2,
+					"maxHa" : 183.6
+				},
+				{
+					"name" : "Participação em Eventos Científicos Regional",
+					"unit" : "unidade",
+					"hr" : 17,
+					"maxHr" : 51,
+					"ha" : 20.4,
+					"maxHa" : 61.2
+				},
+				{
+					"name" : "Participação em Eventos Científicos Nacional",
+					"unit" : "unidade",
+					"hr" : 34,
+					"maxHr" : 68,
+					"ha" : 40.8,
+					"maxHa" : 81.6
+				},
+				{
+					"name" : "Participação em Eventos Científicos Internacional",
+					"unit" : "unidade",
+					"hr" : 34,
+					"maxHr" : 68,
+					"ha" : 40.8,
+					"maxHa" : 81.6
+				},
+				{
+					"name" : "Publicação de Artigo Científico Regional",
+					"unit" : "unidade",
+					"hr" : 34,
+					"maxHr" : 68,
+					"ha" : 40.8,
+					"maxHa" : 81.6
+				},
+				{
+					"name" : "Publicação de Artigo Científico Nacional",
+					"unit" : "unidade",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Publicação de Artigo Científico Internacional",
+					"unit" : "unidade",
+					"hr" : 68,
+					"maxHr" : 136,
+					"ha" : 81.6,
+					"maxHa" : 163.2
+				},
+				{
+					"name" : "Obtenção de Prêmios e distinções",
+					"unit" : "unidade",
+					"hr" : 68,
+					"maxHr" : 136,
+					"ha" : 81.6,
+					"maxHa" : 163.2
+				}
+			]
+		},
+		{
+			"name" : "Extensão",
+			"minHr" : 100,
+			"minHa" : 120,
+			"activity" : [
+				{
+					"name" : "Bolsa de Graduação da UFPel",
+					"unit" : "horas",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				},
+				{
+					"name" : "Participação em Atividades de Extensão (como organizador, colaborador, ou ministrante)",
+					"unit" : "horas",
+					"hr" : 34,
+					"maxHr" : 153,
+					"ha" : 40.8,
+					"maxHa" : 183.6
+				},
+				{
+					"name" : "Projetos Voluntários",
+					"unit" : "horas",
+					"hr" : 51,
+					"maxHr" : 102,
+					"ha" : 61.2,
+					"maxHa" : 122.4
+				}
+			]
+		}
+	]
+}
