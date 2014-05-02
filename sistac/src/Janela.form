@@ -568,6 +568,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Limpar"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoLimparMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="botaoRemoverAtividade">
               <Properties>

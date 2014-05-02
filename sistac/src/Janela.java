@@ -26,6 +26,7 @@ public class Janela extends javax.swing.JFrame {
         teste.add(new Curso("teste2", null, null));
         Curso.setListaCursos(teste);
         
+        
         ArrayList<Categoria> teste1 = new ArrayList<>();
         teste1.add(new Categoria("ensino1", null));
         teste1.add(new Categoria("pesquisa2", null));
@@ -414,6 +415,11 @@ public class Janela extends javax.swing.JFrame {
         });
 
         botaoLimpar.setText("Limpar");
+        botaoLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoLimparMouseClicked(evt);
+            }
+        });
 
         botaoRemoverAtividade.setText("Remover");
         botaoRemoverAtividade.addActionListener(new java.awt.event.ActionListener() {
@@ -584,6 +590,10 @@ public class Janela extends javax.swing.JFrame {
         this.janelas.show(painelBase, "painelAtividades");
     }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
+    private void botaoLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoLimparMouseClicked
+        limparCampos();
+    }//GEN-LAST:event_botaoLimparMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -669,6 +679,17 @@ public class Janela extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limparCampos() {
+        if (!comboCategoriaAtividades.getItemAt(0).equals ("Selecione uma Categoria"))
+            this.comboCategoriaAtividades.insertItemAt("Selecione uma Categoria", 0);
+        comboCategoriaAtividades.setSelectedIndex(0);
+        
+        if (!comboTipoAtividadeAtividades.getItemAt(0).equals ("Selecione um Tipo de Atividade"))
+            this.comboTipoAtividadeAtividades.insertItemAt("Selecione um Tipo de Atividade", 0);
+        comboTipoAtividadeAtividades.setSelectedIndex(0);
+        
+        this.textDescricao.setText("");
+        this.textUnidade.setText("");
+        
     }
     
     private void setComboCursoIdentificacao(){
