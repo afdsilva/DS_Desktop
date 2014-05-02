@@ -94,7 +94,7 @@ public class JsonParser {
     
     /**
      * 
-     * @param course nome da base (ccomp ou gcomp)
+     * @param course nome da base (ccomp ou ecomp)
      * @return base do curso
      */
     
@@ -110,7 +110,7 @@ public class JsonParser {
     }
     
     /**
-     * @param course nome da base (ccomp ou gcomp)
+     * @param course nome da base (ccomp ou ecomp)
      * @return lista de categorias do curso
      */
     
@@ -130,7 +130,7 @@ public class JsonParser {
     
     /**
      * 
-     * @param course nome do curso a ter sua base carregada (ccomp ou gcomp)
+     * @param course nome do curso a ter sua base carregada (ccomp ou ecomp)
      * @param index index da categoria dentro do json (0 -> Ensino, 1 -> Pesquisa, 2 -> Extensão)
      * @return lista de atividades da categoria index
      */

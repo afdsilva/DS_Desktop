@@ -19,29 +19,16 @@ public class Janela extends javax.swing.JFrame {
     public Janela() {
         initComponents();
         this.config = Config.getInstancia();
-        this.setSize(config.getWigth(), config.getHeight());
-        this.setMinimumSize(new java.awt.Dimension(config.getWigth(), config.getHeight()));
+        this.setSize(config.getWidth(), config.getHeight());
+        this.setMinimumSize(new java.awt.Dimension(config.getWidth(), config.getHeight()));
         this.janelas = (CardLayout) painelBase.getLayout();    
         this.janelas.show(painelBase, "painelHome");
         this.json = new JsonParser();
         carregaSistema();
+        this.listaDePedidos.setFont(config.getFontTexto());
+        this.botaoNovoPedido.setFont(config.getFontTexto());
 
-        ArrayList<Categoria> teste1 = new ArrayList<>();
-        teste1.add(new Categoria("ensino1", null));
-        teste1.add(new Categoria("pesquisa2", null));
-        teste1.add(new Categoria("extensao3", null));
-        Categoria.setListaCategorias(teste1);
-        
-        ArrayList<TipoAtividade> teste2 = new ArrayList<>();
-        teste2.add(new TipoAtividade("monitoria1", null,null,null,null));
-        teste2.add(new TipoAtividade("monitoria2", null,null,null,null));
-        TipoAtividade.setListaTipoAtividades(teste2);
-        //fim teste
-        
-        setComboCursoIdentificacao();
-        setComboCursoAtividades();
-        setComboTipoAtividadeAtividades();
-        setComboCategoriaAtividades();
+
     }
 
     /**
@@ -62,6 +49,7 @@ public class Janela extends javax.swing.JFrame {
         botaoRemoverPedido = new javax.swing.JButton();
         botaoTutorial = new javax.swing.JButton();
         botaoSair = new javax.swing.JButton();
+        listaDePedidos = new javax.swing.JPanel();
         scrollTabelaHome = new javax.swing.JScrollPane();
         tabelaPedidos = new javax.swing.JTable();
         painelIdentifica = new javax.swing.JPanel();
@@ -109,6 +97,7 @@ public class Janela extends javax.swing.JFrame {
         painelBase.setPreferredSize(new java.awt.Dimension(800, 600));
         painelBase.setLayout(new java.awt.CardLayout());
 
+        painelHome.setMinimumSize(new java.awt.Dimension(800, 600));
         painelHome.setPreferredSize(new java.awt.Dimension(800, 600));
 
         cabecalhoHome.setBackground(new java.awt.Color(255, 255, 255));
@@ -173,6 +162,8 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
+        listaDePedidos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Pedidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 0, 18))); // NOI18N
+
         tabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -194,28 +185,45 @@ public class Janela extends javax.swing.JFrame {
         tabelaPedidos.setColumnSelectionAllowed(true);
         scrollTabelaHome.setViewportView(tabelaPedidos);
 
+        javax.swing.GroupLayout listaDePedidosLayout = new javax.swing.GroupLayout(listaDePedidos);
+        listaDePedidos.setLayout(listaDePedidosLayout);
+        listaDePedidosLayout.setHorizontalGroup(
+            listaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listaDePedidosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollTabelaHome)
+                .addContainerGap())
+        );
+        listaDePedidosLayout.setVerticalGroup(
+            listaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listaDePedidosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollTabelaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout painelHomeLayout = new javax.swing.GroupLayout(painelHome);
         painelHome.setLayout(painelHomeLayout);
         painelHomeLayout.setHorizontalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelHomeLayout.createSequentialGroup()
                 .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelHomeLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(scrollTabelaHome)
-                        .addGap(39, 39, 39))
+                    .addComponent(cabecalhoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelHomeLayout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cabecalhoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(listaDePedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(painelHomeLayout.createSequentialGroup()
+                                .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         painelHomeLayout.setVerticalGroup(
@@ -229,9 +237,9 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoTutorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollTabelaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(listaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         painelBase.add(painelHome, "painelHome");
@@ -350,6 +358,9 @@ public class Janela extends javax.swing.JFrame {
         botaoProximo.getAccessibleContext().setAccessibleName("Proximo");
 
         painelBase.add(painelIdentifica, "painelIdentifica");
+
+        painelAtividades.setMinimumSize(new java.awt.Dimension(800, 600));
+        painelAtividades.setPreferredSize(new java.awt.Dimension(800, 600));
 
         cabecalhoAtividades.setBackground(new java.awt.Color(255, 255, 255));
         cabecalhoAtividades.setPreferredSize(new java.awt.Dimension(800, 100));
@@ -591,7 +602,7 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar)
                     .addComponent(botaoFinalizar))
-                .addContainerGap())
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         painelBase.add(painelAtividades, "painelAtividades");
@@ -744,6 +755,7 @@ public class Janela extends javax.swing.JFrame {
     private javax.swing.JLabel labelNomeIdentificacao;
     private javax.swing.JLabel labelTipoAtividade;
     private javax.swing.JLabel labelUnidade;
+    private javax.swing.JPanel listaDePedidos;
     private javax.swing.JPanel painelAtividades;
     private javax.swing.JPanel painelBase;
     private javax.swing.JPanel painelGroupAtividade;
@@ -811,6 +823,8 @@ public class Janela extends javax.swing.JFrame {
         Curso cursoCiencia = new Curso();
         Curso cursoEng = new Curso();
         
+        
+        // Carrega cursos na lista de cursos --> um pouco diferente dos outros pq pega dos arquivos
         cursoCiencia.setNome("Ciência da Computação");
         cursoCiencia.setCodigo(3900);
         cursoCiencia.setListaCategorias(listaCategoriasCComp);
@@ -822,11 +836,22 @@ public class Janela extends javax.swing.JFrame {
         Curso.setListaCursos(listaCursos);
         
         
+        ArrayList<Categoria> teste1 = new ArrayList<>();
+        teste1.add(new Categoria("ensino1", null));
+        teste1.add(new Categoria("pesquisa2", null));
+        teste1.add(new Categoria("extensao3", null));
+        Categoria.setListaCategorias(teste1);
         
+        ArrayList<TipoAtividade> teste2 = new ArrayList<>();
+        teste2.add(new TipoAtividade("monitoria1", null,null,null,null));
+        teste2.add(new TipoAtividade("monitoria2", null,null,null,null));
+        TipoAtividade.setListaTipoAtividades(teste2);
+        //fim teste
         
-    }
-	
-    private void cabecalho(){
+        setComboCursoIdentificacao();
+        setComboCursoAtividades();
+        setComboTipoAtividadeAtividades();
+        setComboCategoriaAtividades();
         
     }
 }

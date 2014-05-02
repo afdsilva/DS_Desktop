@@ -1,19 +1,21 @@
 package config;
 
 import java.util.logging.Logger;
+import java.awt.Font;
 
 public class Config {
     
     private static volatile Config instance = null;
     private final int width;
     private final int height;
+    private final Font fonteTexto;
     private Logger logger;
     
     private Config(){
         
         this.width = 800;
         this.height = 600;
-        
+        this.fonteTexto = new Font("Ubuntu", Font.PLAIN, 14);
         this.logger = Logger.getLogger(Config.class.getName());
     }
     
@@ -32,7 +34,7 @@ public class Config {
         return instance;
     }
 
-    public int getWigth(){
+    public int getWidth(){
         return this.width;
     }
         
@@ -42,5 +44,9 @@ public class Config {
     
     public Logger getLog() {
         return this.logger;
+    }
+    
+    public Font getFontTexto() {
+        return fonteTexto;
     }
 }
