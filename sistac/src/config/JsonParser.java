@@ -36,7 +36,7 @@ public class JsonParser {
         this.base = new HashMap<String, JSONObject>();
         
         this.base.put("ccomp", this.parse("base/ccomp.json"));
-        this.base.put("gcomp", this.parse("base/gcomp.json"));
+        this.base.put("ecomp", this.parse("base/ecomp.json"));
         
         // usado para teste, pode ser removido na versao final
         this.test();
@@ -218,7 +218,7 @@ public class JsonParser {
             System.out.println(category.getNome());
         }
         
-        List<TipoAtividade> teste2 = this.getTypesOfActivity("ccomp", 0);
+        List<TipoAtividade> teste2 = this.getTypesOfActivity("ccomp", 2);
         
         for(TipoAtividade activity : teste2){
             System.out.println(activity.getDescricao());

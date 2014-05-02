@@ -1,8 +1,9 @@
 
 import config.*;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.util.ArrayList;
 import system.*;
-import java.util.*;
 
 public class Janela extends javax.swing.JFrame {
 
@@ -11,6 +12,9 @@ public class Janela extends javax.swing.JFrame {
     private Categoria categoria;
     private TipoAtividade tipoAtividade;
     private Curso curso;
+    private JsonParser json;
+    
+
     
     public Janela() {
         initComponents();
@@ -19,14 +23,9 @@ public class Janela extends javax.swing.JFrame {
         this.setMinimumSize(new java.awt.Dimension(config.getWigth(), config.getHeight()));
         this.janelas = (CardLayout) painelBase.getLayout();    
         this.janelas.show(painelBase, "painelHome");
-        
-        //codigo para teste enquanto nao carrega do arquivo as listas
-        ArrayList<Curso> teste = new ArrayList<>();
-        teste.add(new Curso("teste1", null, null));
-        teste.add(new Curso("teste2", null, null));
-        Curso.setListaCursos(teste);
-        
-        
+        this.json = new JsonParser();
+        carregaSistema();
+
         ArrayList<Categoria> teste1 = new ArrayList<>();
         teste1.add(new Categoria("ensino1", null));
         teste1.add(new Categoria("pesquisa2", null));
@@ -56,6 +55,8 @@ public class Janela extends javax.swing.JFrame {
 
         painelBase = new javax.swing.JPanel();
         painelHome = new javax.swing.JPanel();
+        cabecalhoHome = new javax.swing.JPanel();
+        labelCabecalho = new javax.swing.JLabel();
         botaoNovoPedido = new javax.swing.JButton();
         botaoCarregarPedido = new javax.swing.JButton();
         botaoRemoverPedido = new javax.swing.JButton();
@@ -63,18 +64,20 @@ public class Janela extends javax.swing.JFrame {
         botaoSair = new javax.swing.JButton();
         scrollTabelaHome = new javax.swing.JScrollPane();
         tabelaPedidos = new javax.swing.JTable();
-        labelCabecalho = new javax.swing.JLabel();
         painelIdentifica = new javax.swing.JPanel();
+        cabecalhoIdentifica = new javax.swing.JPanel();
         labelCabecalhoIdentificacao = new javax.swing.JLabel();
-        labelNomeIdentificacao = new javax.swing.JLabel();
-        labelMatriculaIdentificacao = new javax.swing.JLabel();
-        labelCursoIdentificacao = new javax.swing.JLabel();
-        textNomeIdentificacao = new javax.swing.JTextField();
-        textMatriculaIdentificacao = new javax.swing.JTextField();
-        comboCursoIdentificacao = new javax.swing.JComboBox();
         botaoProximo = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
+        painelGroupIdentificacao = new javax.swing.JPanel();
+        textNomeIdentificacao = new javax.swing.JTextField();
+        labelNomeIdentificacao = new javax.swing.JLabel();
+        labelMatriculaIdentificacao = new javax.swing.JLabel();
+        textMatriculaIdentificacao = new javax.swing.JTextField();
+        comboCursoIdentificacao = new javax.swing.JComboBox();
+        labelCursoIdentificacao = new javax.swing.JLabel();
         painelAtividades = new javax.swing.JPanel();
+        cabecalhoAtividades = new javax.swing.JPanel();
         labelCabecalhoAtividades = new javax.swing.JLabel();
         painelGroupIdentificacaoAtividades = new javax.swing.JPanel();
         labelNomeAtividades = new javax.swing.JLabel();
@@ -108,6 +111,23 @@ public class Janela extends javax.swing.JFrame {
 
         painelHome.setPreferredSize(new java.awt.Dimension(800, 600));
 
+        cabecalhoHome.setBackground(new java.awt.Color(255, 255, 255));
+
+        labelCabecalho.setBackground(new java.awt.Color(255, 255, 255));
+        labelCabecalho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/sistac.png"))); // NOI18N
+
+        javax.swing.GroupLayout cabecalhoHomeLayout = new javax.swing.GroupLayout(cabecalhoHome);
+        cabecalhoHome.setLayout(cabecalhoHomeLayout);
+        cabecalhoHomeLayout.setHorizontalGroup(
+            cabecalhoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCabecalho)
+        );
+        cabecalhoHomeLayout.setVerticalGroup(
+            cabecalhoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        botaoNovoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/novo2.png"))); // NOI18N
         botaoNovoPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoNovoPedido.setLabel("Novo");
         botaoNovoPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -117,6 +137,7 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
+        botaoCarregarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/carregar2.png"))); // NOI18N
         botaoCarregarPedido.setText("Carregar");
         botaoCarregarPedido.setToolTipText("");
         botaoCarregarPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -127,10 +148,12 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
+        botaoRemoverPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/remover2.png"))); // NOI18N
         botaoRemoverPedido.setText("Remover");
         botaoRemoverPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoRemoverPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        botaoTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/tutorial2.png"))); // NOI18N
         botaoTutorial.setText("Tutorial");
         botaoTutorial.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoTutorial.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -140,6 +163,7 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
+        botaoSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/sair.png"))); // NOI18N
         botaoSair.setText("Sair");
         botaoSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botaoSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -174,36 +198,40 @@ public class Janela extends javax.swing.JFrame {
         painelHome.setLayout(painelHomeLayout);
         painelHomeLayout.setHorizontalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelCabecalho)
             .addGroup(painelHomeLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(scrollTabelaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(painelHomeLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelHomeLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(scrollTabelaHome)
+                        .addGap(39, 39, 39))
+                    .addGroup(painelHomeLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cabecalhoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         painelHomeLayout.setVerticalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelHomeLayout.createSequentialGroup()
-                .addComponent(labelCabecalho)
-                .addGap(32, 32, 32)
+                .addComponent(cabecalhoHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoNovoPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoTutorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollTabelaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         painelBase.add(painelHome, "painelHome");
@@ -212,17 +240,21 @@ public class Janela extends javax.swing.JFrame {
         painelIdentifica.setMinimumSize(new java.awt.Dimension(800, 600));
         painelIdentifica.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        labelNomeIdentificacao.setText("Nome");
+        cabecalhoIdentifica.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelMatriculaIdentificacao.setText("Matricula");
+        labelCabecalhoIdentificacao.setBackground(new java.awt.Color(255, 255, 255));
+        labelCabecalhoIdentificacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/sistac.png"))); // NOI18N
 
-        labelCursoIdentificacao.setText("Curso");
-
-        textMatriculaIdentificacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textMatriculaIdentificacaoActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout cabecalhoIdentificaLayout = new javax.swing.GroupLayout(cabecalhoIdentifica);
+        cabecalhoIdentifica.setLayout(cabecalhoIdentificaLayout);
+        cabecalhoIdentificaLayout.setHorizontalGroup(
+            cabecalhoIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCabecalhoIdentificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cabecalhoIdentificaLayout.setVerticalGroup(
+            cabecalhoIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCabecalhoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         botaoProximo.setText("Próximo");
         botaoProximo.addActionListener(new java.awt.event.ActionListener() {
@@ -238,60 +270,102 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
+        painelGroupIdentificacao.setBorder(javax.swing.BorderFactory.createTitledBorder("Identificação"));
+
+        labelNomeIdentificacao.setText("Nome");
+
+        labelMatriculaIdentificacao.setText("Matricula");
+
+        textMatriculaIdentificacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textMatriculaIdentificacaoActionPerformed(evt);
+            }
+        });
+
+        labelCursoIdentificacao.setText("Curso");
+
+        javax.swing.GroupLayout painelGroupIdentificacaoLayout = new javax.swing.GroupLayout(painelGroupIdentificacao);
+        painelGroupIdentificacao.setLayout(painelGroupIdentificacaoLayout);
+        painelGroupIdentificacaoLayout.setHorizontalGroup(
+            painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelGroupIdentificacaoLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelNomeIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMatriculaIdentificacao)
+                    .addComponent(labelCursoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboCursoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textMatriculaIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textNomeIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelGroupIdentificacaoLayout.setVerticalGroup(
+            painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelGroupIdentificacaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNomeIdentificacao)
+                    .addComponent(textNomeIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textMatriculaIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMatriculaIdentificacao))
+                .addGap(18, 18, 18)
+                .addGroup(painelGroupIdentificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCursoIdentificacao)
+                    .addComponent(comboCursoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout painelIdentificaLayout = new javax.swing.GroupLayout(painelIdentifica);
         painelIdentifica.setLayout(painelIdentificaLayout);
         painelIdentificaLayout.setHorizontalGroup(
             painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cabecalhoIdentifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelIdentificaLayout.createSequentialGroup()
-                .addComponent(labelCabecalhoIdentificacao)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(painelIdentificaLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(35, 35, 35)
                 .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelIdentificaLayout.createSequentialGroup()
-                        .addComponent(botaoCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(botaoProximo))
-                    .addGroup(painelIdentificaLayout.createSequentialGroup()
-                        .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNomeIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMatriculaIdentificacao)
-                            .addComponent(labelCursoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
-                        .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboCursoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textMatriculaIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textNomeIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45))
         );
         painelIdentificaLayout.setVerticalGroup(
             painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelIdentificaLayout.createSequentialGroup()
-                .addComponent(labelCabecalhoIdentificacao)
-                .addGap(39, 39, 39)
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNomeIdentificacao)
-                    .addComponent(textNomeIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cabecalhoIdentifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textMatriculaIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelMatriculaIdentificacao))
-                .addGap(18, 18, 18)
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCursoIdentificacao)
-                    .addComponent(comboCursoIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelar)
                     .addComponent(botaoProximo))
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(319, Short.MAX_VALUE))
         );
 
         botaoProximo.getAccessibleContext().setAccessibleName("Proximo");
 
         painelBase.add(painelIdentifica, "painelIdentifica");
 
-        painelAtividades.setPreferredSize(new java.awt.Dimension(800, 600));
+        cabecalhoAtividades.setBackground(new java.awt.Color(255, 255, 255));
+        cabecalhoAtividades.setPreferredSize(new java.awt.Dimension(800, 100));
+
+        labelCabecalhoAtividades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/sistac.png"))); // NOI18N
+
+        javax.swing.GroupLayout cabecalhoAtividadesLayout = new javax.swing.GroupLayout(cabecalhoAtividades);
+        cabecalhoAtividades.setLayout(cabecalhoAtividadesLayout);
+        cabecalhoAtividadesLayout.setHorizontalGroup(
+            cabecalhoAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cabecalhoAtividadesLayout.setVerticalGroup(
+            cabecalhoAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelCabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         painelGroupIdentificacaoAtividades.setBorder(javax.swing.BorderFactory.createTitledBorder("Identificação"));
 
@@ -301,11 +375,18 @@ public class Janela extends javax.swing.JFrame {
 
         labelCursoAtividades.setText("Curso");
 
+        textNomeAtividades.setEditable(false);
+
+        textMatriculaAtividades.setEditable(false);
         textMatriculaAtividades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textMatriculaAtividadesActionPerformed(evt);
             }
         });
+
+        comboCursoAtividades.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        comboCursoAtividades.setEnabled(false);
+        comboCursoAtividades.setKeySelectionManager(null);
 
         javax.swing.GroupLayout painelGroupIdentificacaoAtividadesLayout = new javax.swing.GroupLayout(painelGroupIdentificacaoAtividades);
         painelGroupIdentificacaoAtividades.setLayout(painelGroupIdentificacaoAtividadesLayout);
@@ -386,8 +467,7 @@ public class Janela extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGroupAtividadeLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         painelGroupAtividadeLayout.setVerticalGroup(
             painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,9 +495,9 @@ public class Janela extends javax.swing.JFrame {
         });
 
         botaoLimpar.setText("Limpar");
-        botaoLimpar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botaoLimparMouseClicked(evt);
+        botaoLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoLimparActionPerformed(evt);
             }
         });
 
@@ -454,7 +534,7 @@ public class Janela extends javax.swing.JFrame {
         );
         painelGrouplistaDeAtividadesLayout.setVerticalGroup(
             painelGrouplistaDeAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(scrollPaneListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         botaoVoltar.setText("Voltar");
@@ -468,49 +548,50 @@ public class Janela extends javax.swing.JFrame {
         painelAtividades.setLayout(painelAtividadesLayout);
         painelAtividadesLayout.setHorizontalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
-                .addComponent(labelCabecalhoAtividades)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAtividadesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botaoCadastrar)
-                .addGap(40, 40, 40))
-            .addGroup(painelAtividadesLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(34, 34, 34)
+                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelAtividadesLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(botaoVoltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(painelGroupIdentificacaoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGroupAtividade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGrouplistaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelGrouplistaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAtividadesLayout.createSequentialGroup()
+                        .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(painelAtividadesLayout.createSequentialGroup()
+                                .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botaoCadastrar)
+                                .addGap(8, 8, 8))
+                            .addComponent(painelGroupAtividade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(painelGroupIdentificacaoAtividades, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(4, 4, 4)))
+                .addGap(52, 52, 52))
         );
         painelAtividadesLayout.setVerticalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
-                .addComponent(labelCabecalhoAtividades)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addComponent(painelGroupIdentificacaoAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCadastrar)
+                    .addComponent(botaoRemoverAtividade)
                     .addComponent(botaoLimpar)
-                    .addComponent(botaoRemoverAtividade))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoCadastrar))
+                .addGap(4, 4, 4)
                 .addComponent(painelGrouplistaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoVoltar)
                     .addComponent(botaoFinalizar))
-                .addGap(280, 280, 280))
+                .addContainerGap())
         );
 
         painelBase.add(painelAtividades, "painelAtividades");
@@ -519,7 +600,7 @@ public class Janela extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelBase, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,48 +609,6 @@ public class Janela extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botaoTutorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTutorialActionPerformed
-        // TODO add your handling code here:
-        this.janelas.show(painelBase, "tutorial");
-        
-    }//GEN-LAST:event_botaoTutorialActionPerformed
-
-    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_botaoSairActionPerformed
-
-    private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
-        // TODO add your handling code here:
-        this.janelas.show(painelBase, "painelIdentifica");
-    }//GEN-LAST:event_botaoNovoPedidoActionPerformed
-
-    private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
-
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoCadastrarActionPerformed
-
-    private void textDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textDescricaoActionPerformed
-
-    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        // TODO add your handling code here:
-        this.janelas.show(painelBase, "painelIdentifica");
-    }//GEN-LAST:event_botaoVoltarActionPerformed
-
-    private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
-        // TODO add your handling code here:
-        this.janelas.show(painelBase, "painelHome");
-    }//GEN-LAST:event_botaoFinalizarActionPerformed
-
-    private void textMatriculaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaAtividadesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textMatriculaAtividadesActionPerformed
 
     private void textMatriculaIdentificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaIdentificacaoActionPerformed
         // TODO add your handling code here:
@@ -585,14 +624,57 @@ public class Janela extends javax.swing.JFrame {
         this.janelas.show(painelBase, "painelHome");
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_botaoSairActionPerformed
+
+    private void botaoTutorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTutorialActionPerformed
+        // TODO add your handling code here:
+        this.janelas.show(painelBase, "tutorial");
+
+    }//GEN-LAST:event_botaoTutorialActionPerformed
+
     private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
         // TODO add your handling code here:
         this.janelas.show(painelBase, "painelAtividades");
     }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
-    private void botaoLimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoLimparMouseClicked
+    private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
+        // TODO add your handling code here:
+        this.janelas.show(painelBase, "painelIdentifica");
+    }//GEN-LAST:event_botaoNovoPedidoActionPerformed
+
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        // TODO add your handling code here:
+        this.janelas.show(painelBase, "painelIdentifica");
+    }//GEN-LAST:event_botaoVoltarActionPerformed
+
+    private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
+
+    private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
+        // TODO add your handling code here:
         limparCampos();
-    }//GEN-LAST:event_botaoLimparMouseClicked
+    }//GEN-LAST:event_botaoLimparActionPerformed
+
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    private void textDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textDescricaoActionPerformed
+
+    private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
+        // TODO add your handling code here:
+        this.janelas.show(painelBase, "painelHome");
+    }//GEN-LAST:event_botaoFinalizarActionPerformed
+
+    private void textMatriculaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaAtividadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textMatriculaAtividadesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -642,6 +724,9 @@ public class Janela extends javax.swing.JFrame {
     private javax.swing.JButton botaoSair;
     private javax.swing.JButton botaoTutorial;
     private javax.swing.JButton botaoVoltar;
+    private javax.swing.JPanel cabecalhoAtividades;
+    private javax.swing.JPanel cabecalhoHome;
+    private javax.swing.JPanel cabecalhoIdentifica;
     private javax.swing.JComboBox comboCategoriaAtividades;
     private javax.swing.JComboBox comboCursoAtividades;
     private javax.swing.JComboBox comboCursoIdentificacao;
@@ -662,6 +747,7 @@ public class Janela extends javax.swing.JFrame {
     private javax.swing.JPanel painelAtividades;
     private javax.swing.JPanel painelBase;
     private javax.swing.JPanel painelGroupAtividade;
+    private javax.swing.JPanel painelGroupIdentificacao;
     private javax.swing.JPanel painelGroupIdentificacaoAtividades;
     private javax.swing.JPanel painelGrouplistaDeAtividades;
     private javax.swing.JPanel painelHome;
@@ -714,5 +800,33 @@ public class Janela extends javax.swing.JFrame {
         for (TipoAtividade ta : TipoAtividade.getListaTipoAtividades()){
             this.comboTipoAtividadeAtividades.addItem(ta.getDescricao());
         }
+    }
+    
+    private void carregaSistema(){
+        ArrayList<Categoria> listaCategoriasCComp = new ArrayList<Categoria>();
+        ArrayList<Categoria> listaCategoriasEComp = new ArrayList<Categoria>();
+        ArrayList<Curso> listaCursos = new ArrayList<Curso>();
+        listaCategoriasCComp.addAll(this.json.getCategories("ccomp"));          // Carrega todas as categorias do arquivo ccomp
+        listaCategoriasEComp.addAll(this.json.getCategories("ecomp"));          // Carrega todas as categorias do arquivo ecomp
+        Curso cursoCiencia = new Curso();
+        Curso cursoEng = new Curso();
+        
+        cursoCiencia.setNome("Ciência da Computação");
+        cursoCiencia.setCodigo(3900);
+        cursoCiencia.setListaCategorias(listaCategoriasCComp);
+        listaCursos.add(cursoCiencia);
+        cursoEng.setNome("Engenharia de Computação");
+        cursoEng.setCodigo(3910);
+        cursoEng.setListaCategorias(listaCategoriasEComp);
+        listaCursos.add(cursoEng);
+        Curso.setListaCursos(listaCursos);
+        
+        
+        
+        
+    }
+	
+    private void cabecalho(){
+        
     }
 }
