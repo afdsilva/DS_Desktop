@@ -2,6 +2,7 @@
 import config.*;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
 import system.*;
 
@@ -196,10 +197,10 @@ public class Janela extends javax.swing.JFrame {
         );
         listaDePedidosLayout.setVerticalGroup(
             listaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listaDePedidosLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listaDePedidosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(scrollTabelaHome, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout painelHomeLayout = new javax.swing.GroupLayout(painelHome);
@@ -559,7 +560,7 @@ public class Janela extends javax.swing.JFrame {
         painelAtividades.setLayout(painelAtividadesLayout);
         painelAtividadesLayout.setHorizontalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -853,5 +854,16 @@ public class Janela extends javax.swing.JFrame {
         setComboTipoAtividadeAtividades();
         setComboCategoriaAtividades();
         
+       //carrega saves
+       ArrayList<String> tmp = json.listaDeArquivos();
+       int linha=0;
+       for(String s : tmp){
+            Pedido pedido = json.loadRequest(s);
+            Aluno aluno = pedido.getAluno();
+            tabelaPedidos.setValueAt(aluno.getMatricula(), linha, 0);//atributo do aluno, linha, coluna
+            tabelaPedidos.setValueAt(aluno.getNome(), linha, 1);
+            tabelaPedidos.setValueAt(aluno.getCurso().getNome(), linha, 2);
+            linha++;
+       }       
     }
 }

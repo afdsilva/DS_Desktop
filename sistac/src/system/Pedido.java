@@ -1,6 +1,6 @@
 /*
  * Sistac
- * Classe Aluno
+ * Classe Pedido
  * Autor: Lidiane Costa
  * e-mail: lcdsilva@inf.ufpel.edu.br
  */
@@ -8,12 +8,24 @@
 package system;
 
 import java.util.*;
+import static system.Pedido.getListaPedidos;
 
 /**
  *
  * @author lidiane
  */
 public class Pedido {
+    
+    private static ArrayList<Pedido> listaPedidos;
+    
+    public static ArrayList<Pedido> getListaPedidos() {
+        return listaPedidos;
+    }
+
+    public static void setListaPedidos(ArrayList<Pedido> aListaPedidos) {
+        listaPedidos = aListaPedidos;
+    }
+    
     private Aluno aluno;
     private Integer ano;
     private Integer semestre;
@@ -70,5 +82,13 @@ public class Pedido {
     
     public void setListaAtividadesComplementares(ArrayList<Atividade> listaAtividadesComplementares) {
         this.listaAtividadesComplementares = listaAtividadesComplementares;
+    }
+    
+    public static void loadPedidos() {
+        //cria ou limpa a lista de Pedidos
+        if (Pedido.getListaPedidos() == null)
+            Pedido.setListaPedidos(new ArrayList<Pedido>());
+        else
+            Pedido.getListaPedidos().clear();
     }
 }

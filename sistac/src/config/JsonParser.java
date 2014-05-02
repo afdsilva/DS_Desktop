@@ -29,7 +29,7 @@ public class JsonParser {
     
     
     public JsonParser(){
-        this.root = Paths.get(".").toAbsolutePath().normalize().toString().concat("\\");
+        this.root = Paths.get(".").toAbsolutePath().normalize().toString().concat("//");
         
         this.parser = new JSONParser();
         
@@ -207,6 +207,15 @@ public class JsonParser {
         return this.create(file, json);
     }
     
+    
+    //loadRequest para teste, enquanto nao existe o verdadeiro
+    public Pedido loadRequest(String nomeArquivo){
+        return new Pedido(new Aluno("nome1","matricula1", new Curso("curso1",null,null)), 
+                        null, 
+                        null, 
+                        null);
+    }
+    
     /**
      * Método que mostra como usar o parser, remova a sua chamada do construtor
      */
@@ -242,4 +251,15 @@ public class JsonParser {
         new JsonParser();
     }
     
+    // acessa a pasta save
+    // Retorna uma lista com o nome dos arquivos existentes no diretório. 
+    public ArrayList<String> listaDeArquivos(){ 
+        ArrayList<String> listaArquivos = new ArrayList<>();
+        File arquivos = new File("save/"); 
+        File afile[] = arquivos.listFiles(); 
+        for (int i = 0; i < afile.length; i++) { 
+            listaArquivos.add(afile[i].getName());
+        } 
+        return listaArquivos; 
+    } 
 }

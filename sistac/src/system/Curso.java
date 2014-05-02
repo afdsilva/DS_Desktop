@@ -1,6 +1,6 @@
 /*
  * Sistac
- * Classe Aluno
+ * Classe Curso
  * Autor: Lidiane Costa
  * e-mail: lcdsilva@inf.ufpel.edu.br
  */
