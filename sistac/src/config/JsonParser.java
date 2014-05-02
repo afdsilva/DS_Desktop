@@ -29,7 +29,7 @@ public class JsonParser {
     
     
     public JsonParser(){
-        this.root = Paths.get(".").toAbsolutePath().normalize().toString().concat("//");
+        this.root = Paths.get(".").toAbsolutePath().normalize().toString().concat("\\").replace("\\", "/");
         
         this.parser = new JSONParser();
         
@@ -52,6 +52,8 @@ public class JsonParser {
         Object obj = new Object();
         
         file = this.root.concat(file);
+        
+        System.out.println(file);
         
         try {
             obj = this.parser.parse(new FileReader(file));
@@ -207,13 +209,56 @@ public class JsonParser {
         return this.create(file, json);
     }
     
+    /**
+     * 
+     * @param dir diretorio onde procurar os json's
+     * @return lista de nomes
+     */
     
-    //loadRequest para teste, enquanto nao existe o verdadeiro
-    public Pedido loadRequest(String nomeArquivo){
-        return new Pedido(new Aluno("nome1","matricula1", new Curso("curso1",null,null)), 
-                        null, 
-                        null, 
-                        null);
+    private List<String> listOfFiles(String dir){
+        File directory = new File(dir);
+        List<String> files = new ArrayList<>();
+        String fileName, extension;
+        
+        for (File file : (File[]) directory.listFiles()){
+            fileName = file.getName();
+            extension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+            
+            if(file.isFile() && extension.equals("json")){
+                files.add(fileName);
+            }
+        }
+        
+        return files;
+    }
+    
+    /**
+     * 
+     * @param fileName nome do arquivo json a ser carregado
+     * @return pedido com alguns atributos/objetos nulos, usar os dados carregados previamente pelo loader
+     */
+    
+    public Pedido loadRequest(String fileName){
+        JSONObject obj, json = this.parse(fileName);
+        
+        Curso course = new Curso((String) json.get("course"), (int) (long) json.get("cod"), null);
+        Aluno student = new Aluno((String) json.get("name"), (String) json.get("registry"), course);
+        List<Atividade> list = new ArrayList<>();
+        Atividade temp;
+        
+        for(Object activity : (JSONArray) json.get("activity")){
+            obj = (JSONObject) activity;
+            
+            temp = new Atividade();            
+            temp.setDescricao((String) obj.get("description"));
+            temp.setUnidadeAtividade((int) (long) obj.get("time"));
+            
+            list.add(temp);
+        }
+        
+        Pedido request = new Pedido(student, (int) (long) json.get("year"), (int) (long) json.get("semester"), (ArrayList<Atividade>) list);
+        
+        return request;
     }
     
     /**
@@ -242,6 +287,10 @@ public class JsonParser {
         Pedido teste3 = new Pedido(aluno, 2014, 9, (ArrayList<Atividade>) atividade);
         
         this.saveRequest(teste3);
+        
+        for(String file : this.listOfFiles(this.root.concat("save/"))){
+            System.out.println(this.loadRequest("save/".concat(file)));
+        }
     }
 
     /**
