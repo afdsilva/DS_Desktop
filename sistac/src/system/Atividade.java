@@ -96,7 +96,6 @@ public class Atividade {
     public Integer getUnidadeAtividadeAproveitada() {
         return (this.unidadeAtividade > this.tipoAtividade.getMinHoras() ? this.tipoAtividade.getMinHoras() : this.unidadeAtividade );
     }
-
     /**
      * @return the categoria
      */
