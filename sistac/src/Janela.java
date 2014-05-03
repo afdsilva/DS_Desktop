@@ -973,10 +973,56 @@ public class Janela extends javax.swing.JFrame {
         }
     }
     public void setAllFonts(){
-        this.tabelaPedidos.setFont(config.getFontTexto());
+        this.botaoCadastrar.setFont(config.getFontTexto());
+        this.botaoCarregarPedido.setFont(config.getFontTexto());
+        this.botaoFinalizar.setFont(config.getFontTexto());
+        this.botaoLimpar.setFont(config.getFontTexto());
         this.botaoNovoPedido.setFont(config.getFontTexto());
+        this.botaoProximo.setFont(config.getFontTexto());
+        this.botaoRemoverAtividade.setFont(config.getFontTexto());
+        this.botaoRemoverPedido.setFont(config.getFontTexto());
+        this.botaoSair.setFont(config.getFontTexto());
+        this.botaoTutorial.setFont(config.getFontTexto());
+        this.botaoVoltar.setFont(config.getFontTexto());
+        this.cabecalhoAtividades.setFont(config.getFontTexto());
+        this.cabecalhoHome.setFont(config.getFontTexto());
+        this.cabecalhoIdentifica.setFont(config.getFontTexto());
+        this.comboCategoriaAtividades.setFont(config.getFontTexto());
+        this.comboCursoAtividades.setFont(config.getFontTexto());
+        this.comboCursoIdentificacao.setFont(config.getFontTexto());
+        this.comboTipoAtividadeAtividades.setFont(config.getFontTexto());
+        this.labelCabecalho.setFont(config.getFontTexto());
+        this.labelCabecalhoAtividades.setFont(config.getFontTexto());
+        this.labelCabecalhoIdentificacao.setFont(config.getFontTexto());
+        this.labelCategoria.setFont(config.getFontTexto());
+        this.labelCursoAtividades.setFont(config.getFontTexto());
+        this.labelCursoIdentificacao.setFont(config.getFontTexto());
+        this.labelDescricao.setFont(config.getFontTexto());
+        this.labelMatriculaAtividades.setFont(config.getFontTexto());
+        this.labelMatriculaIdentificacao.setFont(config.getFontTexto());
+        this.labelNomeAtividades.setFont(config.getFontTexto());
+        this.labelNomeIdentificacao.setFont(config.getFontTexto());
+        this.labelTipoAtividade.setFont(config.getFontTexto());
+        this.labelUnidade.setFont(config.getFontTexto());
+        this.painelAtividades.setFont(config.getFontTexto());
+        this.painelBase.setFont(config.getFontTexto());
+        this.painelGroupAtividade.setFont(config.getFontTexto());
+        this.painelGroupIdentificacao.setFont(config.getFontTexto());
+        this.painelGroupIdentificacaoAtividades.setFont(config.getFontTexto());
+        this.painelGroupListaDeAtividades.setFont(config.getFontTexto());
         this.painelGroupListaDePedidos.setFont(config.getFontTexto());
-        this.botaoNovoPedido.setFont(config.getFontTexto());
-        
+        this.painelHome.setFont(config.getFontTexto());
+        this.painelIdentifica.setFont(config.getFontTexto());
+        this.scrollPaneListaDeAtividades.setFont(config.getFontTexto());
+        this.scrollTabelaHome.setFont(config.getFontTexto());
+        this.tabelaAtividades.setFont(config.getFontTexto());
+        this.tabelaPedidos.setFont(config.getFontTexto());
+        this.textDescricao.setFont(config.getFontTexto());
+        this.textMatriculaAtividades.setFont(config.getFontTexto());
+        this.textMatriculaIdentificacao.setFont(config.getFontTexto());
+        this.textNomeAtividades.setFont(config.getFontTexto());
+        this.textNomeIdentificacao.setFont(config.getFontTexto());
+        this.textUnidade.setFont(config.getFontTexto());
     }
+    
 }
