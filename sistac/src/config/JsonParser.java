@@ -18,6 +18,7 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 import system.*;
 import java.util.logging.Logger;
+import system.Curso;
 
 /**
  *
@@ -28,15 +29,15 @@ public class JsonParser {
     private final String root;
     private final Map<String, JSONObject> base;
     private final JSONParser parser;
-    private Logger log;
-    private Config config;
+    private final Logger log;
+    private final Config config;
 
     public JsonParser() {
         this.root = Paths.get(".").toAbsolutePath().normalize().toString().concat("\\").replace("\\", "/");
 
         this.parser = new JSONParser();
 
-        this.base = new HashMap<String, JSONObject>();
+        this.base = new HashMap<>();
 
         this.base.put("ccomp", this.parse("base/ccomp.json"));
         this.base.put("ecomp", this.parse("base/ecomp.json"));
@@ -125,6 +126,28 @@ public class JsonParser {
         }
 
         return categories;
+    }
+    
+    /**
+     * Acessa o nome do curso no arquivo de configuração JSON.
+     * @param course O curso em questão.
+     * @return Nome do curso.
+     */
+    public final String getNomeCurso(String course){
+        JSONObject jobj = this.getBase(course);
+        
+        return (String) jobj.get("name");
+    }
+    
+    /**
+     * Acessa o código do curso no arquivo de configuração JSON.
+     * @param course O curso em questão.
+     * @return O código do curso.
+     */
+    public final Integer getCodCurso(String course){
+        JSONObject jobj = this.getBase(course);
+        
+        return (Integer) jobj.get("cod");
     }
 
     /**
@@ -296,7 +319,9 @@ public class JsonParser {
      * Usado para teste, pode ser removido
      */
     public static void main(String[] args) {
-        new JsonParser();
+//        JsonParser jparser = new JsonParser();
+//        JSONObject jobj = jparser.getBase("ecomp");
+//        System.out.println("Nome: " + jobj.get("name") + " Código: " + jobj.get("cod") + "\n");
     }
 
 }
