@@ -1,11 +1,11 @@
 package config;
-/**
- * baixar a lib http://json-simple.googlecode.com/files/json-simple-1.1.1.jar e add ao projeto
- * criar as pastas base e save na raiz (DS_Desktop/sistac/)
- * antes de qualquer choro, aprendam JSON http://json.org/
- * para validar json http://jsonlint.com/
-*/
 
+/**
+ * baixar a lib http://json-simple.googlecode.com/files/json-simple-1.1.1.jar e
+ * add ao projeto criar as pastas base e save na raiz (DS_Desktop/sistac/) antes
+ * de qualquer choro, aprendam JSON http://json.org/ para validar json
+ * http://jsonlint.com/
+ */
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -17,298 +17,286 @@ import java.util.Map;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 import system.*;
+import java.util.logging.Logger;
 
 /**
  *
  * @author gigamax13
  */
 public class JsonParser {
+
     private final String root;
-    private final Map <String, JSONObject> base;
+    private final Map<String, JSONObject> base;
     private final JSONParser parser;
-    
-    
-    public JsonParser(){
+    private Logger log;
+    private Config config;
+
+    public JsonParser() {
         this.root = Paths.get(".").toAbsolutePath().normalize().toString().concat("\\").replace("\\", "/");
-        
+
         this.parser = new JSONParser();
-        
+
         this.base = new HashMap<String, JSONObject>();
-        
+
         this.base.put("ccomp", this.parse("base/ccomp.json"));
         this.base.put("ecomp", this.parse("base/ecomp.json"));
-        
-        // usado para teste, pode ser removido na versao final
-        this.test();
+
+        this.config = Config.getInstancia();
+        this.log = config.getLog();
     }
-    
+
     /**
-     * 
+     *
      * @param file nome do arquivo json a ser aberto
      * @return objeto com o conteudo do json
      */
-    
-    private JSONObject parse(String file){
+    private JSONObject parse(String file) {
         Object obj = new Object();
-        
+
         file = this.root.concat(file);
-        
-        System.out.println(file);
-        
+
         try {
             obj = this.parser.parse(new FileReader(file));
         } catch (FileNotFoundException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
-        
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return (JSONObject) obj;
     }
-    
+
     /**
-     * 
+     *
      * @param fileName nome do arquivo a ser salvo
      * @param obj json a ser salvo
      * @return true ou false
      */
-    
-    private boolean create(String fileName, JSONObject obj){
+    private boolean create(String fileName, JSONObject obj) {
         boolean created = false;
-        
+
         fileName = this.root.concat(fileName);
-        
+
         try {
             FileWriter file = new FileWriter(fileName);
             file.write(obj.toJSONString());
             file.flush();
             file.close();
-            
+
             created = true;
-	} catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-	}
-        
+        }
+
         return created;
     }
-    
+
     /**
-     * 
+     *
      * @param course nome da base (ccomp ou ecomp)
      * @return base do curso
      */
-    
-    private JSONObject getBase(String course){
+    private JSONObject getBase(String course) {
         JSONObject base = null;
-        
-        try{
+
+        try {
             base = this.base.get(course);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return base;
     }
-    
+
     /**
      * @param course nome da base (ccomp ou ecomp)
      * @return lista de categorias do curso
      */
-    
-    public final List<Categoria> getCategories(String course){
-        List<Categoria> categories = new ArrayList<>();        
+    public final List<Categoria> getCategories(String course) {
+        List<Categoria> categories = new ArrayList<>();
         JSONObject base = this.getBase(course);
         JSONObject obj;
-        
+
         for (Object category : (JSONArray) base.get("category")) {
             obj = (JSONObject) category;
-            
+
             categories.add(new Categoria((String) obj.get("name"), (int) (long) obj.get("minHr")));
         }
-        
+
         return categories;
     }
-    
+
     /**
-     * 
+     *
      * @param course nome do curso a ter sua base carregada (ccomp ou ecomp)
-     * @param index index da categoria dentro do json (0 -> Ensino, 1 -> Pesquisa, 2 -> Extensão)
+     * @param index index da categoria dentro do json (0 -> Ensino, 1 ->
+     * Pesquisa, 2 -> Extensão)
      * @return lista de atividades da categoria index
      */
-    
-    public final List<TipoAtividade> getTypesOfActivity(String course, Integer index){
+    public final List<TipoAtividade> getTypesOfActivity(String course, Integer index) {
         List<TipoAtividade> list = new ArrayList<>();
         JSONArray categoryArray = (JSONArray) this.getBase(course).get("category");
         JSONObject category = (JSONObject) categoryArray.get(index);
         JSONObject obj;
-        
-        for (Object activity : (JSONArray) category.get("activity")) {            
+
+        for (Object activity : (JSONArray) category.get("activity")) {
             obj = (JSONObject) activity;
-            
+
             list.add(new TipoAtividade((String) obj.get("name"), (int) (long) obj.get("hr"), (int) (long) obj.get("maxHr"), new Categoria((String) category.get("name"), (int) (long) category.get("minHr")), (String) obj.get("unit")));
         }
-        
+
         return list;
     }
-    
+
     /**
-     * 
+     *
      * @param course nome do curso a ter sua base carregada (ccomp ou gcomp)
      * @return lista de atividades de todas as categorias
      */
-    
-    public final List<TipoAtividade> getAllTypesOfActivity(String course){
+    public final List<TipoAtividade> getAllTypesOfActivity(String course) {
         List<TipoAtividade> list = new ArrayList<>();
-        
-        for(int i = 0; i < 3; i++){
+
+        for (int i = 0; i < 3; i++) {
             list.addAll(this.getTypesOfActivity(course, i));
         }
-        
+
         return list;
     }
-    
+
     /**
-     * 
+     *
      * @param request pedido a ser salvo
      * @return boolean para saber se o arquivo foi criado
      */
-    
-    public boolean saveRequest(Pedido request){
+    public boolean saveRequest(Pedido request) {
         JSONObject json = new JSONObject();
         JSONObject temp;
-        
+
         json.put("name", request.getAluno().getNome());
         json.put("registry", request.getAluno().getMatricula());
         json.put("course", request.getAluno().getCurso().getNome());
         json.put("cod", request.getAluno().getCurso().getCodigo());
         json.put("year", request.getAno());
         json.put("semester", request.getSemestre());
-        
+
         JSONArray list = new JSONArray();
-        
-        for(Atividade activity : request.getListaAtividadesComplementares()){
+
+        for (Atividade activity : request.getListaAtividadesComplementares()) {
             temp = new JSONObject();
-            
+
             temp.put("description", activity.getDescricao());
             temp.put("typeOfActivity", activity.getTipoAtividade().getDescricao());
             temp.put("category", activity.getCategoria().getNome());
             temp.put("time", activity.getUnidadeAtividadeAproveitada());
-            
+
             list.add(temp);
         }
-        
+
         json.put("activity", list);
-        
+
         String file = "save/";
-        
+
         file = file.concat(request.getAluno().getMatricula());
-        
+
         file = file.concat(".json");
-        
+
         return this.create(file, json);
     }
-    
+
     /**
-     * 
+     *
      * @param dir diretorio onde procurar os json's
      * @return lista de nomes
      */
-    
-    private List<String> listOfFiles(String dir){
+    private ArrayList<String> listOfFiles(String dir) {
         File directory = new File(dir);
-        List<String> files = new ArrayList<>();
+        ArrayList<String> files = new ArrayList<>();
         String fileName, extension;
-        
-        for (File file : (File[]) directory.listFiles()){
+
+        for (File file : (File[]) directory.listFiles()) {
             fileName = file.getName();
             extension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
-            
-            if(file.isFile() && extension.equals("json")){
-                files.add(fileName);
+
+            if (file.isFile() && extension.equals("json")) {
+                files.add(fileName+".json");
             }
         }
-        
+
         return files;
     }
-    
+
     /**
-     * 
+     *
      * @param fileName nome do arquivo json a ser carregado
-     * @return pedido com alguns atributos/objetos nulos, usar os dados carregados previamente pelo loader
+     * @return pedido com alguns atributos/objetos nulos, usar os dados
+     * carregados previamente pelo loader
      */
-    
-    public Pedido loadRequest(String fileName){
+    public Pedido loadRequest(String fileName) {
+        log.info(fileName);
         JSONObject obj, json = this.parse(fileName);
-        
+
         Curso course = new Curso((String) json.get("course"), (int) (long) json.get("cod"), null);
         Aluno student = new Aluno((String) json.get("name"), (String) json.get("registry"), course);
         List<Atividade> list = new ArrayList<>();
         Atividade temp;
-        
-        for(Object activity : (JSONArray) json.get("activity")){
+
+        for (Object activity : (JSONArray) json.get("activity")) {
             obj = (JSONObject) activity;
-            
-            temp = new Atividade();            
+
+            temp = new Atividade();
             temp.setDescricao((String) obj.get("description"));
             temp.setUnidadeAtividade((int) (long) obj.get("time"));
-            
+
             list.add(temp);
         }
-        
+
         Pedido request = new Pedido(student, (int) (long) json.get("year"), (int) (long) json.get("semester"), (ArrayList<Atividade>) list);
-        
+
         return request;
     }
-    
+
+    // acessa a pasta save
+    // Retorna uma lista com o nome dos arquivos existentes no diretório. 
+    public ArrayList<Pedido> parseFilesToJSON() {
+        ArrayList<Pedido> listOfPedidos = new ArrayList<Pedido>();
+        File files = new File("save/");
+        File afile[] = files.listFiles();
+        for (int i = 0; i < afile.length; i++) {
+            log.info(afile[i].getName());
+            listOfPedidos.add(loadRequest("save/"+afile[i].getName()));
+        }
+        return listOfPedidos;
+    }
+
     /**
-     * Método que mostra como usar o parser, remova a sua chamada do construtor
+     * remove arquivos na pasta save
+     *
+     * @param nome
+     * @return true or false
      */
-    
-    private void test(){
-        List<Categoria> teste1 = this.getCategories("ccomp");
-        
-        for(Categoria category : teste1){
-            System.out.println(category.getNome());
+    public boolean removerArquivo(String nome) {
+        String file;
+
+        System.out.println(nome);
+
+        try {
+            file = this.root.concat("save/" + nome + ".json");
+            File f = new File(file);
+            System.out.println(file);
+            f.delete();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        List<TipoAtividade> teste2 = this.getTypesOfActivity("ccomp", 2);
-        
-        for(TipoAtividade activity : teste2){
-            System.out.println(activity.getDescricao());
-        }
-        
-        Curso curso = new Curso("Ciência da Computação", 313, (ArrayList<Categoria>) teste1);
-        Aluno aluno = new Aluno("GigaMax13", "14101401", curso);
-        List<Atividade> atividade = new ArrayList<>();
-        
-        atividade.add(new Atividade("Procrastinar", teste2.get(0), 313));
-        
-        Pedido teste3 = new Pedido(aluno, 2014, 9, (ArrayList<Atividade>) atividade);
-        
-        this.saveRequest(teste3);
-        
-        for(String file : this.listOfFiles(this.root.concat("save/"))){
-            System.out.println(this.loadRequest("save/".concat(file)));
-        }
+        return false;
     }
 
     /**
      * Usado para teste, pode ser removido
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
         new JsonParser();
     }
-    
-    // acessa a pasta save
-    // Retorna uma lista com o nome dos arquivos existentes no diretório. 
-    public ArrayList<String> listaDeArquivos(){ 
-        ArrayList<String> listaArquivos = new ArrayList<>();
-        File arquivos = new File("save/"); 
-        File afile[] = arquivos.listFiles(); 
-        for (int i = 0; i < afile.length; i++) { 
-            listaArquivos.add(afile[i].getName());
-        } 
-        return listaArquivos; 
-    } 
+
 }

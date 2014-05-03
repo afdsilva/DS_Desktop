@@ -4,7 +4,6 @@
  * Autor: Andre Silva
  * e-mail: afdsilva@inf.ufpel.edu.br
  */
-
 package system;
 
 import java.util.ArrayList;
@@ -14,11 +13,12 @@ import java.util.ArrayList;
  * @author andref
  */
 public class Atividade {
+
     private String descricao;
     private TipoAtividade tipoAtividade;
     private Integer unidadeAtividade;
     private Categoria categoria;
-    
+
     /**
      * Construtor Padrao
      */
@@ -28,11 +28,14 @@ public class Atividade {
         this.unidadeAtividade = 0;
         this.categoria = new Categoria();
     }
+
     /**
-     * Construtor passando descricao e tipoAtividade, categoria é carregado com o valor default do tipoAtividade
+     * Construtor passando descricao e tipoAtividade, categoria é carregado com
+     * o valor default do tipoAtividade
+     *
      * @param descricao
-     * @param tipoAtividade 
-     * @param unidade 
+     * @param tipoAtividade
+     * @param unidade
      */
     public Atividade(String descricao, TipoAtividade tipoAtividade, Integer unidade) {
         this.descricao = descricao;
@@ -40,10 +43,11 @@ public class Atividade {
         this.unidadeAtividade = unidade;
         this.categoria = tipoAtividade.getCategoria();
     }
-    
+
     /**
      * Construtor de copia
-     * @param copia 
+     *
+     * @param copia
      */
     public Atividade(Atividade copia) {
         this.descricao = copia.getDescricao();
@@ -51,6 +55,7 @@ public class Atividade {
         this.unidadeAtividade = copia.getUnidadeAtividade();
         this.categoria = copia.getCategoria();
     }
+
     /**
      * @return the descricao
      */
@@ -92,9 +97,9 @@ public class Atividade {
     public void setUnidadeAtividade(Integer unidadeAtividade) {
         this.unidadeAtividade = unidadeAtividade;
     }
-    
+
     public Integer getUnidadeAtividadeAproveitada() {
-        return (this.unidadeAtividade > this.tipoAtividade.getMinHoras() ? this.tipoAtividade.getMinHoras() : this.unidadeAtividade );
+        return (this.unidadeAtividade > this.tipoAtividade.getMinHoras() ? this.tipoAtividade.getMinHoras() : this.unidadeAtividade);
     }
 
     /**

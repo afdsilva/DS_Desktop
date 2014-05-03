@@ -4,7 +4,6 @@
  * Autor: Andre Silva
  * e-mail: afdsilva@inf.ufpel.edu.br
  */
-
 package system;
 
 import java.util.ArrayList;
@@ -13,9 +12,8 @@ import java.util.ArrayList;
  *
  * @author andref
  */
-
 public class Categoria {
-    
+
     private static ArrayList<Categoria> listaCategorias;
 
     /**
@@ -31,22 +29,25 @@ public class Categoria {
     public static void setListaCategorias(ArrayList<Categoria> aListaCategorias) {
         listaCategorias = aListaCategorias;
     }
-    
+
     private String nome;
     private Integer cargaHoraria;
+
     public Categoria() {
         this.nome = null;
         this.cargaHoraria = null;
     }
+
     public Categoria(String nome, Integer cargaHoraria) {
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
     }
-    
+
     public Categoria(Categoria copia) {
         this.nome = copia.getNome();
         this.cargaHoraria = copia.getCargaHoraria();
     }
+
     /**
      * @return the nome
      */
@@ -74,19 +75,19 @@ public class Categoria {
     public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
-    
+
     /**
-     * Carrega as categorias do arquivo de configuracao para uma classe estatica 
-     * que pode ser acessada globalmente
-     * Caso o metodo ja tenha sido invocado antes, irá limpar a lista e carregar novamente
-     * os dados;
+     * Carrega as categorias do arquivo de configuracao para uma classe estatica
+     * que pode ser acessada globalmente Caso o metodo ja tenha sido invocado
+     * antes, irá limpar a lista e carregar novamente os dados;
      */
     static void loadCategorias() {
         //cria ou limpa a lista de Categorias
-        if (Categoria.getListaCategorias() == null)
+        if (Categoria.getListaCategorias() == null) {
             Categoria.setListaCategorias(new ArrayList<Categoria>());
-        else
+        } else {
             Categoria.getListaCategorias().clear();
+        }
         Categoria pesquisa = new Categoria("Pesquisa", 100);
         Categoria.getListaCategorias().add(pesquisa);
         Categoria extensao = new Categoria("Extensao", 100);
@@ -94,8 +95,10 @@ public class Categoria {
         Categoria ensino = new Categoria("Ensino", 100);
         Categoria.getListaCategorias().add(ensino);
     }
+
     /**
      * Busca uma categoria na lista(consistencia dos dados)
+     *
      * @param procura
      * @return Categoria procurada, ou uma categoria dummy
      */
@@ -105,7 +108,7 @@ public class Categoria {
                 return categoria;
             }
         }
-        return new Categoria("Nao encontrado",0);
+        return new Categoria("Nao encontrado", 0);
     }
-    
+
 }
