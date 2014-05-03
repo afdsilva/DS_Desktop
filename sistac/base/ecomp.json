@@ -7,7 +7,7 @@
 		"maxHa" : [34,68]
 	},
 	"complementary" : {
-		"minHr" : 366.67,
+		"minHr" : 340,
 		"minHa" : 440
 	},
 	"category" : [
