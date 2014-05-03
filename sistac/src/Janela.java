@@ -4,8 +4,9 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
-import system.*;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import system.*;
 
 public class Janela extends javax.swing.JFrame {
 
@@ -28,8 +29,7 @@ public class Janela extends javax.swing.JFrame {
         this.janelas.show(painelBase, "painelHome");
         this.json = new JsonParser();
         carregaSistema();
-        this.painelGroupListaDePedidos.setFont(config.getFontTexto());
-        this.botaoNovoPedido.setFont(config.getFontTexto());
+        setAllFonts();
         this.listaPedidos = new ArrayList<Pedido>();
         carregarTabelaPedidos();
     }
@@ -176,20 +176,7 @@ public class Janela extends javax.swing.JFrame {
 
         tabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Matricula", "Nome", "Curso"
@@ -595,7 +582,7 @@ public class Janela extends javax.swing.JFrame {
         painelAtividades.setLayout(painelAtividadesLayout);
         painelAtividadesLayout.setHorizontalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -931,11 +918,14 @@ public class Janela extends javax.swing.JFrame {
 
         for (Pedido p : this.listaPedidos) {
             Aluno aluno = p.getAluno();
-            tabelaPedidos.setValueAt(aluno.getMatricula(), linha, 0);//atributo do aluno, linha, coluna
-            tabelaPedidos.setValueAt(aluno.getNome(), linha, 1);
-            tabelaPedidos.setValueAt(aluno.getCurso().getNome(), linha, 2);
-            linha++;
-        }
+            DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
+            modelo.addRow(new Object[]{
+                                    aluno.getMatricula(),
+                                    aluno.getNome(),
+                                    aluno.getCurso().getNome()
+                                });
+       }
+        
     }
     
 
@@ -981,5 +971,12 @@ public class Janela extends javax.swing.JFrame {
             tabelaAtividades.setValueAt(a.getUnidadeAtividadeAproveitada().toString(), linha, 2);
             linha++;
         }
+    }
+    public void setAllFonts(){
+        this.tabelaPedidos.setFont(config.getFontTexto());
+        this.botaoNovoPedido.setFont(config.getFontTexto());
+        this.painelGroupListaDePedidos.setFont(config.getFontTexto());
+        this.botaoNovoPedido.setFont(config.getFontTexto());
+        
     }
 }
