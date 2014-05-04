@@ -44,6 +44,7 @@ public class Janela extends javax.swing.JFrame {
         this.listaPedidos = new ArrayList<>();
         this.listaAtividades = new ArrayList<>();
         carregarTabelaPedidos();
+        
     }
 
     /**
@@ -711,7 +712,6 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botaoSairActionPerformed
 
@@ -759,11 +759,17 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
-        // TODO add your handling code here:
+        //pega pedido selecionado
+        Pedido pedido = listaPedidos.get(tabelaPedidos.getSelectedRow());
+        //pega atividade selecionada
+        int linhaSelecionada = tabelaAtividades.getSelectedRow();
+        //remove a atividade selecionada da lista de atividades do pedido selecionado
+        pedido.getListaAtividadesComplementares().remove(linhaSelecionada);
+        //atualiza a tabela de atividades na tela
+        carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
     }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
-        // TODO add your handling code here:
         limparCampos();
     }//GEN-LAST:event_botaoLimparActionPerformed
 
@@ -800,7 +806,6 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textMatriculaAtividadesActionPerformed
 
     private void tabelaPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPedidosMouseClicked
-        // TODO add your handling code here:
         listaPedidos.get(selecionarPedido());
         botaoCarregarPedido.setEnabled(true);
         botaoRemoverPedido.setEnabled(true);
@@ -809,7 +814,6 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
     private void botaoRemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverPedidoActionPerformed
-        // TODO add your handling code here:
         log.info(listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
         if (json.removerArquivo(listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
             listaPedidos.remove(selecionarPedido() + ".json");
@@ -1039,7 +1043,6 @@ public class Janela extends javax.swing.JFrame {
     }
 
 //==============================================================================
-//=======
     
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //   TELA HOME    
