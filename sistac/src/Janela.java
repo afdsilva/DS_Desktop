@@ -38,6 +38,7 @@ public class Janela extends javax.swing.JFrame {
         setAllFonts();
         this.listaPedidos = new ArrayList<Pedido>();
         carregarTabelaPedidos();
+        
     }
 
     /**
@@ -663,28 +664,23 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textMatriculaIdentificacaoActionPerformed
 
     private void botaoProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProximoActionPerformed
-        // TODO add your handling code here:
         this.janelas.show(painelBase, "painelAtividades");
     }//GEN-LAST:event_botaoProximoActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
-        // TODO add your handling code here:
         this.janelas.show(painelBase, "painelHome");
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botaoSairActionPerformed
 
     private void botaoTutorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTutorialActionPerformed
-        // TODO add your handling code here:
         this.janelas.show(painelBase, "tutorial");
 
     }//GEN-LAST:event_botaoTutorialActionPerformed
 
     private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
-        // TODO add your handling code here:
         Pedido aux = new Pedido();
         aux = listaPedidos.get(tabelaPedidos.getSelectedRow());
         carregarPedido(aux);
@@ -694,21 +690,28 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
     private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
-        // TODO add your handling code here:
         this.janelas.show(painelBase, "painelIdentifica");
     }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        // TODO add your handling code here:
+        textNomeIdentificacao.setText(textNomeAtividades.getText());
+        textMatriculaIdentificacao.setText(textMatriculaAtividades.getText());
+        comboCursoIdentificacao.setSelectedIndex(comboCursoAtividades.getSelectedIndex());
         this.janelas.show(painelBase, "painelIdentifica");
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
-        // TODO add your handling code here:
+        //pega pedido selecionado
+        Pedido pedido = listaPedidos.get(tabelaPedidos.getSelectedRow());
+        //pega atividade selecionada
+        int linhaSelecionada = tabelaAtividades.getSelectedRow();
+        //remove a atividade selecionada da lista de atividades do pedido selecionado
+        pedido.getListaAtividadesComplementares().remove(linhaSelecionada);
+        //atualiza a tabela de atividades na tela
+        carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
     }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
-        // TODO add your handling code here:
         limparCampos();
     }//GEN-LAST:event_botaoLimparActionPerformed
 
@@ -721,7 +724,6 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textDescricaoActionPerformed
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
-        // TODO add your handling code here:
         this.janelas.show(painelBase, "painelHome");
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
@@ -730,7 +732,6 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textMatriculaAtividadesActionPerformed
 
     private void tabelaPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPedidosMouseClicked
-        // TODO add your handling code here:
         listaPedidos.get(selecionarPedido());
         botaoCarregarPedido.setEnabled(true);
         botaoRemoverPedido.setEnabled(true);
@@ -739,7 +740,6 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
     private void botaoRemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverPedidoActionPerformed
-        // TODO add your handling code here:
         log.info(listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
         if (json.removerArquivo(listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
             listaPedidos.remove(selecionarPedido() + ".json");
