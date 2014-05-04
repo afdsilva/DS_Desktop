@@ -30,6 +30,7 @@ public class TipoAtividade {
         listaTipoAtividades = aListaTipoAtividades;
     }
 
+    private String cod;
     private String descricao;
     private Integer minHoras;
     private Integer maxHoras;
@@ -37,6 +38,7 @@ public class TipoAtividade {
     private String unidadeTipoAtividade;
 
     public TipoAtividade() {
+        this.cod = null;
         this.descricao = null;
         this.minHoras = 0;
         this.maxHoras = 0;
@@ -46,13 +48,23 @@ public class TipoAtividade {
 
     public TipoAtividade(String descricao, Integer minHoras, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
         this.descricao = descricao;
+        this.cod = descricao;
         this.minHoras = minHoras;
         this.maxHoras = maxHoras;
         this.categoria = categoria;
         this.unidadeTipoAtividade = unidadeTipoAtividade;
     }
 
+    public TipoAtividade(String cod, String descricao, Integer minHoras, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
+        this.cod = cod;
+        this.descricao = descricao;
+        this.minHoras = minHoras;
+        this.maxHoras = maxHoras;
+        this.categoria = categoria;
+        this.unidadeTipoAtividade = unidadeTipoAtividade;
+    }
     public TipoAtividade(TipoAtividade copia) {
+        this.cod = copia.getCod();
         this.descricao = copia.getDescricao();
         this.minHoras = copia.getMinHoras();
         this.maxHoras = copia.getMaxHoras();
@@ -131,13 +143,13 @@ public class TipoAtividade {
         if (Categoria.getListaCategorias() == null || Categoria.getListaCategorias().isEmpty()) {
             Categoria.loadCategorias();
         }
-        Categoria pesquisa = Categoria.getCategoria("pesquisa");
-        Categoria ensino = Categoria.getCategoria("ensino");
-        Categoria extensao = Categoria.getCategoria("extensao");
+        Categoria pesquisa = Categoria.getCategoriaCod("pes");
+        Categoria ensino = Categoria.getCategoriaCod("ens");
+        Categoria extensao = Categoria.getCategoriaCod("ext");
 
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Monitoria", 51, 102, ensino, "horas"));
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Participação em Eventos Científicos Internacionais", 51, 102, pesquisa, "unidade"));
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("Bolsa de Graduação da UFPel", 34, 68, extensao, "horas"));
+        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("A", "Monitoria", 51, 102, ensino, "horas"));
+        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("B", "Participação em Eventos Científicos Internacionais", 51, 102, pesquisa, "unidade"));
+        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("C", "Bolsa de Graduação da UFPel", 34, 68, extensao, "horas"));
     }
 
     /**
@@ -167,6 +179,20 @@ public class TipoAtividade {
      */
     public void setMinHoras(Integer minHoras) {
         this.minHoras = minHoras;
+    }
+
+    /**
+     * @return the cod
+     */
+    public String getCod() {
+        return cod;
+    }
+
+    /**
+     * @param cod the cod to set
+     */
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 
 }

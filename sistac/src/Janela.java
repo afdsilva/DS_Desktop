@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import system.*;
@@ -19,6 +20,7 @@ public class Janela extends javax.swing.JFrame {
     private JsonParser json;
     private Logger log;
     private ArrayList<Pedido> listaPedidos;
+    private String CurrentView;
 
     /**
      * CONSTRUTOR Instancia todos os componentes e classes necessários para
@@ -32,6 +34,7 @@ public class Janela extends javax.swing.JFrame {
         this.setMinimumSize(new java.awt.Dimension(config.getWidth(), config.getHeight()));
         this.janelas = (CardLayout) painelBase.getLayout();
         this.janelas.show(painelBase, "painelHome");
+        CurrentView = "painelHome";
         this.json = new JsonParser();
         carregaSistema();
         setAllFonts();
@@ -476,6 +479,12 @@ public class Janela extends javax.swing.JFrame {
             }
         });
 
+        comboTipoAtividadeAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoAtividadeAtividadesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelGroupAtividadeLayout = new javax.swing.GroupLayout(painelGroupAtividade);
         painelGroupAtividade.setLayout(painelGroupAtividadeLayout);
         painelGroupAtividadeLayout.setHorizontalGroup(
@@ -662,13 +671,21 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textMatriculaIdentificacaoActionPerformed
 
     private void botaoProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProximoActionPerformed
-        // TODO add your handling code here:
-        this.janelas.show(painelBase, "painelAtividades");
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        if (!textNomeIdentificacao.getText().isEmpty() && (!textMatriculaIdentificacao.getText().isEmpty()) && comboCursoIdentificacao.getSelectedIndex() != 0) {
+           criarPedido();
+           textNomeAtividades.setText(textNomeIdentificacao.getText());
+           textMatriculaAtividades.setText(textMatriculaIdentificacao.getText());
+           comboCursoAtividades.setSelectedItem(comboCursoIdentificacao.getSelectedItem());
+           this.janelas.show(painelBase, "painelAtividades");
+           CurrentView = "painelAtividades";
+        }
     }//GEN-LAST:event_botaoProximoActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
-        // TODO add your handling code here:
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
         this.janelas.show(painelBase, "painelHome");
+        CurrentView = "painelHome";
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
@@ -677,29 +694,43 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoSairActionPerformed
 
     private void botaoTutorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTutorialActionPerformed
-        // TODO add your handling code here:
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
         this.janelas.show(painelBase, "tutorial");
+        CurrentView = "tutorial";
 
     }//GEN-LAST:event_botaoTutorialActionPerformed
 
     private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
-        // TODO add your handling code here:
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
         Pedido aux = new Pedido();
         aux = listaPedidos.get(tabelaPedidos.getSelectedRow());
         carregarPedido(aux);
         this.janelas.show(painelBase, "painelAtividades");
+        CurrentView = "painelAtividadesCarregar";
+
 
         //this.comboCursoAtividades.set
     }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
     private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
-        // TODO add your handling code here:
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        limpaCamposPedido();
         this.janelas.show(painelBase, "painelIdentifica");
+        CurrentView = "painelIdentifica";
     }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        // TODO add your handling code here:
-        this.janelas.show(painelBase, "painelIdentifica");
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        switch (CurrentView) {
+            case "painelAtividades":
+                this.janelas.show(painelBase, "painelIdentifica");
+                CurrentView = "painelIdentifica";
+                break;
+            case "painelAtividadesCarregar":
+                this.janelas.show(painelBase, "painelHome");
+                CurrentView = "painelHome";
+        }
+        
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
@@ -713,6 +744,9 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         // TODO add your handling code here:
+        if (!textDescricao.getText().isEmpty() && !(comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(comboCategoriaAtividades.getSelectedIndex() == 0)) {
+            criarPedido();
+        }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void textDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoActionPerformed
@@ -720,8 +754,10 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textDescricaoActionPerformed
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
-        // TODO add your handling code here:
+        log.log(Level.INFO, "Painel: {0}", CurrentView);
         this.janelas.show(painelBase, "painelHome");
+        CurrentView = "painelHome";
+
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
     private void textMatriculaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaAtividadesActionPerformed
@@ -745,6 +781,29 @@ public class Janela extends javax.swing.JFrame {
         }
         carregarTabelaPedidos();
     }//GEN-LAST:event_botaoRemoverPedidoActionPerformed
+
+    private void comboTipoAtividadeAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoAtividadeAtividadesActionPerformed
+        /**
+         * Seta a visibilidade e label do campo unidade conforme o combo Tipo Atividade
+         */
+        if(comboTipoAtividadeAtividades.getSelectedIndex() != 0) {
+            String selTipoAtividade = comboTipoAtividadeAtividades.getSelectedItem().toString();
+            
+            String unidade = TipoAtividade.getTipoAtividade(selTipoAtividade).getUnidadeTipoAtividade();
+            if (unidade != "unidade") {
+            this.labelUnidade.setVisible(true);
+            this.labelUnidade.setText(unidade);
+            this.textUnidade.setVisible(true);
+            this.textUnidade.setText(null);
+            } else {
+                this.labelUnidade.setVisible(false);
+                this.textUnidade.setVisible(false);
+            }
+        } else {
+            this.labelUnidade.setVisible(false);
+            this.textUnidade.setVisible(false);
+        }
+    }//GEN-LAST:event_comboTipoAtividadeAtividadesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -862,17 +921,11 @@ public class Janela extends javax.swing.JFrame {
         listaCursos.add(cursoEng);
         Curso.setListaCursos(listaCursos);
         
-        ArrayList<Categoria> teste1 = new ArrayList<>();
-        teste1.add(new Categoria("ensino1", null));
-        teste1.add(new Categoria("pesquisa2", null));
-        teste1.add(new Categoria("extensao3", null));
-        Categoria.setListaCategorias(teste1);
-
-        ArrayList<TipoAtividade> teste2 = new ArrayList<>();
-        teste2.add(new TipoAtividade("monitoria1", null, null, null, null));
-        teste2.add(new TipoAtividade("monitoria2", null, null, null, null));
-        TipoAtividade.setListaTipoAtividades(teste2);
-        //fim teste
+        //Removido codigo anterior para dar lugar aos LOADERS que jah existiam
+        //Quando o codigo for carregado do JSON deve ser alterado os metodos loadCategorias() e o loadTipoAtividades();
+        //pois eles jah preenchem as listas
+        Categoria.loadCategorias();
+        TipoAtividade.loadTipoAtividades();
         
         setComboCursoIdentificacao();
         setComboCursoAtividades();
@@ -990,6 +1043,16 @@ public class Janela extends javax.swing.JFrame {
     }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//   FUNCOES_PEDIDO
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+    private void limpaCamposPedido() {
+        this.comboCursoIdentificacao.setSelectedIndex(0);
+        this.textNomeIdentificacao.setText(null);
+        this.textMatriculaIdentificacao.setText(null);
+        this.textDescricao.setName(null);
+    }
+    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++
     
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -999,7 +1062,7 @@ public class Janela extends javax.swing.JFrame {
      * Carrega a combo curso na tela de identificação
      */
     private void setComboCursoIdentificacao() {
-        //this.comboCursoIdentificacao.addItem("Selecione um curso");
+        this.comboCursoIdentificacao.addItem("Selecione um curso");
         for (Curso curso : Curso.getListaCursos()) {
             this.comboCursoIdentificacao.addItem(curso.getNome());
         }
@@ -1017,18 +1080,12 @@ public class Janela extends javax.swing.JFrame {
      *
      */
     private void limparCampos() {
-        if (!comboCategoriaAtividades.getItemAt(0).equals("Selecione uma Categoria")) {
-            this.comboCategoriaAtividades.insertItemAt("Selecione uma Categoria", 0);
-        }
         comboCategoriaAtividades.setSelectedIndex(0);
 
-        if (!comboTipoAtividadeAtividades.getItemAt(0).equals("Selecione um Tipo de Atividade")) {
-            this.comboTipoAtividadeAtividades.insertItemAt("Selecione um Tipo de Atividade", 0);
-        }
         comboTipoAtividadeAtividades.setSelectedIndex(0);
 
-        this.textDescricao.setText("");
-        this.textUnidade.setText("");
+        this.textDescricao.setText(null);
+        this.textUnidade.setText(null);
 
     }
 
@@ -1045,6 +1102,7 @@ public class Janela extends javax.swing.JFrame {
      * Carrega a combo categoria na tela de atividades
      */
     private void setComboCategoriaAtividades() {
+        this.comboCategoriaAtividades.addItem("Selecione uma Categoria");
         for (Categoria categoria : Categoria.getListaCategorias()) {
             this.comboCategoriaAtividades.addItem(categoria.getNome());
         }
@@ -1054,6 +1112,7 @@ public class Janela extends javax.swing.JFrame {
      * Carrega a combo Tipo Atividade na tela de atividades
      */
     private void setComboTipoAtividadeAtividades() {
+        this.comboTipoAtividadeAtividades.addItem("Selecione um Tipo de Atividade");
         for (TipoAtividade ta : TipoAtividade.getListaTipoAtividades()) {
             this.comboTipoAtividadeAtividades.addItem(ta.getDescricao());
         }
@@ -1081,6 +1140,9 @@ public class Janela extends javax.swing.JFrame {
                 linha++;
             }
         }
+    }
+    
+    private void criarPedido() {
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

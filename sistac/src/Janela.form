@@ -781,6 +781,9 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboTipoAtividadeAtividades">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTipoAtividadeAtividadesActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboCategoriaAtividades">
                 </Component>

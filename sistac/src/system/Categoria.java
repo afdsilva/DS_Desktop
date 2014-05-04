@@ -30,20 +30,30 @@ public class Categoria {
         listaCategorias = aListaCategorias;
     }
 
+    private String cod;
     private String nome;
     private Integer cargaHoraria;
 
     public Categoria() {
         this.nome = null;
+        this.cod = null;
         this.cargaHoraria = null;
     }
 
     public Categoria(String nome, Integer cargaHoraria) {
         this.nome = nome;
+        this.cod = nome;
         this.cargaHoraria = cargaHoraria;
     }
 
+    public Categoria(String cod, String nome, Integer cargaHoraria) {
+        this.cod = cod;
+        this.nome = nome;
+        this.cargaHoraria = cargaHoraria;
+    }
+    
     public Categoria(Categoria copia) {
+        this.cod = copia.getCod();
         this.nome = copia.getNome();
         this.cargaHoraria = copia.getCargaHoraria();
     }
@@ -81,18 +91,18 @@ public class Categoria {
      * que pode ser acessada globalmente Caso o metodo ja tenha sido invocado
      * antes, irá limpar a lista e carregar novamente os dados;
      */
-    static void loadCategorias() {
+    public static void loadCategorias() {
         //cria ou limpa a lista de Categorias
         if (Categoria.getListaCategorias() == null) {
             Categoria.setListaCategorias(new ArrayList<Categoria>());
         } else {
             Categoria.getListaCategorias().clear();
         }
-        Categoria pesquisa = new Categoria("Pesquisa", 100);
+        Categoria pesquisa = new Categoria("pes", "Pesquisa", 100);
         Categoria.getListaCategorias().add(pesquisa);
-        Categoria extensao = new Categoria("Extensao", 100);
+        Categoria extensao = new Categoria("ext", "Extensao", 100);
         Categoria.getListaCategorias().add(extensao);
-        Categoria ensino = new Categoria("Ensino", 100);
+        Categoria ensino = new Categoria("ens", "Ensino", 100);
         Categoria.getListaCategorias().add(ensino);
     }
 
@@ -102,13 +112,36 @@ public class Categoria {
      * @param procura
      * @return Categoria procurada, ou uma categoria dummy
      */
-    static Categoria getCategoria(String procura) {
+    public static Categoria getCategoria(String procura) {
         for (Categoria categoria : getListaCategorias()) {
             if (categoria.getNome().toUpperCase().equals(procura.toUpperCase())) {
                 return categoria;
             }
         }
-        return new Categoria("Nao encontrado", 0);
+        return new Categoria("nulo", "Nao encontrado", 0);
+    }
+
+    public static Categoria getCategoriaCod(String procura) {
+        for (Categoria categoria : getListaCategorias()) {
+            if (categoria.getCod().toUpperCase().equals(procura.toUpperCase())) {
+                return categoria;
+            }
+        }
+        return new Categoria("nulo", "Nao encontrado", 0);
+    }
+
+    /**
+     * @return the cod
+     */
+    public String getCod() {
+        return cod;
+    }
+
+    /**
+     * @param cod the cod to set
+     */
+    public void setCod(String cod) {
+        this.cod = cod;
     }
 
 }
