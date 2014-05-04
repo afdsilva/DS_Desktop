@@ -261,17 +261,30 @@ public class JsonParser {
 
         Curso course = new Curso((String) json.get("course"), (int) (long) json.get("cod"), null);
         Aluno student = new Aluno((String) json.get("name"), (String) json.get("registry"), course);
-        List<Atividade> list = new ArrayList<>();
-        Atividade temp;
+        List<Atividade> list = new ArrayList<Atividade>();
+        Atividade tempAtividade;
+        TipoAtividade tempTipoAtividade;
+        Categoria tempCategoria;
 
         for (Object activity : (JSONArray) json.get("activity")) {
             obj = (JSONObject) activity;
+            
+            
+            tempAtividade = new Atividade();
+            tempTipoAtividade = new TipoAtividade();
+            tempCategoria = new Categoria();
+            
+            tempAtividade.setDescricao((String) obj.get("description"));
+            tempAtividade.setUnidadeAtividade((int) (long) obj.get("time"));
+            
+            tempCategoria.setNome((String) obj.get("category"));
+            tempTipoAtividade.setDescricao((String) obj.get("typeOfActivity"));
+            tempTipoAtividade.setCategoria(tempCategoria);
+            
+            tempAtividade.setTipoAtividade(tempTipoAtividade);
+            tempAtividade.setCategoria(tempCategoria);
 
-            temp = new Atividade();
-            temp.setDescricao((String) obj.get("description"));
-            temp.setUnidadeAtividade((int) (long) obj.get("time"));
-
-            list.add(temp);
+            list.add(tempAtividade);
         }
 
         Pedido request = new Pedido(student, (int) (long) json.get("year"), (int) (long) json.get("semester"), (ArrayList<Atividade>) list);
@@ -286,8 +299,9 @@ public class JsonParser {
         File files = new File("save/");
         File afile[] = files.listFiles();
         for (int i = 0; i < afile.length; i++) {
-            log.info(afile[i].getName());
-            listOfPedidos.add(loadRequest("save/"+afile[i].getName()));
+            if(afile[i].getName().endsWith(".json")){
+                listOfPedidos.add(loadRequest("save/"+afile[i].getName()));
+            }
         }
         return listOfPedidos;
     }

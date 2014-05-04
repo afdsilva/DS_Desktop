@@ -13,8 +13,8 @@ public class Config {
 
     private Config() {
 
-        this.width = 800;
-        this.height = 600;
+        this.width = 1024;
+        this.height = 768;
         this.fonteTexto = new Font("Ubuntu", Font.PLAIN, 14);
         this.logger = Logger.getLogger(Config.class.getName());
     }

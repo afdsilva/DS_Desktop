@@ -2,6 +2,7 @@
 import config.*;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -19,6 +20,10 @@ public class Janela extends javax.swing.JFrame {
     private Logger log;
     private ArrayList<Pedido> listaPedidos;
 
+    /**
+     * CONSTRUTOR Instancia todos os componentes e classes necessários para
+     * execução do programa.
+     */
     public Janela() {
         initComponents();
         this.config = Config.getInstancia();
@@ -47,14 +52,14 @@ public class Janela extends javax.swing.JFrame {
         painelHome = new javax.swing.JPanel();
         cabecalhoHome = new javax.swing.JPanel();
         labelCabecalho = new javax.swing.JLabel();
-        botaoNovoPedido = new javax.swing.JButton();
-        botaoCarregarPedido = new javax.swing.JButton();
-        botaoRemoverPedido = new javax.swing.JButton();
         botaoTutorial = new javax.swing.JButton();
         botaoSair = new javax.swing.JButton();
         painelGroupListaDePedidos = new javax.swing.JPanel();
         scrollTabelaHome = new javax.swing.JScrollPane();
         tabelaPedidos = new javax.swing.JTable();
+        botaoCarregarPedido = new javax.swing.JButton();
+        botaoRemoverPedido = new javax.swing.JButton();
+        botaoNovoPedido = new javax.swing.JButton();
         painelIdentifica = new javax.swing.JPanel();
         cabecalhoIdentifica = new javax.swing.JPanel();
         labelCabecalhoIdentificacao = new javax.swing.JLabel();
@@ -97,11 +102,11 @@ public class Janela extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        painelBase.setPreferredSize(new java.awt.Dimension(800, 600));
+        painelBase.setPreferredSize(new java.awt.Dimension(1024, 768));
         painelBase.setLayout(new java.awt.CardLayout());
 
-        painelHome.setMinimumSize(new java.awt.Dimension(800, 600));
-        painelHome.setPreferredSize(new java.awt.Dimension(800, 600));
+        painelHome.setMinimumSize(new java.awt.Dimension(1024, 768));
+        painelHome.setPreferredSize(new java.awt.Dimension(1024, 768));
 
         cabecalhoHome.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -112,45 +117,12 @@ public class Janela extends javax.swing.JFrame {
         cabecalhoHome.setLayout(cabecalhoHomeLayout);
         cabecalhoHomeLayout.setHorizontalGroup(
             cabecalhoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelCabecalho)
+            .addComponent(labelCabecalho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         cabecalhoHomeLayout.setVerticalGroup(
             cabecalhoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labelCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        botaoNovoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/novo2.png"))); // NOI18N
-        botaoNovoPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoNovoPedido.setLabel("Novo");
-        botaoNovoPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoNovoPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoNovoPedidoActionPerformed(evt);
-            }
-        });
-
-        botaoCarregarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/carregar2.png"))); // NOI18N
-        botaoCarregarPedido.setText("Carregar");
-        botaoCarregarPedido.setToolTipText("");
-        botaoCarregarPedido.setEnabled(false);
-        botaoCarregarPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoCarregarPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoCarregarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCarregarPedidoActionPerformed(evt);
-            }
-        });
-
-        botaoRemoverPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/remover2.png"))); // NOI18N
-        botaoRemoverPedido.setText("Remover");
-        botaoRemoverPedido.setEnabled(false);
-        botaoRemoverPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoRemoverPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botaoRemoverPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoRemoverPedidoActionPerformed(evt);
-            }
-        });
 
         botaoTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/tutorial2.png"))); // NOI18N
         botaoTutorial.setText("Tutorial");
@@ -197,19 +169,67 @@ public class Janela extends javax.swing.JFrame {
         });
         scrollTabelaHome.setViewportView(tabelaPedidos);
 
+        botaoCarregarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/carregar2.png"))); // NOI18N
+        botaoCarregarPedido.setText("Carregar");
+        botaoCarregarPedido.setToolTipText("");
+        botaoCarregarPedido.setEnabled(false);
+        botaoCarregarPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoCarregarPedido.setPreferredSize(new java.awt.Dimension(75, 60));
+        botaoCarregarPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoCarregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCarregarPedidoActionPerformed(evt);
+            }
+        });
+
+        botaoRemoverPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/remover2.png"))); // NOI18N
+        botaoRemoverPedido.setText("Remover");
+        botaoRemoverPedido.setEnabled(false);
+        botaoRemoverPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoRemoverPedido.setPreferredSize(new java.awt.Dimension(75, 60));
+        botaoRemoverPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoRemoverPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRemoverPedidoActionPerformed(evt);
+            }
+        });
+
+        botaoNovoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/novo2.png"))); // NOI18N
+        botaoNovoPedido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botaoNovoPedido.setLabel("Novo");
+        botaoNovoPedido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botaoNovoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoNovoPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelGroupListaDePedidosLayout = new javax.swing.GroupLayout(painelGroupListaDePedidos);
         painelGroupListaDePedidos.setLayout(painelGroupListaDePedidosLayout);
         painelGroupListaDePedidosLayout.setHorizontalGroup(
             painelGroupListaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelGroupListaDePedidosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollTabelaHome)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(painelGroupListaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGroupListaDePedidosLayout.createSequentialGroup()
+                        .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollTabelaHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         painelGroupListaDePedidosLayout.setVerticalGroup(
             painelGroupListaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelGroupListaDePedidosLayout.createSequentialGroup()
-                .addComponent(scrollTabelaHome, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(scrollTabelaHome)
+                .addGap(18, 18, 18)
+                .addGroup(painelGroupListaDePedidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -218,46 +238,36 @@ public class Janela extends javax.swing.JFrame {
         painelHomeLayout.setHorizontalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelHomeLayout.createSequentialGroup()
-                .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cabecalhoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelHomeLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(painelHomeLayout.createSequentialGroup()
-                                .addComponent(botaoNovoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                .addContainerGap()
+                .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addComponent(cabecalhoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelHomeLayout.setVerticalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelHomeLayout.createSequentialGroup()
                 .addComponent(cabecalhoHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
                 .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoNovoPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCarregarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoRemoverPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoTutorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addGroup(painelHomeLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(botaoTutorial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelHomeLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelBase.add(painelHome, "painelHome");
 
-        painelIdentifica.setMaximumSize(new java.awt.Dimension(800, 600));
-        painelIdentifica.setMinimumSize(new java.awt.Dimension(800, 600));
-        painelIdentifica.setPreferredSize(new java.awt.Dimension(800, 600));
+        painelIdentifica.setMaximumSize(new java.awt.Dimension(1024, 768));
+        painelIdentifica.setMinimumSize(new java.awt.Dimension(1024, 768));
+        painelIdentifica.setPreferredSize(new java.awt.Dimension(1024, 768));
 
         cabecalhoIdentifica.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -363,15 +373,15 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelar)
                     .addComponent(botaoProximo))
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addContainerGap(487, Short.MAX_VALUE))
         );
 
         botaoProximo.getAccessibleContext().setAccessibleName("Proximo");
 
         painelBase.add(painelIdentifica, "painelIdentifica");
 
-        painelAtividades.setMinimumSize(new java.awt.Dimension(800, 600));
-        painelAtividades.setPreferredSize(new java.awt.Dimension(800, 600));
+        painelAtividades.setMinimumSize(new java.awt.Dimension(1024, 768));
+        painelAtividades.setPreferredSize(new java.awt.Dimension(1024, 768));
 
         cabecalhoAtividades.setBackground(new java.awt.Color(255, 255, 255));
         cabecalhoAtividades.setPreferredSize(new java.awt.Dimension(800, 100));
@@ -534,7 +544,11 @@ public class Janela extends javax.swing.JFrame {
 
         tabelaAtividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "N°", "Descrição", "Horas"
@@ -568,7 +582,7 @@ public class Janela extends javax.swing.JFrame {
         );
         painelGroupListaDeAtividadesLayout.setVerticalGroup(
             painelGroupListaDeAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(scrollPaneListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
         );
 
         botaoVoltar.setText("Voltar");
@@ -582,12 +596,11 @@ public class Janela extends javax.swing.JFrame {
         painelAtividades.setLayout(painelAtividadesLayout);
         painelAtividadesLayout.setHorizontalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
+            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelAtividadesLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(botaoVoltar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -604,7 +617,7 @@ public class Janela extends javax.swing.JFrame {
                             .addComponent(painelGroupAtividade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(painelGroupIdentificacaoAtividades, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(4, 4, 4)))
-                .addGap(52, 52, 52))
+                .addGap(46, 46, 46))
         );
         painelAtividadesLayout.setVerticalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,11 +634,11 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(botaoCadastrar))
                 .addGap(4, 4, 4)
                 .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoVoltar)
-                    .addComponent(botaoFinalizar))
-                .addContainerGap(83, Short.MAX_VALUE))
+                    .addComponent(botaoFinalizar)
+                    .addComponent(botaoVoltar))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         painelBase.add(painelAtividades, "painelAtividades");
@@ -634,7 +647,7 @@ public class Janela extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelBase, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+            .addComponent(painelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -822,46 +835,13 @@ public class Janela extends javax.swing.JFrame {
     private javax.swing.JTextField textUnidade;
     // End of variables declaration//GEN-END:variables
 
-    private void limparCampos() {
-        if (!comboCategoriaAtividades.getItemAt(0).equals("Selecione uma Categoria")) {
-            this.comboCategoriaAtividades.insertItemAt("Selecione uma Categoria", 0);
-        }
-        comboCategoriaAtividades.setSelectedIndex(0);
-
-        if (!comboTipoAtividadeAtividades.getItemAt(0).equals("Selecione um Tipo de Atividade")) {
-            this.comboTipoAtividadeAtividades.insertItemAt("Selecione um Tipo de Atividade", 0);
-        }
-        comboTipoAtividadeAtividades.setSelectedIndex(0);
-
-        this.textDescricao.setText("");
-        this.textUnidade.setText("");
-
-    }
-
-    private void setComboCursoIdentificacao() {
-        for (Curso curso : Curso.getListaCursos()) {
-            this.comboCursoIdentificacao.addItem(curso.getNome());
-        }
-    }
-
-    private void setComboCursoAtividades() {
-        for (Curso curso : Curso.getListaCursos()) {
-            this.comboCursoAtividades.addItem(curso.getNome());
-        }
-    }
-
-    private void setComboCategoriaAtividades() {
-        for (Categoria categoria : Categoria.getListaCategorias()) {
-            this.comboCategoriaAtividades.addItem(categoria.getNome());
-        }
-    }
-
-    private void setComboTipoAtividadeAtividades() {
-        for (TipoAtividade ta : TipoAtividade.getListaTipoAtividades()) {
-            this.comboTipoAtividadeAtividades.addItem(ta.getDescricao());
-        }
-    }
-
+//==============================================================================    
+// CARREGAMENTO DO SISTEMA    
+//==============================================================================
+    /**
+     * Este método é resposável por carregar o sistema Ex: combos, classes,
+     * arquivo de configuração;
+     */
     private void carregaSistema() {
         ArrayList<Categoria> listaCategoriasCComp = new ArrayList<Categoria>();
         ArrayList<Categoria> listaCategoriasEComp = new ArrayList<Categoria>();
@@ -870,7 +850,7 @@ public class Janela extends javax.swing.JFrame {
         listaCategoriasEComp.addAll(this.json.getCategories("ecomp"));          // Carrega todas as categorias do arquivo ecomp
         Curso cursoCiencia = new Curso();
         Curso cursoEng = new Curso();
-
+        
         // Carrega cursos na lista de cursos --> um pouco diferente dos outros pq pega dos arquivos
         cursoCiencia.setNome("Ciência da Computação");
         cursoCiencia.setCodigo(3900);
@@ -881,7 +861,7 @@ public class Janela extends javax.swing.JFrame {
         cursoEng.setListaCategorias(listaCategoriasEComp);
         listaCursos.add(cursoEng);
         Curso.setListaCursos(listaCursos);
-
+        
         ArrayList<Categoria> teste1 = new ArrayList<>();
         teste1.add(new Categoria("ensino1", null));
         teste1.add(new Categoria("pesquisa2", null));
@@ -893,86 +873,17 @@ public class Janela extends javax.swing.JFrame {
         teste2.add(new TipoAtividade("monitoria2", null, null, null, null));
         TipoAtividade.setListaTipoAtividades(teste2);
         //fim teste
-
+        
         setComboCursoIdentificacao();
         setComboCursoAtividades();
         setComboTipoAtividadeAtividades();
         setComboCategoriaAtividades();
-
-       //carrega saves
-    }
-
-    /*
-     Esta função carrega os pedidos retirados da pasta save e insere
-     dentro da tabela de pedidos.
-     */
-    private void carregarTabelaPedidos() {
-        listaPedidos.clear();
-        if(listaPedidos.isEmpty())
-            log.info("sim vazio");
-        
-        listaPedidos.addAll(json.parseFilesToJSON());   // carrega todos os arquivos .json para dentro da tabela
-        int linha = 0;
-        
-        //=============================================
-
-        for (Pedido p : this.listaPedidos) {
-            Aluno aluno = p.getAluno();
-            DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
-            modelo.addRow(new Object[]{
-                                    aluno.getMatricula(),
-                                    aluno.getNome(),
-                                    aluno.getCurso().getNome()
-                                });
-       }
-        
-    }
-    
-
-    /**
-     * Seleciona um pedido da tabela de pedidos, retorna o indice do ArrayList
-     * que faz refeência para o objeto Pedido.
-     *
-     * @return
-     */
-    private int selecionarPedido() {
-        return this.tabelaPedidos.getSelectedRow();
     }
 
     /**
-     * Carrega o pedido na tela do usuário.
-     *
-     * @param
-     *
+     * Seta todas as fontes do programa
      */
-    private void carregarPedido(Pedido pedido) {
-        //identificacao
-        this.textNomeAtividades.setText(pedido.getAluno().getNome());
-        this.textMatriculaAtividades.setText(pedido.getAluno().getMatricula());
-        this.comboCursoAtividades.setSelectedItem(pedido.getAluno().getCurso().getNome());
-        //atividades
-        limparCampos();
-        carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
-
-    }
-
-    private void carregarTabelaAtividades(ArrayList<Atividade> listaAtividades) {
-        int linha = 0;
-
-        for (Atividade a : listaAtividades) {
-            /*
-             log.info(a.getDescricao());
-             log.info(a.getCategoria().getNome());
-             log.info(a.getTipoAtividade().getDescricao());
-             log.info(a.getUnidadeAtividadeAproveitada().toString());
-             */
-            tabelaAtividades.setValueAt(linha, linha, 0);//atributo do aluno, linha, coluna
-            tabelaAtividades.setValueAt(a.getDescricao(), linha, 1);
-            tabelaAtividades.setValueAt(a.getUnidadeAtividadeAproveitada().toString(), linha, 2);
-            linha++;
-        }
-    }
-    public void setAllFonts(){
+    public void setAllFonts() {
         this.botaoCadastrar.setFont(config.getFontTexto());
         this.botaoCarregarPedido.setFont(config.getFontTexto());
         this.botaoFinalizar.setFont(config.getFontTexto());
@@ -1024,5 +935,153 @@ public class Janela extends javax.swing.JFrame {
         this.textNomeIdentificacao.setFont(config.getFontTexto());
         this.textUnidade.setFont(config.getFontTexto());
     }
+
+//==============================================================================
+//=======
     
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//   TELA HOME    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+    /*
+     Esta função carrega os pedidos retirados da pasta save e insere
+     dentro da tabela de pedidos.
+     */
+    private void carregarTabelaPedidos() {
+
+        if (!listaPedidos.isEmpty()) {
+            listaPedidos.clear();
+        }
+        listaPedidos.addAll(json.parseFilesToJSON());   // carrega todos os arquivos .json para dentro da tabela
+        int linha = 0;
+
+        for (Pedido p : this.listaPedidos) {
+            Aluno aluno = p.getAluno();
+            DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
+            modelo.addRow(new Object[]{aluno.getMatricula(), aluno.getNome(), aluno.getCurso().getNome()});
+        }
+
+    }
+
+    /**
+     * Seleciona um pedido da tabela de pedidos, retorna o indice do ArrayList
+     * que faz refeência para o objeto Pedido.
+     *
+     * @return
+     */
+    private int selecionarPedido() {
+        return this.tabelaPedidos.getSelectedRow();
+    }
+
+    /**
+     * Carrega o pedido na tela do usuário.
+     *
+     * @param
+     *
+     */
+    private void carregarPedido(Pedido pedido) {
+        //identificacao
+        this.textNomeAtividades.setText(pedido.getAluno().getNome());
+        this.textMatriculaAtividades.setText(pedido.getAluno().getMatricula());
+        this.comboCursoAtividades.setSelectedItem(pedido.getAluno().getCurso().getNome());
+        //atividades
+        limparCampos();
+        carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
+
+    }
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++
+    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//   TELA IDENTIFICACAO    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+    /**
+     * Carrega a combo curso na tela de identificação
+     */
+    private void setComboCursoIdentificacao() {
+        //this.comboCursoIdentificacao.addItem("Selecione um curso");
+        for (Curso curso : Curso.getListaCursos()) {
+            this.comboCursoIdentificacao.addItem(curso.getNome());
+        }
+    }
+    
+    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++    
+    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//   TELA ATIVIDADES    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++     
+    /**
+     * Limpa os campos do formulário de cadastro de atividade
+     *
+     */
+    private void limparCampos() {
+        if (!comboCategoriaAtividades.getItemAt(0).equals("Selecione uma Categoria")) {
+            this.comboCategoriaAtividades.insertItemAt("Selecione uma Categoria", 0);
+        }
+        comboCategoriaAtividades.setSelectedIndex(0);
+
+        if (!comboTipoAtividadeAtividades.getItemAt(0).equals("Selecione um Tipo de Atividade")) {
+            this.comboTipoAtividadeAtividades.insertItemAt("Selecione um Tipo de Atividade", 0);
+        }
+        comboTipoAtividadeAtividades.setSelectedIndex(0);
+
+        this.textDescricao.setText("");
+        this.textUnidade.setText("");
+
+    }
+
+    /**
+     * Carrega a combo curso na tela de atividades
+     */
+    private void setComboCursoAtividades() {
+        for (Curso curso : Curso.getListaCursos()) {
+            this.comboCursoAtividades.addItem(curso.getNome());
+        }
+    }
+
+    /**
+     * Carrega a combo categoria na tela de atividades
+     */
+    private void setComboCategoriaAtividades() {
+        for (Categoria categoria : Categoria.getListaCategorias()) {
+            this.comboCategoriaAtividades.addItem(categoria.getNome());
+        }
+    }
+
+    /**
+     * Carrega a combo Tipo Atividade na tela de atividades
+     */
+    private void setComboTipoAtividadeAtividades() {
+        for (TipoAtividade ta : TipoAtividade.getListaTipoAtividades()) {
+            this.comboTipoAtividadeAtividades.addItem(ta.getDescricao());
+        }
+    }
+
+    /**
+     * carrega as informações dos objetos na tabela atividades.
+     *
+     * @param listaAtividades
+     */
+    private void carregarTabelaAtividades(ArrayList<Atividade> listaAtividades) {
+        Integer linha = 0;
+
+        if (!listaAtividades.isEmpty()) {
+            for (Atividade a : listaAtividades) {
+                log.info(a.getDescricao());
+                log.info(a.getUnidadeAtividadeAproveitada().toString());
+                log.info(a.getCategoria().getNome());
+                log.info(a.getTipoAtividade().getDescricao());
+
+                tabelaAtividades.setValueAt((linha + 1), linha, 0);//atributo do aluno, linha, coluna
+                tabelaAtividades.setValueAt(a.getDescricao(), linha, 1);
+                tabelaAtividades.setValueAt(a.getUnidadeAtividadeAproveitada().toString(), linha, 2);
+
+                linha++;
+            }
+        }
+    }
 }
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//+++++++++++
