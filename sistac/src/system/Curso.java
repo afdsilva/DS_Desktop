@@ -74,7 +74,7 @@ public class Curso {
         this.listaCategorias = listaCategorias;
     }
 
-    static void loadCursos() {
+    public static void loadCursos() {
         //cria ou limpa a lista de Cursos
         if (Curso.getListaCursos() == null) {
             Curso.setListaCursos(new ArrayList<Curso>());
@@ -88,7 +88,7 @@ public class Curso {
         Curso.getListaCursos().add(engenhariaDaComputacao);
     }
 
-    static Curso getCurso(String procura) {
+    public static Curso getCurso(String procura) {
         for (Curso curso : getListaCursos()) {
             if (curso.getNome().toUpperCase().equals(procura.toUpperCase())) {
                 return curso;

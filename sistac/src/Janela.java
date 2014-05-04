@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import system.*;
@@ -21,6 +22,7 @@ public class Janela extends javax.swing.JFrame {
     private JsonParser json;
     private Logger log;
     private ArrayList<Pedido> listaPedidos;
+    private ArrayList<Atividade> listaAtividades;
     private String CurrentView;
 
     /**
@@ -35,11 +37,12 @@ public class Janela extends javax.swing.JFrame {
         this.setMinimumSize(new java.awt.Dimension(config.getWidth(), config.getHeight()));
         this.janelas = (CardLayout) painelBase.getLayout();
         this.janelas.show(painelBase, "painelHome");
-        CurrentView = "painelHome";
+        this.CurrentView = "painelHome";
         this.json = new JsonParser();
         carregaSistema();
         setAllFonts();
-        this.listaPedidos = new ArrayList<Pedido>();
+        this.listaPedidos = new ArrayList<>();
+        this.listaAtividades = new ArrayList<>();
         carregarTabelaPedidos();
     }
 
@@ -672,21 +675,39 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textMatriculaIdentificacaoActionPerformed
 
     private void botaoProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProximoActionPerformed
-        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
+        //validacao dos campos
         if (!textNomeIdentificacao.getText().isEmpty() && (!textMatriculaIdentificacao.getText().isEmpty()) && comboCursoIdentificacao.getSelectedIndex() != 0) {
-           criarPedido();
-           textNomeAtividades.setText(textNomeIdentificacao.getText());
-           textMatriculaAtividades.setText(textMatriculaIdentificacao.getText());
-           comboCursoAtividades.setSelectedItem(comboCursoIdentificacao.getSelectedItem());
-           this.janelas.show(painelBase, "painelAtividades");
-           CurrentView = "painelAtividades";
+            //cria o profile do usuario no momento da identificacao
+            Aluno aluno = new Aluno(textNomeIdentificacao.getText(), textMatriculaIdentificacao.getText(), Curso.getCurso(comboCursoIdentificacao.getSelectedItem().toString()) );
+            this.listaAtividades = new ArrayList<>();
+            Pedido pedido = new Pedido(aluno,0, 0, listaAtividades);
+            this.json.saveRequest(pedido);
+            
+            //seta os atributos na proxima tela
+            this.textNomeAtividades.setText(textNomeIdentificacao.getText());
+            this.textMatriculaAtividades.setText(textMatriculaIdentificacao.getText());
+            this.comboCursoAtividades.setSelectedItem(comboCursoIdentificacao.getSelectedItem());
+            
+            limparCampos();
+            //limpa a lista de atividades
+            for (int i = 0; i < this.tabelaAtividades.getRowCount(); i++) {
+                //tabelaAtividades.setValueAt((linha + 1), linha, 0);//atributo do aluno, linha, coluna
+                this.tabelaAtividades.setValueAt(null, i, 0);
+                this.tabelaAtividades.setValueAt(null, i, 1);
+                this.tabelaAtividades.setValueAt(null, i, 2);
+            }
+            
+            //exibe o painel de atividades
+            this.janelas.show(painelBase, "painelAtividades");
+            this.CurrentView = "painelAtividades";
         }
     }//GEN-LAST:event_botaoProximoActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
-        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
         this.janelas.show(painelBase, "painelHome");
-        CurrentView = "painelHome";
+        this.CurrentView = "painelHome";
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
@@ -695,41 +716,44 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoSairActionPerformed
 
     private void botaoTutorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTutorialActionPerformed
-        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
         this.janelas.show(painelBase, "tutorial");
-        CurrentView = "tutorial";
+        this.CurrentView = "tutorial";
 
     }//GEN-LAST:event_botaoTutorialActionPerformed
 
     private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
-        log.log(Level.INFO, "Painel: {0}", CurrentView);
+        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
         Pedido aux = new Pedido();
         aux = listaPedidos.get(tabelaPedidos.getSelectedRow());
         carregarPedido(aux);
         this.janelas.show(painelBase, "painelAtividades");
-        CurrentView = "painelAtividadesCarregar";
-
-
-        //this.comboCursoAtividades.set
+        this.CurrentView = "painelAtividadesCarregar";
     }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
     private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
-        log.log(Level.INFO, "Painel: {0}", CurrentView);
-        limpaCamposPedido();
+        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
+        //Limpa os campos do painel Identificacao
+        this.comboCursoIdentificacao.setSelectedIndex(0);
+        this.textNomeIdentificacao.setText(null);
+        this.textMatriculaIdentificacao.setText(null);
+        this.textDescricao.setName(null);
+        //exibe o painel
         this.janelas.show(painelBase, "painelIdentifica");
-        CurrentView = "painelIdentifica";
+        this.CurrentView = "painelIdentifica";
+        
     }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        log.log(Level.INFO, "Painel: {0}", CurrentView);
-        switch (CurrentView) {
+        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
+        switch (this.CurrentView) {
             case "painelAtividades":
                 this.janelas.show(painelBase, "painelIdentifica");
-                CurrentView = "painelIdentifica";
+                this.CurrentView = "painelIdentifica";
                 break;
             case "painelAtividadesCarregar":
                 this.janelas.show(painelBase, "painelHome");
-                CurrentView = "painelHome";
+                this.CurrentView = "painelHome";
         }
         
     }//GEN-LAST:event_botaoVoltarActionPerformed
@@ -744,9 +768,14 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        // TODO add your handling code here:
-        if (!textDescricao.getText().isEmpty() && !(comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(comboCategoriaAtividades.getSelectedIndex() == 0)) {
-            criarPedido();
+        
+        if (!this.textDescricao.getText().isEmpty() && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0)) {
+            TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
+            Atividade a = new Atividade(this.textDescricao.getText(), atividade, Integer.parseInt(this.textUnidade.getText()));
+            this.listaAtividades.add(a);
+            
+            carregarTabelaAtividades(this.listaAtividades);
+            limparCampos();
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
@@ -756,6 +785,11 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
         log.log(Level.INFO, "Painel: {0}", CurrentView);
+        
+        Aluno aluno = new Aluno(textNomeAtividades.getText(), textMatriculaAtividades.getText(), Curso.getCurso(comboCursoAtividades.getSelectedItem().toString()) );
+        Pedido pedido = new Pedido(aluno,0, 0, listaAtividades);
+        this.json.saveRequest(pedido);
+        
         this.janelas.show(painelBase, "painelHome");
         CurrentView = "painelHome";
 
@@ -791,18 +825,24 @@ public class Janela extends javax.swing.JFrame {
             String selTipoAtividade = comboTipoAtividadeAtividades.getSelectedItem().toString();
             
             String unidade = TipoAtividade.getTipoAtividade(selTipoAtividade).getUnidadeTipoAtividade();
+            String categoria = TipoAtividade.getTipoAtividade(selTipoAtividade).getCategoria().getNome();
+            
+            this.comboCategoriaAtividades.setSelectedItem(categoria);
             if (unidade != "unidade") {
-            this.labelUnidade.setVisible(true);
-            this.labelUnidade.setText(unidade);
-            this.textUnidade.setVisible(true);
-            this.textUnidade.setText(null);
+                this.labelUnidade.setVisible(true);
+                this.labelUnidade.setText(unidade);
+                this.textUnidade.setVisible(true);
+                this.textUnidade.setText(null);
             } else {
                 this.labelUnidade.setVisible(false);
                 this.textUnidade.setVisible(false);
+                this.textUnidade.setText("1");
             }
         } else {
             this.labelUnidade.setVisible(false);
             this.textUnidade.setVisible(false);
+            if (this.comboCategoriaAtividades.getItemCount() > 0)
+                this.comboCategoriaAtividades.setSelectedIndex(0);
         }
     }//GEN-LAST:event_comboTipoAtividadeAtividadesActionPerformed
 
@@ -1050,16 +1090,6 @@ public class Janela extends javax.swing.JFrame {
         carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
 
     }
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//   FUNCOES_PEDIDO
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
-    private void limpaCamposPedido() {
-        this.comboCursoIdentificacao.setSelectedIndex(0);
-        this.textNomeIdentificacao.setText(null);
-        this.textMatriculaIdentificacao.setText(null);
-        this.textDescricao.setName(null);
-    }
     
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++
@@ -1089,13 +1119,10 @@ public class Janela extends javax.swing.JFrame {
      *
      */
     private void limparCampos() {
-        comboCategoriaAtividades.setSelectedIndex(0);
-
-        comboTipoAtividadeAtividades.setSelectedIndex(0);
-
+        this.comboCategoriaAtividades.setSelectedIndex(0);
+        this.comboTipoAtividadeAtividades.setSelectedIndex(0);
         this.textDescricao.setText(null);
         this.textUnidade.setText(null);
-
     }
 
     /**
@@ -1134,7 +1161,13 @@ public class Janela extends javax.swing.JFrame {
      */
     private void carregarTabelaAtividades(ArrayList<Atividade> listaAtividades) {
         Integer linha = 0;
-
+        for (int i = 0; i < this.tabelaAtividades.getRowCount(); i++) {
+            //tabelaAtividades.setValueAt((linha + 1), linha, 0);//atributo do aluno, linha, coluna
+            this.tabelaAtividades.setValueAt(null, i, 0);
+            this.tabelaAtividades.setValueAt(null, i, 1);
+            this.tabelaAtividades.setValueAt(null, i, 2);
+        }
+        
         if (!listaAtividades.isEmpty()) {
             for (Atividade a : listaAtividades) {
                 log.info(a.getDescricao());
@@ -1149,9 +1182,6 @@ public class Janela extends javax.swing.JFrame {
                 linha++;
             }
         }
-    }
-    
-    private void criarPedido() {
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
