@@ -9,13 +9,17 @@ public class Config {
     private final int width;
     private final int height;
     private final Font fonteTexto;
+    private final Font fonteTitulo;
+    private final Font fonteLabel;
     private Logger logger;
 
     private Config() {
 
         this.width = 1024;
         this.height = 768;
-        this.fonteTexto = new Font("Ubuntu", Font.PLAIN, 14);
+        this.fonteTexto = new Font("Tahoma", Font.PLAIN, 14);
+        this.fonteTitulo = new Font("Tahoma", Font.BOLD, 17);
+        this.fonteLabel = new Font("Tahoma", Font.PLAIN, 15);
         this.logger = Logger.getLogger(Config.class.getName());
     }
 
@@ -49,5 +53,13 @@ public class Config {
 
     public Font getFontTexto() {
         return fonteTexto;
+    }
+    
+    public Font getFontTitulo(){
+        return fonteTitulo;
+    }
+    
+    public Font getFontLabel(){
+        return fonteLabel;
     }
 }
