@@ -44,7 +44,7 @@ public class Janela extends javax.swing.JFrame {
         this.listaPedidos = new ArrayList<>();
         this.listaAtividades = new ArrayList<>();
         carregarTabelaPedidos();
-        
+
     }
 
     /**
@@ -156,15 +156,46 @@ public class Janela extends javax.swing.JFrame {
 
         tabelaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Matricula", "Nome", "Curso"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -685,16 +716,16 @@ public class Janela extends javax.swing.JFrame {
         //validacao dos campos
         if (!textNomeIdentificacao.getText().isEmpty() && (!textMatriculaIdentificacao.getText().isEmpty()) && comboCursoIdentificacao.getSelectedIndex() != 0) {
             //cria o profile do usuario no momento da identificacao
-            Aluno aluno = new Aluno(textNomeIdentificacao.getText(), textMatriculaIdentificacao.getText(), Curso.getCurso(comboCursoIdentificacao.getSelectedItem().toString()) );
+            Aluno aluno = new Aluno(textNomeIdentificacao.getText(), textMatriculaIdentificacao.getText(), Curso.getCurso(comboCursoIdentificacao.getSelectedItem().toString()));
             this.listaAtividades = new ArrayList<>();
-            Pedido pedido = new Pedido(aluno,0, 0, listaAtividades);
+            Pedido pedido = new Pedido(aluno, 0, 0, listaAtividades);
             this.json.saveRequest(pedido);
-            
+
             //seta os atributos na proxima tela
             this.textNomeAtividades.setText(textNomeIdentificacao.getText());
             this.textMatriculaAtividades.setText(textMatriculaIdentificacao.getText());
             this.comboCursoAtividades.setSelectedItem(comboCursoIdentificacao.getSelectedItem());
-            
+
             limparCampos();
             //limpa a lista de atividades
             for (int i = 0; i < this.tabelaAtividades.getRowCount(); i++) {
@@ -703,7 +734,7 @@ public class Janela extends javax.swing.JFrame {
                 this.tabelaAtividades.setValueAt(null, i, 1);
                 this.tabelaAtividades.setValueAt(null, i, 2);
             }
-            
+
             //exibe o painel de atividades
             this.janelas.show(painelBase, "painelAtividades");
             this.CurrentView = "painelAtividades";
@@ -714,6 +745,7 @@ public class Janela extends javax.swing.JFrame {
         this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
         this.janelas.show(painelBase, "painelHome");
         this.CurrentView = "painelHome";
+        carregarTabelaPedidos();
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
@@ -728,12 +760,13 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoTutorialActionPerformed
 
     private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
-        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
-        Pedido aux = new Pedido();
-        aux = listaPedidos.get(tabelaPedidos.getSelectedRow());
-        carregarPedido(aux);
-        this.janelas.show(painelBase, "painelAtividades");
-        this.CurrentView = "painelAtividadesCarregar";
+        if (selecionarPedido() < listaPedidos.size()) {
+            Pedido aux = new Pedido();
+            aux = listaPedidos.get(tabelaPedidos.getSelectedRow());
+            carregarPedido(aux);
+            this.janelas.show(painelBase, "painelAtividades");
+            this.CurrentView = "painelAtividadesCarregar";
+        }
     }//GEN-LAST:event_botaoCarregarPedidoActionPerformed
 
     private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
@@ -746,7 +779,7 @@ public class Janela extends javax.swing.JFrame {
         //exibe o painel
         this.janelas.show(painelBase, "painelIdentifica");
         this.CurrentView = "painelIdentifica";
-        
+
     }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
@@ -760,7 +793,7 @@ public class Janela extends javax.swing.JFrame {
                 this.janelas.show(painelBase, "painelHome");
                 this.CurrentView = "painelHome";
         }
-        
+
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void botaoRemoverAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverAtividadeActionPerformed
@@ -779,12 +812,12 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        
+
         if (!this.textDescricao.getText().isEmpty() && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0)) {
             TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
             Atividade a = new Atividade(this.textDescricao.getText(), atividade, Integer.parseInt(this.textUnidade.getText()));
             this.listaAtividades.add(a);
-            
+
             carregarTabelaAtividades(this.listaAtividades);
             limparCampos();
         }
@@ -796,17 +829,17 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
         log.log(Level.INFO, "Painel: {0}", CurrentView);
-        
-        Aluno aluno = new Aluno(textNomeAtividades.getText(), textMatriculaAtividades.getText(), Curso.getCurso(comboCursoAtividades.getSelectedItem().toString()) );
-        Pedido pedido = new Pedido(aluno,0, 0, listaAtividades);
+
+        Aluno aluno = new Aluno(textNomeAtividades.getText(), textMatriculaAtividades.getText(), Curso.getCurso(comboCursoAtividades.getSelectedItem().toString()));
+        Pedido pedido = new Pedido(aluno, 0, 0, listaAtividades);
         this.json.saveRequest(pedido);
-        
+
         this.janelas.show(painelBase, "painelHome");
         CurrentView = "painelHome";
-        
+
         DefaultTableModel dtm = (DefaultTableModel) tabelaPedidos.getModel();
         dtm.setRowCount(0);
-        
+
         carregarTabelaPedidos();
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
@@ -815,31 +848,40 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_textMatriculaAtividadesActionPerformed
 
     private void tabelaPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPedidosMouseClicked
-        listaPedidos.get(selecionarPedido());
-        botaoCarregarPedido.setEnabled(true);
-        botaoRemoverPedido.setEnabled(true);
 
-
+        if (selecionarPedido() < listaPedidos.size()) {
+            listaPedidos.get(selecionarPedido());
+            botaoCarregarPedido.setEnabled(true);
+            botaoRemoverPedido.setEnabled(true);
+        } else {
+            botaoCarregarPedido.setEnabled(false);
+            botaoRemoverPedido.setEnabled(false);
+        }
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
     private void botaoRemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverPedidoActionPerformed
-        log.info(listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
-        if (json.removerArquivo(listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
-            listaPedidos.remove(selecionarPedido() + ".json");
+        log.info(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
+        if (json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
+            this.listaPedidos.remove(selecionarPedido());
         }
+        for (int i = 0; i < listaPedidos.size(); i++) {
+            log.info(listaPedidos.get(i).getAluno().getNome());
+        }
+
         carregarTabelaPedidos();
     }//GEN-LAST:event_botaoRemoverPedidoActionPerformed
 
     private void comboTipoAtividadeAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoAtividadeAtividadesActionPerformed
         /**
-         * Seta a visibilidade e label do campo unidade conforme o combo Tipo Atividade
+         * Seta a visibilidade e label do campo unidade conforme o combo Tipo
+         * Atividade
          */
-        if(comboTipoAtividadeAtividades.getSelectedIndex() != 0) {
+        if (comboTipoAtividadeAtividades.getSelectedIndex() != 0) {
             String selTipoAtividade = comboTipoAtividadeAtividades.getSelectedItem().toString();
-            
+
             String unidade = TipoAtividade.getTipoAtividade(selTipoAtividade).getUnidadeTipoAtividade();
             String categoria = TipoAtividade.getTipoAtividade(selTipoAtividade).getCategoria().getNome();
-            
+
             this.comboCategoriaAtividades.setSelectedItem(categoria);
             if (unidade != "unidade") {
                 this.labelUnidade.setVisible(true);
@@ -854,8 +896,9 @@ public class Janela extends javax.swing.JFrame {
         } else {
             this.labelUnidade.setVisible(false);
             this.textUnidade.setVisible(false);
-            if (this.comboCategoriaAtividades.getItemCount() > 0)
+            if (this.comboCategoriaAtividades.getItemCount() > 0) {
                 this.comboCategoriaAtividades.setSelectedIndex(0);
+            }
         }
     }//GEN-LAST:event_comboTipoAtividadeAtividadesActionPerformed
 
@@ -967,7 +1010,7 @@ public class Janela extends javax.swing.JFrame {
         listaCategoriasEComp.addAll(this.json.getCategories("ecomp"));          // Carrega todas as categorias do arquivo ecomp
         Curso cursoCiencia = new Curso();
         Curso cursoEng = new Curso();
-        
+
         // Carrega cursos na lista de cursos --> um pouco diferente dos outros pq pega dos arquivos
         cursoCiencia.setNome("Ciência da Computação");
         cursoCiencia.setCodigo(3900);
@@ -978,13 +1021,13 @@ public class Janela extends javax.swing.JFrame {
         cursoEng.setListaCategorias(listaCategoriasEComp);
         listaCursos.add(cursoEng);
         Curso.setListaCursos(listaCursos);
-        
+
         //Removido codigo anterior para dar lugar aos LOADERS que jah existiam
         //Quando o codigo for carregado do JSON deve ser alterado os metodos loadCategorias() e o loadTipoAtividades();
         //pois eles jah preenchem as listas
         Categoria.loadCategorias();
         TipoAtividade.loadTipoAtividades();
-        
+
         setComboCursoIdentificacao();
         setComboCursoAtividades();
         setComboTipoAtividadeAtividades();
@@ -1029,16 +1072,16 @@ public class Janela extends javax.swing.JFrame {
         this.painelAtividades.setFont(config.getFontTexto());
         this.painelBase.setFont(config.getFontTexto());
         this.painelGroupAtividade.setFont(config.getFontTexto());
-        ((TitledBorder)this.painelGroupAtividade.getBorder()).setTitleFont(config.getFontTitulo());
+        ((TitledBorder) this.painelGroupAtividade.getBorder()).setTitleFont(config.getFontTitulo());
         this.painelGroupIdentificacao.setFont(config.getFontTexto());
-        ((TitledBorder)this.painelGroupIdentificacao.getBorder()).setTitleFont(config.getFontTitulo());
+        ((TitledBorder) this.painelGroupIdentificacao.getBorder()).setTitleFont(config.getFontTitulo());
         this.painelGroupIdentificacaoAtividades.setFont(config.getFontTexto());
-        ((TitledBorder)this.painelGroupIdentificacaoAtividades.getBorder()).setTitleFont(config.getFontTitulo());
+        ((TitledBorder) this.painelGroupIdentificacaoAtividades.getBorder()).setTitleFont(config.getFontTitulo());
         this.painelGroupListaDeAtividades.setFont(config.getFontTexto());
-        ((TitledBorder)this.painelGroupListaDeAtividades.getBorder()).setTitleFont(config.getFontTitulo());
+        ((TitledBorder) this.painelGroupListaDeAtividades.getBorder()).setTitleFont(config.getFontTitulo());
         this.painelGroupListaDePedidos.setFont(config.getFontTexto());
-        ((TitledBorder)this.painelGroupListaDePedidos.getBorder()).setTitleFont(config.getFontTitulo());
-        
+        ((TitledBorder) this.painelGroupListaDePedidos.getBorder()).setTitleFont(config.getFontTitulo());
+
         this.painelHome.setFont(config.getFontTexto());
         this.painelIdentifica.setFont(config.getFontTexto());
         this.scrollPaneListaDeAtividades.setFont(config.getFontTexto());
@@ -1056,7 +1099,6 @@ public class Janela extends javax.swing.JFrame {
     }
 
 //==============================================================================
-    
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //   TELA HOME    
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
@@ -1066,18 +1108,24 @@ public class Janela extends javax.swing.JFrame {
      */
     private void carregarTabelaPedidos() {
 
+        if (listaPedidos.isEmpty()) {
+            this.listaPedidos.addAll(json.parseFilesToJSON());
+        }
+
+        if (tabelaPedidos.getRowCount() != 0) {
+            for (int i = 0; i < this.tabelaPedidos.getRowCount(); i++) {
+                this.tabelaPedidos.setValueAt(null, i, 0);
+                this.tabelaPedidos.setValueAt(null, i, 1);
+                this.tabelaPedidos.setValueAt(null, i, 2);
+            }
+        }
         if (!listaPedidos.isEmpty()) {
-            listaPedidos.clear();
+            for (int i = 0; i < this.listaPedidos.size(); i++) {
+                this.tabelaPedidos.setValueAt(listaPedidos.get(i).getAluno().getMatricula(), i, 0);
+                this.tabelaPedidos.setValueAt(listaPedidos.get(i).getAluno().getNome(), i, 1);
+                this.tabelaPedidos.setValueAt(listaPedidos.get(i).getAluno().getCurso().getNome(), i, 2);
+            }
         }
-        listaPedidos.addAll(json.parseFilesToJSON());   // carrega todos os arquivos .json para dentro da tabela
-        int linha = 0;
-
-        for (Pedido p : this.listaPedidos) {
-            Aluno aluno = p.getAluno();
-            DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
-            modelo.addRow(new Object[]{aluno.getMatricula(), aluno.getNome(), aluno.getCurso().getNome()});
-        }
-
     }
 
     /**
@@ -1106,10 +1154,9 @@ public class Janela extends javax.swing.JFrame {
         carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
 
     }
-    
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++
-    
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //   TELA IDENTIFICACAO    
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
@@ -1122,11 +1169,9 @@ public class Janela extends javax.swing.JFrame {
             this.comboCursoIdentificacao.addItem(curso.getNome());
         }
     }
-    
-    
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++    
-    
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //   TELA ATIVIDADES    
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++     
@@ -1183,7 +1228,7 @@ public class Janela extends javax.swing.JFrame {
             this.tabelaAtividades.setValueAt(null, i, 1);
             this.tabelaAtividades.setValueAt(null, i, 2);
         }
-        
+
         if (!listaAtividades.isEmpty()) {
             for (Atividade a : listaAtividades) {
                 log.info(a.getDescricao());
