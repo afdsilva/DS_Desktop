@@ -864,9 +864,9 @@ public class Janela extends javax.swing.JFrame {
         if (json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
             this.listaPedidos.remove(selecionarPedido());
         }
-        for (int i = 0; i < listaPedidos.size(); i++) {
-            log.info(listaPedidos.get(i).getAluno().getNome());
-        }
+        //for (int i = 0; i < listaPedidos.size(); i++) {
+            //log.info(listaPedidos.get(i).getAluno().getNome());
+        //}
 
         carregarTabelaPedidos();
     }//GEN-LAST:event_botaoRemoverPedidoActionPerformed
@@ -1107,24 +1107,25 @@ public class Janela extends javax.swing.JFrame {
      dentro da tabela de pedidos.
      */
     private void carregarTabelaPedidos() {
-
-        if (listaPedidos.isEmpty()) {
-            this.listaPedidos.addAll(json.parseFilesToJSON());
-        }
-
-        if (tabelaPedidos.getRowCount() != 0) {
-            for (int i = 0; i < this.tabelaPedidos.getRowCount(); i++) {
-                this.tabelaPedidos.setValueAt(null, i, 0);
-                this.tabelaPedidos.setValueAt(null, i, 1);
-                this.tabelaPedidos.setValueAt(null, i, 2);
-            }
-        }
+        
+        // refresha a TableModel
+        DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
+        modelo.setRowCount(0);
+        
         if (!listaPedidos.isEmpty()) {
-            for (int i = 0; i < this.listaPedidos.size(); i++) {
-                this.tabelaPedidos.setValueAt(listaPedidos.get(i).getAluno().getMatricula(), i, 0);
-                this.tabelaPedidos.setValueAt(listaPedidos.get(i).getAluno().getNome(), i, 1);
-                this.tabelaPedidos.setValueAt(listaPedidos.get(i).getAluno().getCurso().getNome(), i, 2);
-            }
+            listaPedidos.clear();
+        }
+        listaPedidos.addAll(json.parseFilesToJSON());   // carrega todos os arquivos .json para dentro da tabela
+        for (Pedido p : this.listaPedidos) {
+            Aluno aluno = p.getAluno();
+
+            modelo.addRow(new Object[]{aluno.getMatricula(), aluno.getNome(), aluno.getCurso().getNome()});
+        }
+        
+        // caso não houver profiles a serem mostrados, desabilita tais botões
+        if (modelo.getRowCount()==0) {
+            this.botaoRemoverPedido.setEnabled(false);
+            this.botaoCarregarPedido.setEnabled(false);
         }
     }
 

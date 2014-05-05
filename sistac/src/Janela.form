@@ -671,7 +671,7 @@
                 <Component class="javax.swing.JComboBox" name="comboCursoAtividades">
                   <Properties>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Default"/>
+                      <Color id="Default Cursor"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="keySelectionManager" type="javax.swing.JComboBox$KeySelectionManager" editor="org.netbeans.modules.form.ComponentChooserEditor">

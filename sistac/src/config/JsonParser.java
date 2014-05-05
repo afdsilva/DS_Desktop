@@ -18,6 +18,7 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 import system.*;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import system.Curso;
 
 /**
@@ -57,7 +58,9 @@ public class JsonParser {
         file = this.root.concat(file);
 
         try {
-            obj = this.parser.parse(new FileReader(file));
+            FileReader arquivo = new FileReader(file);
+            obj = this.parser.parse(arquivo);
+            arquivo.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -313,19 +316,25 @@ public class JsonParser {
      * @return true or false
      */
     public boolean removerArquivo(String nome) {
+        Integer reply;
         String file;
 
         System.out.println(nome);
 
-        try {
-            file = this.root.concat("save/" + nome + ".json");
-            File f = new File(file);
-            System.out.println(file);
-            f.delete();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        file = this.root.concat("save/" + nome + ".json");
+        File f = new File(file);
+        System.out.println(f);
+        reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja exluir seu pedido?", "Remover?",  JOptionPane.YES_NO_OPTION);
+        if(reply == JOptionPane.YES_OPTION){
+            try{
+                f.delete();
+                System.out.println("Arquivo deletado com sucesso.");
+                return true;
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
+        System.out.println("Não foi possível deletar o arquivo.");
         return false;
     }
 
