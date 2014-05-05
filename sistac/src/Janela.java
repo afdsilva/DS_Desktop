@@ -583,6 +583,11 @@ public class Janela extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaAtividades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaAtividadesMouseClicked(evt);
+            }
+        });
         scrollPaneListaDeAtividades.setViewportView(tabelaAtividades);
 
         javax.swing.GroupLayout painelGroupListaDeAtividadesLayout = new javax.swing.GroupLayout(painelGroupListaDeAtividades);
@@ -853,6 +858,10 @@ public class Janela extends javax.swing.JFrame {
                 this.comboCategoriaAtividades.setSelectedIndex(0);
         }
     }//GEN-LAST:event_comboTipoAtividadeAtividadesActionPerformed
+
+    private void tabelaAtividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaAtividadesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaAtividadesMouseClicked
 
     /**
      * @param args the command line arguments
