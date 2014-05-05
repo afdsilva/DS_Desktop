@@ -798,7 +798,11 @@ public class Janela extends javax.swing.JFrame {
         
         this.janelas.show(painelBase, "painelHome");
         CurrentView = "painelHome";
-
+        
+        DefaultTableModel dtm = (DefaultTableModel) tabelaPedidos.getModel();
+        dtm.setRowCount(0);
+        
+        carregarTabelaPedidos();
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
     private void textMatriculaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaAtividadesActionPerformed
