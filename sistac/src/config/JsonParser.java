@@ -197,7 +197,9 @@ public class JsonParser {
     public boolean saveRequest(Pedido request) {
         JSONObject json = new JSONObject();
         JSONObject temp;
-
+        
+        // fazer uma validação aqui se o arquivo já existir excluir e salvar de novo.
+        
         json.put("name", request.getAluno().getNome());
         json.put("registry", request.getAluno().getMatricula());
         json.put("course", request.getAluno().getCurso().getNome());
@@ -213,6 +215,7 @@ public class JsonParser {
             temp.put("description", activity.getDescricao());
             temp.put("typeOfActivity", activity.getTipoAtividade().getDescricao());
             temp.put("category", activity.getCategoria().getNome());
+            
             temp.put("time", activity.getUnidadeAtividade());
 
             list.add(temp);
@@ -315,7 +318,6 @@ public class JsonParser {
      * @return true or false
      */
     public boolean removerArquivo(String nome) {
-        Integer reply;
         String file;
 
         System.out.println(nome);
@@ -323,8 +325,6 @@ public class JsonParser {
         file = this.root.concat("save/" + nome + ".json");
         File f = new File(file);
         System.out.println(f);
-        reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir seu pedido?", "Remover?",  JOptionPane.YES_NO_OPTION);
-        if(reply == JOptionPane.YES_OPTION){
             try{
                 f.delete();
                 System.out.println("Arquivo deletado com sucesso.");
@@ -332,8 +332,6 @@ public class JsonParser {
             } catch (Exception e){
                 e.printStackTrace();
             }
-        }
-        System.out.println("Não foi possível deletar o arquivo.");
         return false;
     }
 
