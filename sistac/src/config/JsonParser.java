@@ -213,7 +213,7 @@ public class JsonParser {
             temp.put("description", activity.getDescricao());
             temp.put("typeOfActivity", activity.getTipoAtividade().getDescricao());
             temp.put("category", activity.getCategoria().getNome());
-            temp.put("time", activity.getUnidadeAtividadeAproveitada());
+            temp.put("time", activity.getUnidadeAtividade());
 
             list.add(temp);
         }
