@@ -124,7 +124,6 @@ public class JsonParser {
 
         for (Object category : (JSONArray) base.get("category")) {
             obj = (JSONObject) category;
-
             categories.add(new Categoria((String) obj.get("name"), (int) (long) obj.get("minHr")));
         }
 

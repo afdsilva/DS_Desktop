@@ -7,7 +7,8 @@
 package system;
 
 import java.util.ArrayList;
-
+import config.*;
+import java.util.logging.Logger;
 /**
  *
  * @author andref
@@ -33,29 +34,39 @@ public class Categoria {
     private String cod;
     private String nome;
     private Integer cargaHoraria;
-
+    private Config config;
+    private static Logger log;
+    
     public Categoria() {
         this.nome = null;
         this.cod = null;
         this.cargaHoraria = null;
+        this.config = Config.getInstancia();
+        this.log = config.getLog();
     }
 
     public Categoria(String nome, Integer cargaHoraria) {
         this.nome = nome;
         this.cod = nome;
         this.cargaHoraria = cargaHoraria;
+        this.config = Config.getInstancia();
+        this.log = config.getLog();
     }
 
     public Categoria(String cod, String nome, Integer cargaHoraria) {
         this.cod = cod;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
+        this.config = Config.getInstancia();
+        this.log = config.getLog();
     }
     
     public Categoria(Categoria copia) {
         this.cod = copia.getCod();
         this.nome = copia.getNome();
         this.cargaHoraria = copia.getCargaHoraria();
+        this.config = Config.getInstancia();
+        this.log = config.getLog();
     }
 
     /**
@@ -91,19 +102,21 @@ public class Categoria {
      * que pode ser acessada globalmente Caso o metodo ja tenha sido invocado
      * antes, irá limpar a lista e carregar novamente os dados;
      */
-    public static void loadCategorias() {
+    public static void loadCategorias(String curso) {
+        JsonParser json = new JsonParser();
         //cria ou limpa a lista de Categorias
         if (Categoria.getListaCategorias() == null) {
             Categoria.setListaCategorias(new ArrayList<Categoria>());
         } else {
             Categoria.getListaCategorias().clear();
         }
-        Categoria pesquisa = new Categoria("pes", "Pesquisa", 100);
-        Categoria.getListaCategorias().add(pesquisa);
-        Categoria extensao = new Categoria("ext", "Extensao", 100);
-        Categoria.getListaCategorias().add(extensao);
-        Categoria ensino = new Categoria("ens", "Ensino", 100);
-        Categoria.getListaCategorias().add(ensino);
+        // traz do arquivo de configuração e joga pra dentro da lista da classe
+        Categoria.listaCategorias.addAll(json.getCategories(curso));
+        
+        
+        for (int i = 0; i < Categoria.listaCategorias.size(); i++){
+            log.info(Categoria.listaCategorias.get(i).getNome());
+        }
     }
 
     /**

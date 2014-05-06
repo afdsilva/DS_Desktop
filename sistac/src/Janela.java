@@ -17,9 +17,6 @@ public class Janela extends javax.swing.JFrame {
 
     private Config config;
     private CardLayout janelas;
-    private Categoria categoria;
-    private TipoAtividade tipoAtividade;
-    private Curso curso;
     private JsonParser json;
     private Logger log;
     private ArrayList<Pedido> listaPedidos;
@@ -1009,31 +1006,31 @@ public class Janela extends javax.swing.JFrame {
      * arquivo de configuração;
      */
     private void carregaSistema() {
-        ArrayList<Categoria> listaCategoriasCComp = new ArrayList<Categoria>();
-        ArrayList<Categoria> listaCategoriasEComp = new ArrayList<Categoria>();
         ArrayList<Curso> listaCursos = new ArrayList<Curso>();
-        listaCategoriasCComp.addAll(this.json.getCategories("ccomp"));          // Carrega todas as categorias do arquivo ccomp
-        listaCategoriasEComp.addAll(this.json.getCategories("ecomp"));          // Carrega todas as categorias do arquivo ecomp
+        
+        
         Curso cursoCiencia = new Curso();
         Curso cursoEng = new Curso();
 
+        Categoria.loadCategorias("ccomp");          // Carrega todas as categorias do arquivo ccomp
         // Carrega cursos na lista de cursos --> um pouco diferente dos outros pq pega dos arquivos
         cursoCiencia.setNome("Ciência da Computação");
         cursoCiencia.setCodigo(3900);
-        cursoCiencia.setListaCategorias(listaCategoriasCComp);
+        cursoCiencia.setListaCategorias(Categoria.getListaCategorias());
         listaCursos.add(cursoCiencia);
+        
+        Categoria.loadCategorias("ecomp");          // Carrega todas as categorias do arquivo ecomp
         cursoEng.setNome("Engenharia de Computação");
         cursoEng.setCodigo(3910);
-        cursoEng.setListaCategorias(listaCategoriasEComp);
+        cursoEng.setListaCategorias(Categoria.getListaCategorias());
         listaCursos.add(cursoEng);
         Curso.setListaCursos(listaCursos);
 
         //Removido codigo anterior para dar lugar aos LOADERS que jah existiam
         //Quando o codigo for carregado do JSON deve ser alterado os metodos loadCategorias() e o loadTipoAtividades();
         //pois eles jah preenchem as listas
-        Categoria.loadCategorias();
         TipoAtividade.loadTipoAtividades();
-
+        
         setComboCursoIdentificacao();
         setComboCursoAtividades();
         setComboTipoAtividadeAtividades();

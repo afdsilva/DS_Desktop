@@ -7,6 +7,7 @@
 package system;
 
 import java.util.ArrayList;
+import config.*;
 
 /**
  *
@@ -141,15 +142,17 @@ public class TipoAtividade {
             TipoAtividade.getListaTipoAtividades().clear();
         }
         if (Categoria.getListaCategorias() == null || Categoria.getListaCategorias().isEmpty()) {
-            Categoria.loadCategorias();
+            if(Curso.getCurso("Ciência da Computação").getCodigo() != 0){
+                Categoria.loadCategorias("ccomp");
+            } else {
+                 if(Curso.getCurso("Engenharia de Computação").getCodigo() != 0){
+                    Categoria.loadCategorias("ecomp");
+                 }
+            }
         }
-        Categoria pesquisa = Categoria.getCategoriaCod("pes");
-        Categoria ensino = Categoria.getCategoriaCod("ens");
-        Categoria extensao = Categoria.getCategoriaCod("ext");
-
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("A", "Monitoria", 51, 102, ensino, "horas"));
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("B", "Participação em Eventos Científicos Internacionais", 51, 102, pesquisa, "unidade"));
-        TipoAtividade.getListaTipoAtividades().add(new TipoAtividade("C", "Bolsa de Graduação da UFPel", 34, 68, extensao, "horas"));
+        JsonParser json = new JsonParser();
+        TipoAtividade.listaTipoAtividades.addAll(json.getAllTypesOfActivity("ccomp"));
+        
     }
 
     /**
