@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import system.*;
@@ -849,13 +850,18 @@ public class Janela extends javax.swing.JFrame {
 
     private void tabelaPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPedidosMouseClicked
 
-        if (selecionarPedido() < listaPedidos.size()) {
+        listaPedidos.get(selecionarPedido());
+        
+        ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
+        
+        if (listSelectionModel.isSelectionEmpty()){
+            botaoCarregarPedido.setEnabled(false);
+            botaoRemoverPedido.setEnabled(false);
+            this.tabelaPedidos.clearSelection();
+        }else{
             listaPedidos.get(selecionarPedido());
             botaoCarregarPedido.setEnabled(true);
             botaoRemoverPedido.setEnabled(true);
-        } else {
-            botaoCarregarPedido.setEnabled(false);
-            botaoRemoverPedido.setEnabled(false);
         }
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
@@ -864,9 +870,9 @@ public class Janela extends javax.swing.JFrame {
         if (json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
             this.listaPedidos.remove(selecionarPedido());
         }
-        //for (int i = 0; i < listaPedidos.size(); i++) {
-            //log.info(listaPedidos.get(i).getAluno().getNome());
-        //}
+        for (int i = 0; i < listaPedidos.size(); i++) {
+            log.info(listaPedidos.get(i).getAluno().getNome());
+        }
 
         carregarTabelaPedidos();
     }//GEN-LAST:event_botaoRemoverPedidoActionPerformed
@@ -1112,6 +1118,7 @@ public class Janela extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
         modelo.setRowCount(0);
         
+        
         if (!listaPedidos.isEmpty()) {
             listaPedidos.clear();
         }
@@ -1122,11 +1129,9 @@ public class Janela extends javax.swing.JFrame {
             modelo.addRow(new Object[]{aluno.getMatricula(), aluno.getNome(), aluno.getCurso().getNome()});
         }
         
-        // caso não houver profiles a serem mostrados, desabilita tais botões
-        if (modelo.getRowCount()==0) {
-            this.botaoRemoverPedido.setEnabled(false);
-            this.botaoCarregarPedido.setEnabled(false);
-        }
+        this.tabelaPedidos.clearSelection();
+        this.botaoCarregarPedido.setEnabled(false);
+        this.botaoRemoverPedido.setEnabled(false);
     }
 
     /**
