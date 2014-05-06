@@ -263,7 +263,7 @@ public class JsonParser {
 
         Curso course = new Curso((String) json.get("course"), (int) (long) json.get("cod"), null);
         Aluno student = new Aluno((String) json.get("name"), (String) json.get("registry"), course);
-        List<Atividade> list = new ArrayList<Atividade>();
+        List<Atividade> list = new ArrayList<>();
         Atividade tempAtividade;
         TipoAtividade tempTipoAtividade;
         Categoria tempCategoria;
@@ -271,19 +271,10 @@ public class JsonParser {
         for (Object activity : (JSONArray) json.get("activity")) {
             obj = (JSONObject) activity;
             
+            tempTipoAtividade = TipoAtividade.getTipoAtividade((String) obj.get("typeOfActivity"));
+            tempCategoria = Categoria.getCategoria((String) obj.get("category"));
             
-            tempAtividade = new Atividade();
-            tempTipoAtividade = new TipoAtividade();
-            tempCategoria = new Categoria();
-            
-            tempAtividade.setDescricao((String) obj.get("description"));
-            tempAtividade.setUnidadeAtividade((int) (long) obj.get("time"));
-            
-            tempCategoria.setNome((String) obj.get("category"));
-            tempTipoAtividade.setDescricao((String) obj.get("typeOfActivity"));
-            tempTipoAtividade.setCategoria(tempCategoria);
-            
-            tempAtividade.setTipoAtividade(tempTipoAtividade);
+            tempAtividade = new Atividade((String) obj.get("description"), tempTipoAtividade, (int) (long) obj.get("time"));
             tempAtividade.setCategoria(tempCategoria);
 
             list.add(tempAtividade);

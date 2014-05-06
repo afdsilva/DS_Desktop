@@ -1,18 +1,13 @@
 
 import config.*;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import system.*;
 
 public class Janela extends javax.swing.JFrame {
@@ -811,6 +806,7 @@ public class Janela extends javax.swing.JFrame {
         pedido.getListaAtividadesComplementares().remove(linhaSelecionada);
         //atualiza a tabela de atividades na tela
         carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
+        limparCampos();
     }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
@@ -823,6 +819,7 @@ public class Janela extends javax.swing.JFrame {
                 log.log(Level.INFO, "Cadastrando: {0}", tabelaAtividades.getSelectedRow());
                 TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
                 Atividade a = new Atividade(this.textDescricao.getText(), atividade, Integer.parseInt(this.textUnidade.getText()));
+                a.setCategoria(Categoria.getCategoria(comboCategoriaAtividades.getSelectedItem().toString()));
                 this.listaAtividades.add(a);
                 limparCampos();
             }
@@ -833,6 +830,7 @@ public class Janela extends javax.swing.JFrame {
                 a.setDescricao(this.textDescricao.getText());
                 TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
                 a.setTipoAtividade(atividade);
+                a.setCategoria(Categoria.getCategoria(comboCategoriaAtividades.getSelectedItem().toString()));
                 a.setUnidadeAtividade(Integer.parseInt(this.textUnidade.getText()));
                 limparCampos();
             }
@@ -1289,6 +1287,36 @@ public class Janela extends javax.swing.JFrame {
                 linha++;
             }
         }
+    }
+    
+    private Integer calculaHorasPorTipoAtividade(ArrayList<Atividade> atividades, TipoAtividade tipoAtividade) {
+        Integer retorno = 0;
+        
+        for(Atividade a : atividades) {
+            if(a.getTipoAtividade().equals(tipoAtividade)) {
+                retorno += (retorno < tipoAtividade.getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
+                //retorno += ( tipoAtividade.getMinHoras() ? a.getUnidadeAtividadeAproveitada() : );
+            }
+        }
+        return (retorno > tipoAtividade.getMaxHoras() ? tipoAtividade.getMaxHoras() : retorno);
+    }
+    private int calculaHorasCategoria(ArrayList<Atividade> atividades, Categoria c) {
+        Integer retorno = 0;
+        //log.log(Level.INFO,"Categoria: {0}",c.getNome());
+        for(Atividade a : atividades) {
+            if (a.getCategoria().getNome().equals(c.getNome())) {
+                
+                retorno += (retorno < a.getTipoAtividade().getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
+            }
+        }
+        /**
+        for(TipoAtividade tA : TipoAtividade.getListaTipoAtividades()) {
+            if (tA.getCategoria().getNome().equals(c.getNome())) {
+                retorno += calculaHorasPorTipoAtividade(atividades, tA);
+            }
+        }
+        **/
+        return (retorno > c.getCargaHoraria() ? c.getCargaHoraria() : retorno);
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
