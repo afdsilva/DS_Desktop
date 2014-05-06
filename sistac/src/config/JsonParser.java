@@ -323,7 +323,7 @@ public class JsonParser {
         file = this.root.concat("save/" + nome + ".json");
         File f = new File(file);
         System.out.println(f);
-        reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja exluir seu pedido?", "Remover?",  JOptionPane.YES_NO_OPTION);
+        reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir seu pedido?", "Remover?",  JOptionPane.YES_NO_OPTION);
         if(reply == JOptionPane.YES_OPTION){
             try{
                 f.delete();

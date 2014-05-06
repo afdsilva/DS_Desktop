@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
@@ -532,17 +533,18 @@ public class Janela extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
-                        .addComponent(comboTipoAtividadeAtividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelUnidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
                         .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGroupAtividadeLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 577, Short.MAX_VALUE))
+                    .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
+                        .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
+                                .addComponent(comboTipoAtividadeAtividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelUnidade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textDescricao))
+                        .addContainerGap())))
         );
         painelGroupAtividadeLayout.setVerticalGroup(
             painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -597,16 +599,9 @@ public class Janela extends javax.swing.JFrame {
                 "N°", "Descrição", "Horas"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -656,8 +651,9 @@ public class Janela extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAtividadesLayout.createSequentialGroup()
                         .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(painelAtividadesLayout.createSequentialGroup()
-                                .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoCadastrar)
@@ -706,13 +702,22 @@ public class Janela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void textMatriculaIdentificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaIdentificacaoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:       
     }//GEN-LAST:event_textMatriculaIdentificacaoActionPerformed
 
     private void botaoProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProximoActionPerformed
         this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
         //validacao dos campos
-        if (!textNomeIdentificacao.getText().isEmpty() && (!textMatriculaIdentificacao.getText().isEmpty()) && comboCursoIdentificacao.getSelectedIndex() != 0) {
+        
+        
+        if (!textNomeIdentificacao.getText().isEmpty()
+                && (!textMatriculaIdentificacao.getText().isEmpty())
+                && (textMatriculaIdentificacao.getText().length() == 8)
+                && (!textMatriculaIdentificacao.getText().contains(" "))
+                && (!textMatriculaIdentificacao.getText().contains(","))
+                && (!textMatriculaIdentificacao.getText().contains("."))
+                && (!textMatriculaIdentificacao.getText().contains("[a-zA-z]"))
+                && comboCursoIdentificacao.getSelectedIndex() != 0) {
             //cria o profile do usuario no momento da identificacao
             Aluno aluno = new Aluno(textNomeIdentificacao.getText(), textMatriculaIdentificacao.getText(), Curso.getCurso(comboCursoIdentificacao.getSelectedItem().toString()));
             this.listaAtividades = new ArrayList<>();
@@ -736,6 +741,9 @@ public class Janela extends javax.swing.JFrame {
             //exibe o painel de atividades
             this.janelas.show(painelBase, "painelAtividades");
             this.CurrentView = "painelAtividades";
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "A matrícula deve conter apenas 8 números.", "Formato inválido de matrícula!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botaoProximoActionPerformed
 
@@ -777,7 +785,6 @@ public class Janela extends javax.swing.JFrame {
         //exibe o painel
         this.janelas.show(painelBase, "painelIdentifica");
         this.CurrentView = "painelIdentifica";
-
     }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
