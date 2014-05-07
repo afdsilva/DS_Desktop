@@ -1093,6 +1093,7 @@ public class Janela extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Ok! Sua alteração de pedido foi salva com sucesso!");
                     break;
             }
+            limpaCamposAproveitamento();
         }
 
         this.pedidoAtual = new Pedido();
@@ -1373,6 +1374,7 @@ public class Janela extends javax.swing.JFrame {
         setComboCursoAtividades();
         setComboTipoAtividadeAtividades();
         setComboCategoriaAtividades();
+        limpaCamposAproveitamento();
     }
 
     /**
@@ -1647,8 +1649,23 @@ public class Janela extends javax.swing.JFrame {
         this.hrMinExt.setText(extensao.getCargaHoraria().toString());
         this.hrMinExt1.setText(extensao.getCargaHoraria().toString());
         
-        
     }
+    private void limpaCamposAproveitamento() {
+        this.labelNome.setText("Aluno");
+        this.hrAprEns.setText("0");
+        this.hrAprEns1.setText("0");
+        this.hrAprPes.setText("0");
+        this.hrAprPes1.setText("0");
+        this.hrAprExt.setText("0");
+        this.hrAprExt1.setText("0");
+        
+        this.hrMinEns.setText("0");
+        this.hrMinEns1.setText("0");
+        this.hrMinPes.setText("0");
+        this.hrMinPes1.setText("0");
+        this.hrMinExt.setText("0");
+        this.hrMinExt1.setText("0");
+    }   
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++

@@ -353,7 +353,7 @@
                                   <Component id="hrAprExt" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="52" max="32767" attributes="0"/>
+                          <EmptySpace pref="32" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -365,7 +365,7 @@
                               <Component id="labelNome" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="nomeAluno" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="25" max="32767" attributes="0"/>
+                          <EmptySpace pref="7" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="pesquisa" min="-2" max="-2" attributes="0"/>
@@ -453,7 +453,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelNome">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nome:"/>
+                    <Property name="text" type="java.lang.String" value="Aluno"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="nomeAluno">
@@ -750,7 +750,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="cabecalhoAtividades" pref="900" max="32767" attributes="0"/>
+                  <Component id="cabecalhoAtividades" pref="1024" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -787,7 +787,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="painelGroupListaDeAtividades" min="-2" pref="560" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="painelGroupResumoPedido1" pref="242" max="32767" attributes="0"/>
+                                  <Component id="painelGroupResumoPedido1" pref="294" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -811,7 +811,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="painelGroupListaDeAtividades" max="32767" attributes="0"/>
-                          <Component id="painelGroupResumoPedido1" pref="0" max="32767" attributes="0"/>
+                          <Component id="painelGroupResumoPedido1" pref="276" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
