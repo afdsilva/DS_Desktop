@@ -19,6 +19,8 @@ public class Janela extends javax.swing.JFrame {
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Atividade> listaAtividades;
     private String CurrentView;
+    private boolean flag;
+    private boolean flagPedido;
 
     /**
      * CONSTRUTOR Instancia todos os componentes e classes necessários para
@@ -39,6 +41,8 @@ public class Janela extends javax.swing.JFrame {
         this.listaPedidos = new ArrayList<>();
         this.listaAtividades = new ArrayList<>();
         carregarTabelaPedidos();
+        this.flag = false;
+        this.flagPedido = false;
 
     }
 
@@ -784,7 +788,7 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoNovoPedidoActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
+        this.log.log(Level.INFO, "Painel: {1}", this.CurrentView);
         switch (this.CurrentView) {
             case "painelAtividades":
                 this.janelas.show(painelBase, "painelIdentifica");
@@ -793,6 +797,8 @@ public class Janela extends javax.swing.JFrame {
             case "painelAtividadesCarregar":
                 this.janelas.show(painelBase, "painelHome");
                 this.CurrentView = "painelHome";
+                this.listaAtividades.clear();
+                this.flagPedido = false;
         }
 
     }//GEN-LAST:event_botaoVoltarActionPerformed
@@ -804,38 +810,55 @@ public class Janela extends javax.swing.JFrame {
         int linhaSelecionada = tabelaAtividades.getSelectedRow();
         //remove a atividade selecionada da lista de atividades do pedido selecionado
         pedido.getListaAtividadesComplementares().remove(linhaSelecionada);
+        listaAtividades.remove(linhaSelecionada);
         //atualiza a tabela de atividades na tela
-        carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
-        limparCampos();
+        carregarTabelaAtividades();
     }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
         limparCampos();
+        botaoRemoverAtividade.setEnabled(false);
+        textUnidade.setEditable(true);
+        textDescricao.setEditable(true);
+        comboCategoriaAtividades.setEditable(true);
+        comboTipoAtividadeAtividades.setEditable(true);
+        flag = false;
     }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        if (this.botaoCadastrar.getText().equals("Cadastrar")) {
-            if (!this.textDescricao.getText().isEmpty() && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0) && (this.textUnidade.isVisible() ? !this.textUnidade.getText().isEmpty() : true)) {
-                log.log(Level.INFO, "Cadastrando: {0}", tabelaAtividades.getSelectedRow());
-                TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
-                Atividade a = new Atividade(this.textDescricao.getText(), atividade, Integer.parseInt(this.textUnidade.getText()));
-                a.setCategoria(Categoria.getCategoria(comboCategoriaAtividades.getSelectedItem().toString()));
+        if (!this.textDescricao.getText().isEmpty() && (!this.textUnidade.getText().isEmpty()) && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0)) {
+            TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
+            atividade.setCategoria(Categoria.getCategoria(this.comboCategoriaAtividades.getSelectedItem().toString()));
+            Atividade a = new Atividade(this.textDescricao.getText(), atividade, Integer.parseInt(this.textUnidade.getText()));
+
+            if (flag) {
+                this.listaAtividades.set(tabelaAtividades.getSelectedRow(), a);
+                log.info("no alteracao");
+            } else {
                 this.listaAtividades.add(a);
-                limparCampos();
+                log.info("no novo");
             }
-        } else {
-            if (!this.textDescricao.getText().isEmpty() && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0) && (this.textUnidade.isVisible() ? !this.textUnidade.getText().isEmpty() : true)) {
-                log.log(Level.INFO, "Editando: {0}", tabelaAtividades.getSelectedRow());
-                Atividade a = listaAtividades.get(tabelaAtividades.getSelectedRow());
-                a.setDescricao(this.textDescricao.getText());
-                TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
-                a.setTipoAtividade(atividade);
-                a.setCategoria(Categoria.getCategoria(comboCategoriaAtividades.getSelectedItem().toString()));
-                a.setUnidadeAtividade(Integer.parseInt(this.textUnidade.getText()));
-                limparCampos();
+            Aluno aluno = new Aluno(textNomeAtividades.getText(), textMatriculaAtividades.getText(), Curso.getCurso(comboCursoAtividades.getSelectedItem().toString()));
+            Pedido pedido = new Pedido(aluno, 0, 0, listaAtividades);
+            if (flagPedido) {
+                this.json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
+                log.info(pedido.getListaAtividadesComplementares().get(0).getUnidadeAtividadeAproveitada().toString());
+                if (this.json.saveRequest(pedido)) {
+                    JOptionPane.showMessageDialog(null, "Ok! Sua alteração de pedido foi salva com sucesso!");
+                }
+            } else {
+                if (this.json.saveRequest(pedido)) {
+                    JOptionPane.showMessageDialog(null, "Ok! Seu pedido foi salvo com sucesso!");
+                }
             }
+                for (int i = 0; i < listaAtividades.size(); i++) {
+                    log.info(listaAtividades.get(i).getDescricao());
+                }
+
+                carregarTabelaAtividades();
+                flag = false;
         }
-        carregarTabelaAtividades(this.listaAtividades);
+        
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void textDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoActionPerformed
@@ -844,18 +867,28 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
         log.log(Level.INFO, "Painel: {0}", CurrentView);
-
         Aluno aluno = new Aluno(textNomeAtividades.getText(), textMatriculaAtividades.getText(), Curso.getCurso(comboCursoAtividades.getSelectedItem().toString()));
         Pedido pedido = new Pedido(aluno, 0, 0, listaAtividades);
-        this.json.saveRequest(pedido);
 
+        if (flagPedido) {
+            this.json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
+            if (this.json.saveRequest(pedido)) {
+                JOptionPane.showMessageDialog(null, "Ok! Sua alteração de pedido foi salva com sucesso!");
+            }
+        } else {
+            if (this.json.saveRequest(pedido)) {
+                JOptionPane.showMessageDialog(null, "Ok! Seu pedido foi salvo com sucesso!");
+            }
+        }
+
+        listaAtividades.clear();
         this.janelas.show(painelBase, "painelHome");
         CurrentView = "painelHome";
 
         DefaultTableModel dtm = (DefaultTableModel) tabelaPedidos.getModel();
         dtm.setRowCount(0);
-
         carregarTabelaPedidos();
+        flagPedido = false;
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
     private void textMatriculaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaAtividadesActionPerformed
@@ -880,9 +913,14 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
     private void botaoRemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverPedidoActionPerformed
+        int reply;
         log.info(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
-        if (json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
-            this.listaPedidos.remove(selecionarPedido());
+
+        reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover seu pedido?", "Remover?", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            if (json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula())) {
+                this.listaPedidos.remove(selecionarPedido());
+            }
         }
         for (int i = 0; i < listaPedidos.size(); i++) {
             log.info(listaPedidos.get(i).getAluno().getNome());
@@ -930,10 +968,12 @@ public class Janela extends javax.swing.JFrame {
         this.botaoLimpar.setText("Novo");
         this.botaoCadastrar.setText("Salvar");
         this.botaoRemoverAtividade.setEnabled(true);
+        this.flag = true;
         
         if (selected < listaAtividades.size()) {
             a = listaAtividades.get(selected);
             log.log(Level.INFO, "Descricao: {0}", a.getDescricao());
+            //carregarAtividade(selected);
             this.textDescricao.setText(a.getDescricao());
             this.comboTipoAtividadeAtividades.setSelectedItem(a.getTipoAtividade().getDescricao());
             this.comboCategoriaAtividades.setSelectedItem(a.getCategoria().getNome());
@@ -1189,7 +1229,9 @@ public class Janela extends javax.swing.JFrame {
         this.comboCursoAtividades.setSelectedItem(pedido.getAluno().getCurso().getNome());
         //atividades
         limparCampos();
-        carregarTabelaAtividades(pedido.getListaAtividadesComplementares());
+        this.listaAtividades.addAll(pedido.getListaAtividadesComplementares());
+        carregarTabelaAtividades();
+        flagPedido = true;
 
     }
 
@@ -1263,61 +1305,34 @@ public class Janela extends javax.swing.JFrame {
      *
      * @param listaAtividades
      */
-    private void carregarTabelaAtividades(ArrayList<Atividade> listaAtividades) {
+    private void carregarTabelaAtividades() {
         Integer linha = 0;
-        for (int i = 0; i < this.tabelaAtividades.getRowCount(); i++) {
-            //tabelaAtividades.setValueAt((linha + 1), linha, 0);//atributo do aluno, linha, coluna
-            this.tabelaAtividades.setValueAt(null, i, 0);
-            this.tabelaAtividades.setValueAt(null, i, 1);
-            this.tabelaAtividades.setValueAt(null, i, 2);
-        }
-        DefaultTableModel modelo = (DefaultTableModel) this.tabelaAtividades.getModel();
-        modelo.setRowCount(0);
-        
+        tabelaAtividades.clearSelection();
+
+        String campos[] = {"N°", "Descrição", "Categoria", "Aproveitamento"};
+        DefaultTableModel model = new DefaultTableModel(0, 4);
+        model.setColumnIdentifiers(campos);
+        tabelaAtividades.setModel(model);
+
         if (!listaAtividades.isEmpty()) {
-            this.listaAtividades = listaAtividades;
-            
-            
             for (Atividade a : listaAtividades) {
-                //log.info(a.getDescricao());
-                //log.info(a.getUnidadeAtividade().toString());
-                //log.info(a.getCategoria().getNome());
-                //log.info(a.getTipoAtividade().getDescricao());
-                modelo.addRow(new Object[]{linha + 1, a.getDescricao(), a.getUnidadeAtividade()});
+                model.addRow(new Object[]{(linha + 1), a.getDescricao(), a.getCategoria().getNome(), a.getUnidadeAtividade()});
                 linha++;
+
             }
         }
     }
     
-    private Integer calculaHorasPorTipoAtividade(ArrayList<Atividade> atividades, TipoAtividade tipoAtividade) {
-        Integer retorno = 0;
-        
-        for(Atividade a : atividades) {
-            if(a.getTipoAtividade().equals(tipoAtividade)) {
-                retorno += (retorno < tipoAtividade.getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
-                //retorno += ( tipoAtividade.getMinHoras() ? a.getUnidadeAtividadeAproveitada() : );
-            }
+    private void carregarAtividade(int index) {
+        if (!listaAtividades.isEmpty()) {
+            this.textDescricao.setText(listaAtividades.get(index).getDescricao());
+            this.textUnidade.setText(listaAtividades.get(index).getUnidadeAtividadeAproveitada().toString());
+            this.comboCategoriaAtividades.setSelectedItem(listaAtividades.get(index).getCategoria().getNome());
+            this.comboTipoAtividadeAtividades.setSelectedItem(listaAtividades.get(index).getTipoAtividade().getDescricao());
+            this.flag = true;
         }
-        return (retorno > tipoAtividade.getMaxHoras() ? tipoAtividade.getMaxHoras() : retorno);
     }
-    private int calculaHorasCategoria(ArrayList<Atividade> atividades, Categoria c) {
-        Integer retorno = 0;
-        //log.log(Level.INFO,"Categoria: {0}",c.getNome());
-        for(Atividade a : atividades) {
-            if (a.getCategoria().getNome().equals(c.getNome())) {
-                
-                retorno += (retorno < a.getTipoAtividade().getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
-            }
-        }
-        /**
-        for(TipoAtividade tA : TipoAtividade.getListaTipoAtividades()) {
-            if (tA.getCategoria().getNome().equals(c.getNome())) {
-                retorno += calculaHorasPorTipoAtividade(atividades, tA);
-            }
-        }
-        **/
-        return (retorno > c.getCargaHoraria() ? c.getCargaHoraria() : retorno);
-    }
+    
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++
