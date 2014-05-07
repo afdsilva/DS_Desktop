@@ -112,11 +112,6 @@ public class Categoria {
         }
         // traz do arquivo de configuração e joga pra dentro da lista da classe
         Categoria.listaCategorias.addAll(json.getCategories(curso));
-        
-        
-        for (int i = 0; i < Categoria.listaCategorias.size(); i++){
-            log.info(Categoria.listaCategorias.get(i).getNome());
-        }
     }
 
     /**

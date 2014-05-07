@@ -261,7 +261,6 @@ public class JsonParser {
      * carregados previamente pelo loader
      */
     public Pedido loadRequest(String fileName) {
-        log.info(fileName);
         JSONObject obj, json = this.parse(fileName);
 
         Curso course = new Curso((String) json.get("course"), (int) (long) json.get("cod"), null);
