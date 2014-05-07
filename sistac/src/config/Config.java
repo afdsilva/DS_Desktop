@@ -15,11 +15,11 @@ public class Config {
 
     private Config() {
 
-        this.width = 1024;
-        this.height = 768;
-        this.fonteTexto = new Font("Tahoma", Font.PLAIN, 14);
-        this.fonteTitulo = new Font("Tahoma", Font.BOLD, 17);
-        this.fonteLabel = new Font("Tahoma", Font.PLAIN, 15);
+        this.width = 900;
+        this.height = 700;
+        this.fonteTexto = new Font("Tahoma", Font.PLAIN, 11);
+        this.fonteTitulo = new Font("Tahoma", Font.BOLD, 11);
+        this.fonteLabel = new Font("Tahoma", Font.PLAIN, 11);
         this.logger = Logger.getLogger(Config.class.getName());
     }
 
