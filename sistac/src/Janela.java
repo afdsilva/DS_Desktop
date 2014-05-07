@@ -283,7 +283,7 @@ public class Janela extends javax.swing.JFrame {
 
         extensaoIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/extensao.png"))); // NOI18N
 
-        labelNome.setText("Nome:");
+        labelNome.setText("Aluno");
 
         hrMinPes.setText("jLabel9");
 
@@ -342,7 +342,7 @@ public class Janela extends javax.swing.JFrame {
                         .addComponent(hrMinExt)
                         .addGap(45, 45, 45)
                         .addComponent(hrAprExt)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         painelGroupResumoPedidoLayout.setVerticalGroup(
             painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +351,7 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
                     .addComponent(nomeAluno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                         .addComponent(pesquisa)
@@ -873,7 +873,7 @@ public class Janela extends javax.swing.JFrame {
         painelAtividades.setLayout(painelAtividadesLayout);
         painelAtividadesLayout.setHorizontalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -906,7 +906,7 @@ public class Janela extends javax.swing.JFrame {
                         .addGroup(painelAtividadesLayout.createSequentialGroup()
                             .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))))
+                            .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         painelAtividadesLayout.setVerticalGroup(
@@ -924,7 +924,7 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelAtividadesLayout.createSequentialGroup()
@@ -1022,10 +1022,12 @@ public class Janela extends javax.swing.JFrame {
         //atualiza a tabela de atividades na tela
         limparCampos();
         carregarTabelaAtividades();
+        mostraCalculos(pedidoAtual);
     }//GEN-LAST:event_botaoRemoverAtividadeActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
         limparCampos();
+        mostraCalculos(pedidoAtual);
         flag = false;
     }//GEN-LAST:event_botaoLimparActionPerformed
 
@@ -1069,39 +1071,7 @@ public class Janela extends javax.swing.JFrame {
             carregarTabelaAtividades();
             limparCampos();
         }
-        /**
-        if (!this.textDescricao.getText().isEmpty() && (!this.textUnidade.getText().isEmpty()) && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0)) {
-            
-            TipoAtividade atividade = TipoAtividade.getTipoAtividade(this.comboTipoAtividadeAtividades.getSelectedItem().toString());
-            atividade.setCategoria(Categoria.getCategoria(this.comboCategoriaAtividades.getSelectedItem().toString()));
-            
-            Atividade a = new Atividade(this.textDescricao.getText(), atividade, Integer.parseInt(this.textUnidade.getText()));
-
-            if (flag) {
-                this.pedidoAtual.getListaAtividadesComplementares().get(tabelaAtividades.getSelectedRow());
-                this.listaAtividades.set(tabelaAtividades.getSelectedRow(), a);
-                log.info("no alteracao");
-            } else {
-                this.listaAtividades.add(a);
-                log.info("no novo");
-            }
-            Aluno aluno = new Aluno(textNomeAtividades.getText(), textMatriculaAtividades.getText(), Curso.getCurso(comboCursoAtividades.getSelectedItem().toString()));
-            Pedido pedido = new Pedido(aluno, 0, 0, listaAtividades);
-            if (flagPedido) {
-                this.json.removerArquivo(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
-                log.info(pedido.getListaAtividadesComplementares().get(0).getUnidadeAtividadeAproveitada().toString());
-                if (this.json.saveRequest(pedido)) {
-                    JOptionPane.showMessageDialog(null, "Ok! Sua alteração de pedido foi salva com sucesso!");
-                }
-            } else {
-                if (this.json.saveRequest(pedido)) {
-                    JOptionPane.showMessageDialog(null, "Ok! Seu pedido foi salvo com sucesso!");
-                }
-            }
-                carregarTabelaAtividades();
-                flag = false;
-        }
-        **/
+        mostraCalculos(pedidoAtual);
         
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
@@ -1200,7 +1170,7 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoRemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverPedidoActionPerformed
         int reply;
-        log.info(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
+        //log.info(this.listaPedidos.get(selecionarPedido()).getAluno().getMatricula());
 
         reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover seu pedido?", "Remover?", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
@@ -1208,15 +1178,11 @@ public class Janela extends javax.swing.JFrame {
                 this.listaPedidos.remove(selecionarPedido());
             }
         }
-        for (int i = 0; i < listaPedidos.size(); i++) {
-            log.info(listaPedidos.get(i).getAluno().getNome());
-        }
-
         carregarTabelaPedidos();
     }//GEN-LAST:event_botaoRemoverPedidoActionPerformed
 
     private void botaoNovoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoPedidoActionPerformed
-        this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
+        //this.log.log(Level.INFO, "Painel: {0}", this.CurrentView);
         //Limpa os campos do painel Identificacao
         this.comboCursoIdentificacao.setSelectedIndex(0);
         this.textNomeIdentificacao.setText(null);
@@ -1229,9 +1195,8 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoCarregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarPedidoActionPerformed
         if (selecionarPedido() < listaPedidos.size()) {
-            Pedido aux = new Pedido();
-            aux = listaPedidos.get(tabelaPedidos.getSelectedRow());
-            carregarPedido(aux);
+            this.pedidoAtual = listaPedidos.get(tabelaPedidos.getSelectedRow());
+            carregarPedido();
             this.janelas.show(painelBase, "painelAtividades");
             this.CurrentView = "painelAtividadesCarregar";
         }
@@ -1239,8 +1204,8 @@ public class Janela extends javax.swing.JFrame {
 
     private void tabelaPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPedidosMouseClicked
 
-        listaPedidos.get(selecionarPedido());
-
+        Pedido pedido = listaPedidos.get(selecionarPedido());
+        mostraCalculos(pedido);
         ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
 
         if (listSelectionModel.isSelectionEmpty()){
@@ -1252,6 +1217,7 @@ public class Janela extends javax.swing.JFrame {
             botaoCarregarPedido.setEnabled(true);
             botaoRemoverPedido.setEnabled(true);
         }
+        labelNome.setText(pedido.getAluno().getNome());
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
     /**
@@ -1521,7 +1487,7 @@ public class Janela extends javax.swing.JFrame {
         this.textNomeAtividades.setText(this.pedidoAtual.getAluno().getNome());
         this.textMatriculaAtividades.setText(this.pedidoAtual.getAluno().getMatricula());
         this.comboCursoAtividades.setSelectedItem(this.pedidoAtual.getAluno().getCurso().getNome());
-
+        mostraCalculos(this.pedidoAtual);
         limparCampos();
         carregarTabelaAtividades();
         flagPedido = true;
@@ -1626,6 +1592,62 @@ public class Janela extends javax.swing.JFrame {
     private void novoPedido(String nomeAluno, String matriculaAluno, Curso cursoAluno) {
         Aluno aluno = new Aluno(nomeAluno, matriculaAluno, cursoAluno);
         this.pedidoAtual = new Pedido(aluno, 0, 0, new ArrayList<Atividade>());
+    }
+    
+    
+    private Integer calculaHorasPorTipoAtividade(ArrayList<Atividade> atividades, TipoAtividade tipoAtividade) {
+        Integer retorno = 0;
+        
+        for(Atividade a : atividades) {
+            if(a.getTipoAtividade().equals(tipoAtividade)) {
+                retorno += (retorno < tipoAtividade.getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
+                //retorno += ( tipoAtividade.getMinHoras() ? a.getUnidadeAtividadeAproveitada() : );
+            }
+        }
+        return (retorno > tipoAtividade.getMaxHoras() ? tipoAtividade.getMaxHoras() : retorno);
+    }
+    private int calculaHorasCategoria(ArrayList<Atividade> atividades, Categoria c) {
+        Integer retorno = 0;
+        //log.log(Level.INFO,"Categoria: {0}",c.getNome());
+        for(Atividade a : atividades) {
+            if (a.getCategoria().getNome().equals(c.getNome())) {
+                
+                retorno += (retorno < a.getTipoAtividade().getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
+            }
+        }
+        /**
+        for(TipoAtividade tA : TipoAtividade.getListaTipoAtividades()) {
+            if (tA.getCategoria().getNome().equals(c.getNome())) {
+                retorno += calculaHorasPorTipoAtividade(atividades, tA);
+            }
+        }
+        **/
+        return (retorno > c.getCargaHoraria() ? c.getCargaHoraria() : retorno);
+    }
+    private void mostraCalculos(Pedido pedido) {
+        
+        Categoria pesquisa = Categoria.getCategoria("Pesquisa");
+        Categoria ensino = Categoria.getCategoria("Ensino");
+        Categoria extensao = Categoria.getCategoria("Extensão");
+        Integer horasPesquisa = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), pesquisa);
+        Integer horasEnsino = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), ensino);
+        Integer horasExtensao = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), extensao);
+        
+        this.hrAprEns.setText(horasEnsino.toString());
+        this.hrAprEns1.setText(horasEnsino.toString());
+        this.hrAprPes.setText(horasPesquisa.toString());
+        this.hrAprPes1.setText(horasPesquisa.toString());
+        this.hrAprExt.setText(horasExtensao.toString());
+        this.hrAprExt1.setText(horasExtensao.toString());
+        
+        this.hrMinEns.setText(pesquisa.getCargaHoraria().toString());
+        this.hrMinEns1.setText(ensino.getCargaHoraria().toString());
+        this.hrMinPes.setText(pesquisa.getCargaHoraria().toString());
+        this.hrMinPes1.setText(pesquisa.getCargaHoraria().toString());
+        this.hrMinExt.setText(extensao.getCargaHoraria().toString());
+        this.hrMinExt1.setText(extensao.getCargaHoraria().toString());
+        
+        
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
