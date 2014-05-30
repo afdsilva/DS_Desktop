@@ -12,46 +12,54 @@
 	},
 	"category" : [
 		{
+            "id" : 2,
 			"name" : "Ensino",
 			"minHr" : 100,
 			"activity" : [
 				{
+                    "id" : 1,
 					"name" : "Monitoria",
 					"unit" : "horas",
 					"hr" : 51,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 2,
 					"name" : "Projetos de Ensino",
 					"unit" : "horas",
 					"hr" : 34,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 3,
 					"name" : "Semanas Acadêmicas",
 					"unit" : "horas",
 					"hr" : 34,
 					"maxHr" : 68
 				},
 				{
+                    "id" : 4,
 					"name" : "Cursos e Escolas",
 					"unit" : "horas",
 					"hr" : 51,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 5,
 					"name" : "Representação Estudantil",
 					"unit" : "semestre",
 					"hr" : 51,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 6,
 					"name" : "Certificações profissionais",
 					"unit" : "horas",
 					"hr" : 51,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 7,
 					"name" : "Livre ou Opcional",
 					"unit" : "horas",
 					"hr"	 : 34,
@@ -60,52 +68,61 @@
 			]
 		},
 		{
+            "id" : 1,
 			"name" : "Pesquisa",
 			"minHr" : 100,
 			"activity" : [
 				{
+                    "id" : 8,
 					"name" : "Iniciação Científica",
 					"unit" : "horas",
 					"hr" : 51,
 					"maxHr" : 153
 				},
 				{
+                    "id" : 9,
 					"name" : "Participação em Eventos Científicos Regional",
 					"unit" : "unidade",
 					"hr" : 17,
 					"maxHr" : 51
 				},
 				{
+                    "id" : 10,
 					"name" : "Participação em Eventos Científicos Nacional",
 					"unit" : "unidade",
 					"hr" : 34,
 					"maxHr" : 68
 				},
 				{
+                    "id" : 11,
 					"name" : "Participação em Eventos Científicos Internacional",
 					"unit" : "unidade",
 					"hr" : 34,
 					"maxHr" : 68
 				},
 				{
+                    "id" : 12,
 					"name" : "Publicação de Artigo Científico Regional",
 					"unit" : "unidade",
 					"hr" : 34,
 					"maxHr" : 68
 				},
 				{
+                    "id" : 13,
 					"name" : "Publicação de Artigo Científico Nacional",
 					"unit" : "unidade",
 					"hr" : 51,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 14,
 					"name" : "Publicação de Artigo Científico Internacional",
 					"unit" : "unidade",
 					"hr" : 68,
 					"maxHr" : 136
 				},
 				{
+                    "id" : 15,
 					"name" : "Obtenção de Prêmios e distinções",
 					"unit" : "unidade",
 					"hr" : 68,
@@ -114,22 +131,26 @@
 			]
 		},
 		{
+            "id" : 3,
 			"name" : "Extensão",
 			"minHr" : 100,
 			"activity" : [
 				{
+                    "id" : 16,
 					"name" : "Bolsa de Graduação da UFPel",
 					"unit" : "horas",
 					"hr" : 51,
 					"maxHr" : 102
 				},
 				{
+                    "id" : 17,
 					"name" : "Participação em Atividades de Extensão (como organizador, colaborador, ou ministrante)",
 					"unit" : "horas",
 					"hr" : 34,
 					"maxHr" : 153
 				},
 				{
+                    "id" : 18,
 					"name" : "Projetos Voluntários",
 					"unit" : "horas",
 					"hr" : 51,

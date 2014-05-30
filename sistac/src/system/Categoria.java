@@ -31,7 +31,7 @@ public class Categoria {
         listaCategorias = aListaCategorias;
     }
 
-    private String cod;
+    private Integer cod;
     private String nome;
     private Integer cargaHoraria;
     private Config config;
@@ -47,13 +47,13 @@ public class Categoria {
 
     public Categoria(String nome, Integer cargaHoraria) {
         this.nome = nome;
-        this.cod = nome;
+        this.cod = null;
         this.cargaHoraria = cargaHoraria;
         this.config = Config.getInstancia();
         this.log = config.getLog();
     }
 
-    public Categoria(String cod, String nome, Integer cargaHoraria) {
+    public Categoria(Integer cod, String nome, Integer cargaHoraria) {
         this.cod = cod;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
@@ -126,29 +126,29 @@ public class Categoria {
                 return categoria;
             }
         }
-        return new Categoria("nulo", "Nao encontrado", 0);
+        return new Categoria(0, "Nao encontrado", 0);
     }
 
-    public static Categoria getCategoriaCod(String procura) {
+    public static Categoria getCategoriaCod(Integer procura) {
         for (Categoria categoria : getListaCategorias()) {
-            if (categoria.getCod().toUpperCase().equals(procura.toUpperCase())) {
+            if (categoria.getCod() == procura) {
                 return categoria;
             }
         }
-        return new Categoria("nulo", "Nao encontrado", 0);
+        return new Categoria(0, "Nao encontrado", 0);
     }
 
     /**
      * @return the cod
      */
-    public String getCod() {
+    public Integer getCod() {
         return cod;
     }
 
     /**
      * @param cod the cod to set
      */
-    public void setCod(String cod) {
+    public void setCod(Integer cod) {
         this.cod = cod;
     }
 

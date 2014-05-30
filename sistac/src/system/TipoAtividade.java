@@ -31,7 +31,7 @@ public class TipoAtividade {
         listaTipoAtividades = aListaTipoAtividades;
     }
 
-    private String cod;
+    private Integer cod;
     private String descricao;
     private Integer minHoras;
     private Integer maxHoras;
@@ -49,14 +49,14 @@ public class TipoAtividade {
 
     public TipoAtividade(String descricao, Integer minHoras, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
         this.descricao = descricao;
-        this.cod = descricao;
+        this.cod = null;
         this.minHoras = minHoras;
         this.maxHoras = maxHoras;
         this.categoria = categoria;
         this.unidadeTipoAtividade = unidadeTipoAtividade;
     }
 
-    public TipoAtividade(String cod, String descricao, Integer minHoras, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
+    public TipoAtividade(Integer cod, String descricao, Integer minHoras, Integer maxHoras, Categoria categoria, String unidadeTipoAtividade) {
         this.cod = cod;
         this.descricao = descricao;
         this.minHoras = minHoras;
@@ -187,14 +187,14 @@ public class TipoAtividade {
     /**
      * @return the cod
      */
-    public String getCod() {
+    public Integer getCod() {
         return cod;
     }
 
     /**
      * @param cod the cod to set
      */
-    public void setCod(String cod) {
+    public void setCod(Integer cod) {
         this.cod = cod;
     }
 

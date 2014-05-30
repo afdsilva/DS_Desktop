@@ -124,7 +124,7 @@ public class JsonParser {
 
         for (Object category : (JSONArray) base.get("category")) {
             obj = (JSONObject) category;
-            categories.add(new Categoria((String) obj.get("name"), (int) (long) obj.get("minHr")));
+            categories.add(new Categoria((int) (long) obj.get("id"), (String) obj.get("name"), (int) (long) obj.get("minHr")));
         }
 
         return categories;
@@ -168,7 +168,7 @@ public class JsonParser {
         for (Object activity : (JSONArray) category.get("activity")) {
             obj = (JSONObject) activity;
 
-            list.add(new TipoAtividade((String) obj.get("name"), (int) (long) obj.get("hr"), (int) (long) obj.get("maxHr"), new Categoria((String) category.get("name"), (int) (long) category.get("minHr")), (String) obj.get("unit")));
+            list.add(new TipoAtividade((int) (long) obj.get("id"), (String) obj.get("name"), (int) (long) obj.get("hr"), (int) (long) obj.get("maxHr"), new Categoria((String) category.get("name"), (int) (long) category.get("minHr")), (String) obj.get("unit")));
         }
 
         return list;
@@ -211,11 +211,10 @@ public class JsonParser {
 
         for (Atividade activity : request.getListaAtividadesComplementares()) {
             temp = new JSONObject();
-
-            temp.put("description", activity.getDescricao());
-            temp.put("typeOfActivity", activity.getTipoAtividade().getDescricao());
-            temp.put("category", activity.getCategoria().getNome());
             
+            temp.put("description", activity.getDescricao());
+            temp.put("typeOfActivity", activity.getTipoAtividade().getCod());
+            temp.put("category", activity.getCategoria().getCod());
             temp.put("time", activity.getUnidadeAtividade());
 
             list.add(temp);
