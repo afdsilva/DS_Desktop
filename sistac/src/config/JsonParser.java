@@ -272,8 +272,8 @@ public class JsonParser {
         for (Object activity : (JSONArray) json.get("activity")) {
             obj = (JSONObject) activity;
             
-            tempTipoAtividade = TipoAtividade.getTipoAtividade((String) obj.get("typeOfActivity"));
-            tempCategoria = Categoria.getCategoria((String) obj.get("category"));
+            tempTipoAtividade = TipoAtividade.getTipoAtividadeByCod((int)(long) obj.get("typeOfActivity"));
+            tempCategoria = Categoria.getCategoriaCod((int)(long) obj.get("category"));
             
             tempAtividade = new Atividade((String) obj.get("description"), tempTipoAtividade, (int) (long) obj.get("time"));
             tempAtividade.setCategoria(tempCategoria);

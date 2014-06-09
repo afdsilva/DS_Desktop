@@ -170,6 +170,21 @@ public class TipoAtividade {
         return new TipoAtividade("Nao encontrado", 0, 0, new Categoria(), "");
     }
 
+        /**
+     * Busca um tipo de atividade na lista (consistencia dos dados)
+     *
+     * @param descricao
+     * @return TipoAtividade procurada, ou TipoAtividade dummy
+     */
+    public static TipoAtividade getTipoAtividadeByCod(Integer cod) {
+        for (TipoAtividade tipoAtividade : getListaTipoAtividades()) {
+            if (tipoAtividade.getCod() == cod) {
+                return tipoAtividade;
+            }
+        }
+        return new TipoAtividade("Nao encontrado", 0, 0, new Categoria(), "");
+    }
+    
     /**
      * @return the minHoras
      */
