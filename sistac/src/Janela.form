@@ -353,7 +353,7 @@
                                   <Component id="hrAprExt" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="32" max="32767" attributes="0"/>
+                          <EmptySpace pref="52" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -365,7 +365,7 @@
                               <Component id="labelNome" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="nomeAluno" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7" max="32767" attributes="0"/>
+                          <EmptySpace pref="25" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="pesquisa" min="-2" max="-2" attributes="0"/>
@@ -785,7 +785,7 @@
                                   <Component id="comboCursoAtividades" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="painelGroupListaDeAtividades" min="-2" pref="560" max="-2" attributes="0"/>
+                                  <Component id="painelGroupListaDeAtividades" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="painelGroupResumoPedido1" pref="294" max="32767" attributes="0"/>
                               </Group>
@@ -1053,10 +1053,10 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="scrollPaneListaDeAtividades" min="-2" pref="530" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="381" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="scrollPaneListaDeAtividades" pref="528" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1242,7 +1242,7 @@
                                   <Component id="hrAprExt1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="95" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

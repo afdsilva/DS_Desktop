@@ -342,7 +342,7 @@ public class Janela extends javax.swing.JFrame {
                         .addComponent(hrMinExt)
                         .addGap(45, 45, 45)
                         .addComponent(hrAprExt)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         painelGroupResumoPedidoLayout.setVerticalGroup(
             painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +351,7 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
                     .addComponent(nomeAluno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                         .addComponent(pesquisa)
@@ -717,10 +717,10 @@ public class Janela extends javax.swing.JFrame {
         painelGroupListaDeAtividades.setLayout(painelGroupListaDeAtividadesLayout);
         painelGroupListaDeAtividadesLayout.setHorizontalGroup(
             painelGroupListaDeAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelGroupListaDeAtividadesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(scrollPaneListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(381, 381, 381))
+            .addGroup(painelGroupListaDeAtividadesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .addContainerGap())
         );
         painelGroupListaDeAtividadesLayout.setVerticalGroup(
             painelGroupListaDeAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,7 +832,7 @@ public class Janela extends javax.swing.JFrame {
                         .addComponent(hrMinExt1)
                         .addGap(45, 45, 45)
                         .addComponent(hrAprExt1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         painelGroupResumoPedido1Layout.setVerticalGroup(
             painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -904,7 +904,7 @@ public class Janela extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(comboCursoAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(painelAtividadesLayout.createSequentialGroup()
-                            .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))))
                 .addContainerGap(82, Short.MAX_VALUE))
@@ -1058,6 +1058,10 @@ public class Janela extends javax.swing.JFrame {
                 }
             } else {
                 //Atividade alterada
+                
+                if(tA.getUnidadeTipoAtividade().equals("unidade")){
+                    unidade = tA.getMinHoras();
+                }
                 a = this.pedidoAtual.getListaAtividadesComplementares().get(selectedIndex);
                 a.setDescricao(desc);
                 a.setTipoAtividade(tA);
@@ -1568,14 +1572,14 @@ public class Janela extends javax.swing.JFrame {
         Integer linha = 0;
         this.tabelaAtividades.clearSelection();
 
-        String campos[] = {"N°", "Descrição", "Categoria", "Aproveitamento"};
-        DefaultTableModel model = new DefaultTableModel(0, 4);
+        String campos[] = {"N°", "Descrição", "Categoria", "Horas", "Apr. da Atividade"};
+        DefaultTableModel model = new DefaultTableModel(0, 5);
         model.setColumnIdentifiers(campos);
         model.setRowCount(0);
         this.tabelaAtividades.setModel(model);
 
         for (Atividade a : this.pedidoAtual.getListaAtividadesComplementares()) {
-            model.addRow(new Object[]{(linha + 1), a.getDescricao(), a.getCategoria().getNome(), a.getUnidadeAtividade()});
+            model.addRow(new Object[]{(linha + 1), a.getDescricao(), a.getCategoria().getNome(), a.getUnidadeAtividade(), calculaHorasPorTipoAtividade(a)});
             linha++;
 
         }
@@ -1596,6 +1600,19 @@ public class Janela extends javax.swing.JFrame {
         this.pedidoAtual = new Pedido(aluno, 0, 0, new ArrayList<Atividade>());
     }
     
+    private Integer calculaHorasPorTipoAtividade(Atividade a) {
+       int aproveitamento; 
+       TipoAtividade tipoAtividade = TipoAtividade.getTipoAtividadeByCod(a.getTipoAtividade().getCod());
+        
+       
+       
+        if(a.getUnidadeAtividade() > tipoAtividade.getMinHoras()){
+            aproveitamento =  tipoAtividade.getMinHoras();
+        } else {
+            aproveitamento = a.getUnidadeAtividade();
+        }
+        return aproveitamento;
+    }
     
     private Integer calculaHorasPorTipoAtividade(ArrayList<Atividade> atividades, TipoAtividade tipoAtividade) {
         Integer retorno = 0;
@@ -1608,14 +1625,57 @@ public class Janela extends javax.swing.JFrame {
         }
         return (retorno > tipoAtividade.getMaxHoras() ? tipoAtividade.getMaxHoras() : retorno);
     }
+    
     private int calculaHorasCategoria(ArrayList<Atividade> atividades, Categoria c) {
+        
         Integer retorno = 0;
-        //log.log(Level.INFO,"Categoria: {0}",c.getNome());
+        
+        int[] controle = new int[TipoAtividade.getListaTipoAtividades().size()];
+        
+        for(int i = 0; i < TipoAtividade.getListaTipoAtividades().size(); i++){
+            controle[i] = 0; 
+        }
+        
+        // percorre todas as atividades
         for(Atividade a : atividades) {
+            
+            // verifica qual categoria 
             if (a.getCategoria().getNome().equals(c.getNome())) {
+                // hora da atividade
+                int hr = TipoAtividade.getTipoAtividadeByCod(a.getTipoAtividade().getCod()).getMinHoras();
                 
-                retorno += (retorno < a.getTipoAtividade().getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
+                    // verifica se a atividade corrente já ta cheia ou não
+                    // Se sim: nao adiciona nada
+                    // senão: adiciona em alguma situação  
+                    if(controle[(a.getTipoAtividade().getCod()-1)] < a.getTipoAtividade().getMaxHoras()){
+                        
+                        // Verifica se a unidade cadastrada pelo usuario é maior que a entrada padrão do tipo que ele colocou
+                        // ex: Monitoria o defaul é 51 cada entrada
+                        // se o cara coloca Monitoria 200 -> vai ter equivalencia a 51hrs
+                        // se for menor sei lá 40 hrs fica valendo como 40hrs ao invés de 51hrs
+                        if(a.getUnidadeAtividade() < hr){
+                            controle[((a.getTipoAtividade().getCod()-1))] += a.getUnidadeAtividade(); 
+                             
+                        } else {
+                            controle[((a.getTipoAtividade().getCod()-1))] += hr;
+                        }
+                        
+                        // verifica se o controle é maior que o maxHoras da atividade
+                        // se for coloca para o maximo de atividades
+                        // se nao for continua adicionando normalmente.
+                        if(controle[((a.getTipoAtividade().getCod()-1))] > a.getTipoAtividade().getMaxHoras()){
+                            controle[((a.getTipoAtividade().getCod()-1))] = a.getTipoAtividade().getMaxHoras();
+                        } 
+                    }
+                    
+        
+                
+                //retorno += (retorno < a.getTipoAtividade().getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
             }
+        }
+        
+        for(int i = 0; i < TipoAtividade.getListaTipoAtividades().size(); i++){
+           retorno += controle[i]; 
         }
         /**
         for(TipoAtividade tA : TipoAtividade.getListaTipoAtividades()) {
@@ -1625,6 +1685,7 @@ public class Janela extends javax.swing.JFrame {
         }
         **/
         return (retorno > c.getCargaHoraria() ? c.getCargaHoraria() : retorno);
+        //return retorno;
     }
     private void mostraCalculos(Pedido pedido) {
         

@@ -60,10 +60,10 @@
 				},
 				{
                     "id" : 7,
-					"name" : "Livre ou Opcional",
+					"name" : "Disciplina Livre ou Optativa",
 					"unit" : "horas",
-					"hr"	 : 34,
-					"maxHr" : 68
+					"hr"	 : 68,
+					"maxHr" : 100
 				}
 			]
 		},
