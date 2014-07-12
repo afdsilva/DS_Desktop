@@ -1,6 +1,7 @@
 
 import config.*;
 import java.awt.CardLayout;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -139,6 +140,13 @@ public class Janela extends javax.swing.JFrame {
         hrMinExt1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SISTAC - Sistema de Atividades Complementares");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setIconImages(null);
+        setMaximumSize(new java.awt.Dimension(900, 700));
+        setMinimumSize(new java.awt.Dimension(900, 700));
+        setPreferredSize(new java.awt.Dimension(900, 700));
+        setResizable(false);
 
         painelBase.setPreferredSize(new java.awt.Dimension(1024, 768));
         painelBase.setLayout(new java.awt.CardLayout());
@@ -157,7 +165,7 @@ public class Janela extends javax.swing.JFrame {
             cabecalhoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cabecalhoHomeLayout.createSequentialGroup()
                 .addComponent(labelCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 205, Short.MAX_VALUE))
         );
         cabecalhoHomeLayout.setVerticalGroup(
             cabecalhoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,15 +406,17 @@ public class Janela extends javax.swing.JFrame {
         painelHome.setLayout(painelHomeLayout);
         painelHomeLayout.setHorizontalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cabecalhoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelHomeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cabecalhoHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelHomeLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelHomeLayout.setVerticalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -954,6 +964,7 @@ public class Janela extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textMatriculaIdentificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaIdentificacaoActionPerformed
@@ -1222,6 +1233,9 @@ public class Janela extends javax.swing.JFrame {
             botaoCarregarPedido.setEnabled(true);
             botaoRemoverPedido.setEnabled(true);
         }
+        Font font = labelNome.getFont();
+        Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
+        labelNome.setFont(boldFont);
         labelNome.setText(pedido.getAluno().getNome());
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
