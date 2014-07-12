@@ -2,6 +2,7 @@
 import config.*;
 import java.awt.CardLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +49,9 @@ public class Janela extends javax.swing.JFrame {
         this.pedidoAtual = new Pedido();
         this.flag = false;
         this.flagPedido = false;
-        
+        // Altera o ícone do frame para o sistac.png
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(
+                getClass().getResource("/static/img/sistac_icon.png")));
 
     }
 
@@ -940,7 +943,7 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
