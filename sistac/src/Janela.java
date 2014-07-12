@@ -274,6 +274,7 @@ public class Janela extends javax.swing.JFrame {
         );
 
         painelGroupResumoPedido.setBorder(javax.swing.BorderFactory.createTitledBorder("Aproveitamento"));
+        painelGroupResumoPedido.setToolTipText("");
         painelGroupResumoPedido.setPreferredSize(new java.awt.Dimension(200, 330));
 
         pesquisa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -330,32 +331,32 @@ public class Janela extends javax.swing.JFrame {
                             .addComponent(pesquisaIcone))
                         .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(hrMinPes)
-                                .addGap(18, 18, 18)
-                                .addComponent(hrAprPes))
-                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(ensino, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(pesquisa))
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                         .addComponent(hrMinExt)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(hrAprExt))
                                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                         .addComponent(hrMinEns)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(hrAprEns))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hrAprEns))))
+                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                        .addComponent(hrMinPes)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hrAprPes))
+                                    .addComponent(pesquisa)))))
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                         .addComponent(extensaoIcone)
                         .addGap(18, 18, 18)
                         .addComponent(extensao)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         painelGroupResumoPedidoLayout.setVerticalGroup(
             painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +370,7 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(pesquisa)
                     .addComponent(pesquisaIcone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(hrMinPes)
                     .addComponent(hrAprPes))
                 .addGap(18, 18, 18)
@@ -1712,11 +1713,11 @@ public class Janela extends javax.swing.JFrame {
         Integer horasEnsino = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), ensino);
         Integer horasExtensao = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), extensao);
         
-        this.hrAprEns.setText(horasEnsino.toString());
+        this.hrAprEns.setText("/ " + horasEnsino.toString());
         this.hrAprEns1.setText(horasEnsino.toString());
-        this.hrAprPes.setText(horasPesquisa.toString());
+        this.hrAprPes.setText("/ " + horasPesquisa.toString());
         this.hrAprPes1.setText(horasPesquisa.toString());
-        this.hrAprExt.setText(horasExtensao.toString());
+        this.hrAprExt.setText("/ " + horasExtensao.toString());
         this.hrAprExt1.setText(horasExtensao.toString());
         
         this.hrMinEns.setText(pesquisa.getCargaHoraria().toString());
@@ -1729,11 +1730,11 @@ public class Janela extends javax.swing.JFrame {
     }
     private void limpaCamposAproveitamento() {
         this.labelNome.setText("Aluno");
-        this.hrAprEns.setText("0");
+        this.hrAprEns.setText("/ 0");
         this.hrAprEns1.setText("0");
-        this.hrAprPes.setText("0");
+        this.hrAprPes.setText("/ 0");
         this.hrAprPes1.setText("0");
-        this.hrAprExt.setText("0");
+        this.hrAprExt.setText("/ 0");
         this.hrAprExt1.setText("0");
         
         this.hrMinEns.setText("0");
