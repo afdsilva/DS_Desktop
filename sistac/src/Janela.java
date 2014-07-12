@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
@@ -346,7 +347,7 @@ public class Janela extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(hrMinExt))
                             .addComponent(extensao))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelNome)
@@ -411,10 +412,13 @@ public class Janela extends javax.swing.JFrame {
                     .addGroup(painelHomeLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelHomeLayout.createSequentialGroup()
+                                .addGap(143, 143, 143)
+                                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelHomeLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelHomeLayout.setVerticalGroup(
@@ -536,13 +540,16 @@ public class Janela extends javax.swing.JFrame {
             .addComponent(cabecalhoIdentifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelIdentificaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelIdentificaLayout.createSequentialGroup()
+                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelIdentificaLayout.createSequentialGroup()
+                        .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(painelIdentificaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(132, 132, 132)
+                        .addComponent(botaoProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(274, 274, 274))))
         );
         painelIdentificaLayout.setVerticalGroup(
             painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,9 +558,9 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botaoProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botaoCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(402, Short.MAX_VALUE))
         );
 
@@ -933,7 +940,7 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
+                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -975,13 +982,11 @@ public class Janela extends javax.swing.JFrame {
         String nomeAluno = textNomeIdentificacao.getText();
         String matriculaAluno = textMatriculaIdentificacao.getText();
         String cursoAluno = comboCursoIdentificacao.getSelectedItem().toString();
+        
         if (!nomeAluno.isEmpty()
-                && (!textMatriculaIdentificacao.getText().isEmpty())
+                && (!matriculaAluno.isEmpty())
                 && (matriculaAluno.length() == 8)
-                && (!matriculaAluno.contains(" "))
-                && (!matriculaAluno.contains(","))
-                && (!matriculaAluno.contains("."))
-                && (!matriculaAluno.contains("[a-zA-z]"))
+                && (matriculaAluno.matches("\\d+"))
                 && comboCursoIdentificacao.getSelectedIndex() != 0) {
             //cria o profile do usuario no momento da identificacao
             novoPedido(nomeAluno, matriculaAluno, Curso.getCurso(cursoAluno));
@@ -1083,6 +1088,9 @@ public class Janela extends javax.swing.JFrame {
             }
             carregarTabelaAtividades();
             limparCampos();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Todos os campos no formulário devem ser preenchidos", "Formato inválido de formulário", JOptionPane.WARNING_MESSAGE);
         }
         mostraCalculos(pedidoAtual);
         
