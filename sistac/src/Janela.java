@@ -116,7 +116,11 @@ public class Janela extends javax.swing.JFrame {
         botaoRemoverAtividade = new javax.swing.JButton();
         painelGroupListaDeAtividades = new javax.swing.JPanel();
         scrollPaneListaDeAtividades = new javax.swing.JScrollPane();
-        tabelaAtividades = new javax.swing.JTable();
+        tabelaAtividades = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;   //Disallow the editing of any cell
+            }
+        };
         botaoVoltar = new javax.swing.JButton();
         textMatriculaAtividades = new javax.swing.JTextField();
         comboCursoAtividades = new javax.swing.JComboBox();
@@ -747,6 +751,7 @@ public class Janela extends javax.swing.JFrame {
         });
 
         textMatriculaAtividades.setEditable(false);
+        textMatriculaAtividades.setEnabled(false);
         textMatriculaAtividades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textMatriculaAtividadesActionPerformed(evt);
@@ -762,6 +767,7 @@ public class Janela extends javax.swing.JFrame {
         labelMatriculaAtividades.setText("Matricula");
 
         textNomeAtividades.setEditable(false);
+        textNomeAtividades.setEnabled(false);
 
         labelNomeAtividades.setText("Nome");
 
@@ -927,7 +933,7 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
