@@ -276,13 +276,13 @@ public class Janela extends javax.swing.JFrame {
         painelGroupResumoPedido.setBorder(javax.swing.BorderFactory.createTitledBorder("Aproveitamento"));
         painelGroupResumoPedido.setPreferredSize(new java.awt.Dimension(200, 330));
 
-        pesquisa.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        pesquisa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         pesquisa.setText("Pesquisa");
 
-        ensino.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        ensino.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ensino.setText("Ensino");
 
-        extensao.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        extensao.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         extensao.setText("Extensão");
 
         pesquisaIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/pesquisa.png"))); // NOI18N
@@ -293,16 +293,22 @@ public class Janela extends javax.swing.JFrame {
 
         labelNome.setText("Aluno");
 
+        hrMinPes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrMinPes.setText("jLabel9");
 
+        hrAprPes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrAprPes.setText("jLabel10");
 
+        hrAprEns.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrAprEns.setText("jLabel11");
 
+        hrMinEns.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrMinEns.setText("jLabel12");
 
+        hrAprExt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrAprExt.setText("jLabel13");
 
+        hrMinExt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrMinExt.setText("jLabel14");
 
         javax.swing.GroupLayout painelGroupResumoPedidoLayout = new javax.swing.GroupLayout(painelGroupResumoPedido);
@@ -317,40 +323,39 @@ public class Janela extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                         .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(ensinoIcone)
                             .addComponent(pesquisaIcone))
                         .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                        .addComponent(hrMinEns)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(hrAprEns))
-                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(hrMinPes)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(hrAprPes))))
+                                .addGap(19, 19, 19)
+                                .addComponent(hrMinPes)
+                                .addGap(18, 18, 18)
+                                .addComponent(hrAprPes))
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(ensino, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(pesquisa)))
-                        .addGap(5, 5, 5))
+                                .addComponent(pesquisa))
+                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                        .addComponent(hrMinExt)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(hrAprExt))
+                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                        .addComponent(hrMinEns)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(hrAprEns))))))
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                         .addComponent(extensaoIcone)
                         .addGap(18, 18, 18)
-                        .addComponent(extensao))
-                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                        .addComponent(hrMinExt)
-                        .addGap(45, 45, 45)
-                        .addComponent(hrAprExt)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addComponent(extensao)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         painelGroupResumoPedidoLayout.setVerticalGroup(
             painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,31 +364,28 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
                     .addComponent(nomeAluno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                        .addComponent(pesquisa)
-                        .addGap(18, 18, 18)
-                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hrMinPes)
-                            .addComponent(hrAprPes)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pesquisa)
                     .addComponent(pesquisaIcone))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hrMinPes)
+                    .addComponent(hrAprPes))
                 .addGap(18, 18, 18)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ensinoIcone)
                     .addComponent(ensino))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hrMinEns)
                     .addComponent(hrAprEns))
-                .addGap(18, 18, 18)
-                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(extensaoIcone)
-                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(extensao)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(extensaoIcone)
+                    .addComponent(extensao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hrAprExt)
                     .addComponent(hrMinExt))
                 .addGap(39, 39, 39))
