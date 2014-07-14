@@ -1334,27 +1334,7 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaPedidosKeyPressed
 
     private void tabelaPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaPedidosKeyReleased
-        if ((evt.getKeyCode() == KeyEvent.VK_UP)
-                || (evt.getKeyCode() == KeyEvent.VK_DOWN)
-                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
-            Pedido pedido = listaPedidos.get(selecionarPedido());
-            mostraCalculos(pedido);
-            ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
-
-            if (listSelectionModel.isSelectionEmpty()){
-                botaoCarregarPedido.setEnabled(false);
-                botaoRemoverPedido.setEnabled(false);
-                this.tabelaPedidos.clearSelection();
-            }else{
-                listaPedidos.get(selecionarPedido());
-                botaoCarregarPedido.setEnabled(true);
-                botaoRemoverPedido.setEnabled(true);
-            }
-            Font font = labelNome.getFont();
-            Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
-            labelNome.setFont(boldFont);
-            labelNome.setText(pedido.getAluno().getNome());
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_tabelaPedidosKeyReleased
 
     /**
