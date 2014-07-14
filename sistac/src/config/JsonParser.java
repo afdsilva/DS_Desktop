@@ -58,7 +58,7 @@ public class JsonParser {
         file = this.root.concat(file);
 
         try {
-            FileReader arquivo = new FileReader(file);
+            InputStreamReader arquivo = new InputStreamReader(new FileInputStream(file), "UTF-8");
             obj = this.parser.parse(arquivo);
             arquivo.close();
         } catch (FileNotFoundException e) {
@@ -84,7 +84,7 @@ public class JsonParser {
         fileName = this.root.concat(fileName);
 
         try {
-            FileWriter file = new FileWriter(fileName);
+            OutputStreamWriter file = new OutputStreamWriter(new FileOutputStream(fileName), "UTF-8");
             file.write(obj.toJSONString());
             file.flush();
             file.close();
