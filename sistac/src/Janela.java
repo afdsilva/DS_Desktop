@@ -3,6 +3,7 @@ import config.*;
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -206,6 +207,14 @@ public class Janela extends javax.swing.JFrame {
         tabelaPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaPedidosMouseClicked(evt);
+            }
+        });
+        tabelaPedidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelaPedidosKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tabelaPedidosKeyReleased(evt);
             }
         });
         scrollTabelaHome.setViewportView(tabelaPedidos);
@@ -731,6 +740,14 @@ public class Janela extends javax.swing.JFrame {
                 tabelaAtividadesMouseClicked(evt);
             }
         });
+        tabelaAtividades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelaAtividadesKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tabelaAtividadesKeyReleased(evt);
+            }
+        });
         scrollPaneListaDeAtividades.setViewportView(tabelaAtividades);
 
         javax.swing.GroupLayout painelGroupListaDeAtividadesLayout = new javax.swing.GroupLayout(painelGroupListaDeAtividades);
@@ -1187,9 +1204,6 @@ public class Janela extends javax.swing.JFrame {
             this.comboCategoriaAtividades.setSelectedItem(a.getCategoria().getNome());
             this.textUnidade.setText(a.getUnidadeAtividade().toString());
         }
-        
-        
-        
     }//GEN-LAST:event_tabelaAtividadesMouseClicked
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
@@ -1250,6 +1264,98 @@ public class Janela extends javax.swing.JFrame {
         labelNome.setFont(boldFont);
         labelNome.setText(pedido.getAluno().getNome());
     }//GEN-LAST:event_tabelaPedidosMouseClicked
+
+    private void tabelaAtividadesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaAtividadesKeyPressed
+        // Código necessário para selecionar linha da JTable e colocar nos textFields.
+        if ((evt.getKeyCode() == KeyEvent.VK_UP)
+                || (evt.getKeyCode() == KeyEvent.VK_DOWN)
+                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
+            int selected = tabelaAtividades.getSelectedRow();
+            Atividade a;
+            this.botaoLimpar.setText("Novo");
+            this.botaoCadastrar.setText("Salvar");
+            this.botaoRemoverAtividade.setEnabled(true);
+            this.flag = true;
+            ArrayList<Atividade> listaAtividades = this.pedidoAtual.getListaAtividadesComplementares();
+            if (selected < listaAtividades.size()) {
+                a = listaAtividades.get(selected);
+                this.textDescricao.setText(a.getDescricao());
+                this.comboTipoAtividadeAtividades.setSelectedItem(a.getTipoAtividade().getDescricao());
+                this.comboCategoriaAtividades.setSelectedItem(a.getCategoria().getNome());
+                this.textUnidade.setText(a.getUnidadeAtividade().toString());
+            }
+        }
+    }//GEN-LAST:event_tabelaAtividadesKeyPressed
+
+    private void tabelaAtividadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaAtividadesKeyReleased
+        // Código necessário para selecionar linha da JTable e colocar nos textFields.
+        if ((evt.getKeyCode() == KeyEvent.VK_UP)
+                || (evt.getKeyCode() == KeyEvent.VK_DOWN)
+                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
+            int selected = tabelaAtividades.getSelectedRow();
+            Atividade a;
+            this.botaoLimpar.setText("Novo");
+            this.botaoCadastrar.setText("Salvar");
+            this.botaoRemoverAtividade.setEnabled(true);
+            this.flag = true;
+            ArrayList<Atividade> listaAtividades = this.pedidoAtual.getListaAtividadesComplementares();
+            if (selected < listaAtividades.size()) {
+                a = listaAtividades.get(selected);
+                this.textDescricao.setText(a.getDescricao());
+                this.comboTipoAtividadeAtividades.setSelectedItem(a.getTipoAtividade().getDescricao());
+                this.comboCategoriaAtividades.setSelectedItem(a.getCategoria().getNome());
+                this.textUnidade.setText(a.getUnidadeAtividade().toString());
+            }
+        }
+    }//GEN-LAST:event_tabelaAtividadesKeyReleased
+
+    private void tabelaPedidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaPedidosKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_UP)
+                || (evt.getKeyCode() == KeyEvent.VK_DOWN)
+                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
+            Pedido pedido = listaPedidos.get(selecionarPedido());
+            mostraCalculos(pedido);
+            ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
+
+            if (listSelectionModel.isSelectionEmpty()){
+                botaoCarregarPedido.setEnabled(false);
+                botaoRemoverPedido.setEnabled(false);
+                this.tabelaPedidos.clearSelection();
+            }else{
+                listaPedidos.get(selecionarPedido());
+                botaoCarregarPedido.setEnabled(true);
+                botaoRemoverPedido.setEnabled(true);
+            }
+            Font font = labelNome.getFont();
+            Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
+            labelNome.setFont(boldFont);
+            labelNome.setText(pedido.getAluno().getNome());
+        }
+    }//GEN-LAST:event_tabelaPedidosKeyPressed
+
+    private void tabelaPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaPedidosKeyReleased
+        if ((evt.getKeyCode() == KeyEvent.VK_UP)
+                || (evt.getKeyCode() == KeyEvent.VK_DOWN)
+                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
+            Pedido pedido = listaPedidos.get(selecionarPedido());
+            mostraCalculos(pedido);
+            ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
+
+            if (listSelectionModel.isSelectionEmpty()){
+                botaoCarregarPedido.setEnabled(false);
+                botaoRemoverPedido.setEnabled(false);
+                this.tabelaPedidos.clearSelection();
+            }else{
+                listaPedidos.get(selecionarPedido());
+                botaoCarregarPedido.setEnabled(true);
+                botaoRemoverPedido.setEnabled(true);
+            }
+            Font font = labelNome.getFont();
+            Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
+            labelNome.setFont(boldFont);
+            labelNome.setText(pedido.getAluno().getNome());
+        }
+    }//GEN-LAST:event_tabelaPedidosKeyReleased
 
     /**
      * @param args the command line arguments
