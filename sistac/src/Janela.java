@@ -342,25 +342,18 @@ public class Janela extends javax.swing.JFrame {
                                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(ensinoIcone)
                                     .addComponent(pesquisaIcone))
+                                .addGap(18, 18, 18)
                                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                                .addComponent(hrAprPes)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(hrMinPes))
-                                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                                .addComponent(pesquisa)
-                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(hrAprPes)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hrMinPes))
+                                    .addComponent(pesquisa)
                                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                                .addComponent(hrAprEns)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(hrMinEns))
-                                            .addComponent(ensino, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(hrAprEns)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hrMinEns))
+                                    .addComponent(ensino, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                 .addComponent(extensaoIcone)
                                 .addGap(18, 18, 18)
@@ -369,8 +362,8 @@ public class Janela extends javax.swing.JFrame {
                                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
                                         .addComponent(hrAprExt)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(hrMinExt)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(hrMinExt)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelGroupResumoPedidoLayout.setVerticalGroup(
@@ -425,18 +418,16 @@ public class Janela extends javax.swing.JFrame {
         painelHomeLayout.setHorizontalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelHomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cabecalhoHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelHomeLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(painelHomeLayout.createSequentialGroup()
-                                .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelHomeLayout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(cabecalhoHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         painelHomeLayout.setVerticalGroup(
             painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -687,13 +678,14 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(labelDescricao)
                     .addComponent(textDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTipoAtividade)
-                    .addComponent(labelUnidade)
-                    .addComponent(labelCategoria)
-                    .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTipoAtividadeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTipoAtividadeAtividades, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textUnidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelTipoAtividade)
+                        .addComponent(labelUnidade)
+                        .addComponent(labelCategoria)))
                 .addContainerGap())
         );
 
@@ -751,7 +743,7 @@ public class Janela extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -799,11 +791,6 @@ public class Janela extends javax.swing.JFrame {
 
         textMatriculaAtividades.setEditable(false);
         textMatriculaAtividades.setEnabled(false);
-        textMatriculaAtividades.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textMatriculaAtividadesActionPerformed(evt);
-            }
-        });
 
         comboCursoAtividades.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         comboCursoAtividades.setEnabled(false);
@@ -862,7 +849,7 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(nomeAluno1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                        .addComponent(nomeAluno1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
                     .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -886,8 +873,7 @@ public class Janela extends javax.swing.JFrame {
                                     .addComponent(hrAprPes1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(hrMinPes1))
-                                .addComponent(ensino1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(ensino1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         painelGroupResumoPedido1Layout.setVerticalGroup(
@@ -978,7 +964,7 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
+                    .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelAtividadesLayout.createSequentialGroup()
@@ -1166,10 +1152,6 @@ public class Janela extends javax.swing.JFrame {
         carregarTabelaPedidos();
         flagPedido = false;
     }//GEN-LAST:event_botaoFinalizarActionPerformed
-
-    private void textMatriculaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMatriculaAtividadesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textMatriculaAtividadesActionPerformed
 
     private void comboTipoAtividadeAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoAtividadeAtividadesActionPerformed
         /**
