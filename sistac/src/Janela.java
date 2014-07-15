@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
@@ -25,7 +24,7 @@ public class Janela extends javax.swing.JFrame {
     private String CurrentView;
     private boolean flag;
     private boolean flagPedido;
-    
+
     private Pedido pedidoAtual;
 
     /**
@@ -84,12 +83,12 @@ public class Janela extends javax.swing.JFrame {
         extensaoIcone = new javax.swing.JLabel();
         labelNome = new javax.swing.JLabel();
         nomeAluno = new javax.swing.JLabel();
-        hrAprPes = new javax.swing.JLabel();
-        hrAprEns = new javax.swing.JLabel();
-        hrAprExt = new javax.swing.JLabel();
         hrMinPes = new javax.swing.JLabel();
+        hrAprPes = new javax.swing.JLabel();
         hrMinEns = new javax.swing.JLabel();
+        hrAprExt = new javax.swing.JLabel();
         hrMinExt = new javax.swing.JLabel();
+        hrAprEns = new javax.swing.JLabel();
         botaoSair = new javax.swing.JButton();
         painelIdentifica = new javax.swing.JPanel();
         cabecalhoIdentifica = new javax.swing.JPanel();
@@ -122,7 +121,7 @@ public class Janela extends javax.swing.JFrame {
         painelGroupListaDeAtividades = new javax.swing.JPanel();
         scrollPaneListaDeAtividades = new javax.swing.JScrollPane();
         tabelaAtividades = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex) {
+            public boolean isCellEditable(int rowIndex, int colIndex){
                 return false;   //Disallow the editing of any cell
             }
         };
@@ -152,6 +151,7 @@ public class Janela extends javax.swing.JFrame {
         setTitle("SISTAC - Sistema de Atividades Complementares");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImages(null);
+        setMaximumSize(new java.awt.Dimension(900, 700));
         setMinimumSize(new java.awt.Dimension(900, 700));
         setResizable(false);
 
@@ -210,9 +210,6 @@ public class Janela extends javax.swing.JFrame {
             }
         });
         tabelaPedidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabelaPedidosKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tabelaPedidosKeyReleased(evt);
             }
@@ -309,62 +306,71 @@ public class Janela extends javax.swing.JFrame {
 
         labelNome.setText("Aluno");
 
-        hrAprPes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        hrAprPes.setText("jLabel10");
-
-        hrAprEns.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        hrAprEns.setText("jLabel11");
-
-        hrAprExt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        hrAprExt.setText("jLabel13");
-
         hrMinPes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrMinPes.setText("jLabel9");
+
+        hrAprPes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        hrAprPes.setText("jLabel10");
 
         hrMinEns.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrMinEns.setText("jLabel12");
 
+        hrAprExt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        hrAprExt.setText("jLabel13");
+
         hrMinExt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         hrMinExt.setText("jLabel14");
+
+        hrAprEns.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        hrAprEns.setText("jLabel11");
 
         javax.swing.GroupLayout painelGroupResumoPedidoLayout = new javax.swing.GroupLayout(painelGroupResumoPedido);
         painelGroupResumoPedido.setLayout(painelGroupResumoPedidoLayout);
         painelGroupResumoPedidoLayout.setHorizontalGroup(
             painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ensinoIcone)
-                            .addComponent(pesquisaIcone))
+                        .addContainerGap()
+                        .addComponent(labelNome)
                         .addGap(18, 18, 18)
-                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                .addComponent(hrAprEns)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hrMinEns))
-                            .addComponent(ensino, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                .addComponent(hrAprPes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hrMinPes))
-                            .addComponent(pesquisa)))
+                        .addComponent(nomeAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                     .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                        .addComponent(extensaoIcone)
-                        .addGap(18, 18, 18)
+                        .addGap(27, 27, 27)
                         .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                                .addComponent(hrAprExt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(hrMinExt))
-                            .addComponent(extensao))))
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelNome)
-                .addGap(18, 18, 18)
-                .addComponent(nomeAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(ensinoIcone)
+                                    .addComponent(pesquisaIcone))
+                                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                                .addComponent(hrAprPes)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hrMinPes))
+                                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                                .addComponent(pesquisa)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                                .addComponent(hrAprEns)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(hrMinEns))
+                                            .addComponent(ensino, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                .addComponent(extensaoIcone)
+                                .addGap(18, 18, 18)
+                                .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(extensao)
+                                    .addGroup(painelGroupResumoPedidoLayout.createSequentialGroup()
+                                        .addComponent(hrAprExt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(hrMinExt)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         painelGroupResumoPedidoLayout.setVerticalGroup(
@@ -380,17 +386,17 @@ public class Janela extends javax.swing.JFrame {
                     .addComponent(pesquisaIcone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hrAprPes)
-                    .addComponent(hrMinPes))
+                    .addComponent(hrMinPes)
+                    .addComponent(hrAprPes))
                 .addGap(18, 18, 18)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ensinoIcone)
                     .addComponent(ensino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hrAprEns)
-                    .addComponent(hrMinEns))
-                .addGap(11, 11, 11)
+                    .addComponent(hrMinEns)
+                    .addComponent(hrAprEns))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelGroupResumoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(extensaoIcone)
                     .addComponent(extensao))
@@ -424,13 +430,12 @@ public class Janela extends javax.swing.JFrame {
                     .addGroup(painelHomeLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(painelGroupListaDePedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(18, 18, 18)
+                        .addGroup(painelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelHomeLayout.createSequentialGroup()
-                                .addGap(143, 143, 143)
-                                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelHomeLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(painelGroupResumoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelHomeLayout.setVerticalGroup(
@@ -552,16 +557,13 @@ public class Janela extends javax.swing.JFrame {
             .addComponent(cabecalhoIdentifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelIdentificaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelIdentificaLayout.createSequentialGroup()
-                        .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(64, Short.MAX_VALUE))
-                    .addGroup(painelIdentificaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelIdentificaLayout.createSequentialGroup()
                         .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(132, 132, 132)
-                        .addComponent(botaoProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(274, 274, 274))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelIdentificaLayout.setVerticalGroup(
             painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,9 +572,9 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelGroupIdentificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelIdentificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botaoProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(402, Short.MAX_VALUE))
         );
 
@@ -593,7 +595,7 @@ public class Janela extends javax.swing.JFrame {
         cabecalhoAtividades.setLayout(cabecalhoAtividadesLayout);
         cabecalhoAtividadesLayout.setHorizontalGroup(
             cabecalhoAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelCabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(labelCabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         cabecalhoAtividadesLayout.setVerticalGroup(
             cabecalhoAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -611,7 +613,6 @@ public class Janela extends javax.swing.JFrame {
         });
 
         painelGroupAtividade.setBorder(javax.swing.BorderFactory.createTitledBorder("Atividade"));
-        painelGroupAtividade.setPreferredSize(new java.awt.Dimension(695, 85));
 
         labelDescricao.setText("Descrição");
 
@@ -621,15 +622,37 @@ public class Janela extends javax.swing.JFrame {
 
         labelUnidade.setText("Unidade");
 
+        textUnidade.setMaximumSize(new java.awt.Dimension(50, 20));
+        textUnidade.setMinimumSize(new java.awt.Dimension(50, 20));
+        textUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textUnidadeActionPerformed(evt);
+            }
+        });
+
+        textDescricao.setMaximumSize(new java.awt.Dimension(600, 20));
+        textDescricao.setMinimumSize(new java.awt.Dimension(600, 20));
         textDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textDescricaoActionPerformed(evt);
             }
         });
 
+        comboTipoAtividadeAtividades.setMaximumSize(new java.awt.Dimension(300, 60));
+        comboTipoAtividadeAtividades.setMinimumSize(new java.awt.Dimension(300, 40));
+        comboTipoAtividadeAtividades.setPreferredSize(new java.awt.Dimension(300, 40));
         comboTipoAtividadeAtividades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoAtividadeAtividadesActionPerformed(evt);
+            }
+        });
+
+        comboCategoriaAtividades.setMaximumSize(new java.awt.Dimension(92, 60));
+        comboCategoriaAtividades.setMinimumSize(new java.awt.Dimension(92, 60));
+        comboCategoriaAtividades.setPreferredSize(new java.awt.Dimension(92, 20));
+        comboCategoriaAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCategoriaAtividadesActionPerformed(evt);
             }
         });
 
@@ -645,33 +668,33 @@ public class Janela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
-                        .addComponent(comboCategoriaAtividades, 0, 121, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(labelTipoAtividade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboTipoAtividadeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelUnidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textDescricao))
-                .addContainerGap())
+                        .addComponent(textUnidade, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                    .addComponent(textDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         painelGroupAtividadeLayout.setVerticalGroup(
             painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelGroupAtividadeLayout.createSequentialGroup()
-                .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelDescricao)
-                    .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelGroupAtividadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTipoAtividade)
                     .addComponent(labelUnidade)
-                    .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTipoAtividadeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCategoria)
-                    .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(comboCategoriaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTipoAtividadeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         botaoCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/static/img/add2.png"))); // NOI18N
@@ -728,7 +751,7 @@ public class Janela extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -741,9 +764,6 @@ public class Janela extends javax.swing.JFrame {
             }
         });
         tabelaAtividades.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabelaAtividadesKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tabelaAtividadesKeyReleased(evt);
             }
@@ -839,38 +859,36 @@ public class Janela extends javax.swing.JFrame {
         painelGroupResumoPedido1Layout.setHorizontalGroup(
             painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(nomeAluno1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(extensaoIcone1)
-                    .addComponent(ensinoIcone1)
-                    .addComponent(pesquisaIcone1))
-                .addGap(18, 18, 18)
                 .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
-                        .addComponent(hrAprPes1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hrMinPes1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addComponent(nomeAluno1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
                     .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(extensaoIcone1)
+                            .addComponent(ensinoIcone1)
+                            .addComponent(pesquisaIcone1))
+                        .addGap(18, 18, 18)
                         .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
                                 .addComponent(hrAprExt1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(hrMinExt1))
+                            .addComponent(pesquisa1)
+                            .addComponent(extensao1)
+                            .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
+                                .addComponent(hrAprEns1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hrMinEns1))
                             .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelGroupResumoPedido1Layout.createSequentialGroup()
-                                    .addComponent(hrAprEns1)
+                                    .addComponent(hrAprPes1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(hrMinEns1))
-                                .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ensino1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pesquisa1)
-                                    .addComponent(extensao1))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(hrMinPes1))
+                                .addComponent(ensino1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painelGroupResumoPedido1Layout.setVerticalGroup(
             painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -881,7 +899,7 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelGroupResumoPedido1Layout.createSequentialGroup()
                         .addComponent(pesquisa1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(painelGroupResumoPedido1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(hrMinPes1)
                             .addComponent(hrAprPes1)))
@@ -912,38 +930,38 @@ public class Janela extends javax.swing.JFrame {
             .addComponent(cabecalhoAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
             .addGroup(painelAtividadesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelAtividadesLayout.createSequentialGroup()
-                        .addComponent(labelNomeAtividades)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textNomeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(labelMatriculaAtividades)
-                        .addGap(18, 18, 18)
-                        .addComponent(textMatriculaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(labelCursoAtividades)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboCursoAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelAtividadesLayout.createSequentialGroup()
-                        .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
-                    .addGroup(painelAtividadesLayout.createSequentialGroup()
-                        .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelAtividadesLayout.createSequentialGroup()
+                        .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAtividadesLayout.createSequentialGroup()
                                 .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(318, 318, 318)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23))
-                            .addComponent(painelGroupAtividade, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoFinalizar)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoFinalizar))
+                    .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(painelAtividadesLayout.createSequentialGroup()
+                            .addComponent(labelNomeAtividades)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(textNomeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(34, 34, 34)
+                            .addComponent(labelMatriculaAtividades)
+                            .addGap(18, 18, 18)
+                            .addComponent(textMatriculaAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(39, 39, 39)
+                            .addComponent(labelCursoAtividades)
+                            .addGap(18, 18, 18)
+                            .addComponent(comboCursoAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelAtividadesLayout.createSequentialGroup()
+                            .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         painelAtividadesLayout.setVerticalGroup(
             painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -961,18 +979,19 @@ public class Janela extends javax.swing.JFrame {
                 .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painelGroupListaDeAtividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelGroupResumoPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painelAtividadesLayout.createSequentialGroup()
+                        .addComponent(painelGroupAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelAtividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoRemoverAtividade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botaoVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botaoFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         painelBase.add(painelAtividades, "painelAtividades");
@@ -1002,7 +1021,7 @@ public class Janela extends javax.swing.JFrame {
         String nomeAluno = textNomeIdentificacao.getText();
         String matriculaAluno = textMatriculaIdentificacao.getText();
         String cursoAluno = comboCursoIdentificacao.getSelectedItem().toString();
-        
+
         if (!nomeAluno.isEmpty()
                 && (!matriculaAluno.isEmpty())
                 && (matriculaAluno.length() == 8)
@@ -1022,8 +1041,7 @@ public class Janela extends javax.swing.JFrame {
             //exibe o painel de atividades
             this.janelas.show(painelBase, "painelAtividades");
             this.CurrentView = "painelAtividades";
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "A matrícula deve conter 8 números.", "Formato inválido de matrícula!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botaoProximoActionPerformed
@@ -1069,14 +1087,18 @@ public class Janela extends javax.swing.JFrame {
         String desc = this.textDescricao.getText();
         String tipoAtividadeCombo = this.comboTipoAtividadeAtividades.getSelectedItem().toString();
         String categoriaCombo = this.comboCategoriaAtividades.getSelectedItem().toString();
-        
-        if (!this.textDescricao.getText().isEmpty() && (!this.textUnidade.getText().isEmpty()) && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0) && !(this.comboCategoriaAtividades.getSelectedIndex() == 0)) {
+
+        if (!this.textDescricao.getText().isEmpty()
+                && (!this.textUnidade.getText().isEmpty())
+                && (this.textUnidade.getText().matches("\\d+"))
+                && !(this.comboTipoAtividadeAtividades.getSelectedIndex() == 0)
+                && !(this.comboCategoriaAtividades.getSelectedIndex() == 0)) {
             Atividade a = new Atividade();
             TipoAtividade tA = TipoAtividade.getTipoAtividade(tipoAtividadeCombo);
             Integer unidade = Integer.parseInt(this.textUnidade.getText());
             Integer selectedIndex = this.tabelaAtividades.getSelectedRow();
             ArrayList<Atividade> listaAtividades = this.pedidoAtual.getListaAtividadesComplementares();
-            
+
             if (this.botaoCadastrar.getText().equals("Cadastrar")) {
                 //Nova atividade sendo cadastrada
                 tA.setCategoria(Categoria.getCategoria(categoriaCombo));
@@ -1085,15 +1107,15 @@ public class Janela extends javax.swing.JFrame {
                         unidade = tA.getMinHoras();
                         break;
                 }
-                a = new Atividade(this.textDescricao.getText(),tA,unidade);
+                a = new Atividade(this.textDescricao.getText(), tA, unidade);
                 listaAtividades.add(a);
                 if (this.json.saveRequest(this.pedidoAtual)) {
                     JOptionPane.showMessageDialog(null, "Ok! Sua alteração de pedido foi salva com sucesso!");
                 }
             } else {
                 //Atividade alterada
-                
-                if(tA.getUnidadeTipoAtividade().equals("unidade")){
+
+                if (tA.getUnidadeTipoAtividade().equals("unidade")) {
                     unidade = tA.getMinHoras();
                 }
                 a = this.pedidoAtual.getListaAtividadesComplementares().get(selectedIndex);
@@ -1101,19 +1123,18 @@ public class Janela extends javax.swing.JFrame {
                 a.setTipoAtividade(tA);
                 a.setCategoria(Categoria.getCategoria(categoriaCombo));
                 a.setUnidadeAtividade(unidade);
-                
+
                 if (this.json.saveRequest(this.pedidoAtual)) {
                     JOptionPane.showMessageDialog(null, "Ok! Seu pedido foi salvo com sucesso!");
                 }
             }
             carregarTabelaAtividades();
             limparCampos();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Todos os campos no formulário devem ser preenchidos", "Formato inválido de formulário", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos os campos no formulário devem ser preenchidos adequadamente", "Formato inválido de formulário", JOptionPane.WARNING_MESSAGE);
         }
         mostraCalculos(pedidoAtual);
-        
+
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void textDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoActionPerformed
@@ -1122,11 +1143,10 @@ public class Janela extends javax.swing.JFrame {
 
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
         //log.log(Level.INFO, "Painel: {0}", CurrentView);
-        
-        
+
         this.json.removerArquivo(this.pedidoAtual.getAluno().getMatricula());
         if (this.json.saveRequest(this.pedidoAtual)) {
-            switch(CurrentView) {
+            switch (CurrentView) {
                 case "painelAtividades":
                     JOptionPane.showMessageDialog(null, "Ok! Sua alteração de pedido foi salva com sucesso!");
                     break;
@@ -1166,20 +1186,20 @@ public class Janela extends javax.swing.JFrame {
             if (!unidade.equals("unidade")) {
                 //log.log(Level.INFO, "Unidade: {0}", unidade);
                 this.labelUnidade.setVisible(true);
-                this.labelUnidade.setText("Horas");
+                this.labelUnidade.setText(unidade);
                 this.textUnidade.setVisible(true);
-                this.textUnidade.setEnabled(true);
+                //this.textUnidade.setEnabled(true);
                 this.textUnidade.setText(null);
             } else {
-                //this.labelUnidade.setVisible(false);
-                //this.textUnidade.setVisible(false);
-                this.textUnidade.setEnabled(false);
+                this.labelUnidade.setVisible(false);
+                this.textUnidade.setVisible(false);
+                //this.textUnidade.setEnabled(false);
                 this.textUnidade.setText("1");
             }
         } else {
-            this.labelUnidade.setVisible(true);
-            this.textUnidade.setVisible(true);
-            this.textUnidade.setEnabled(false);
+            this.labelUnidade.setVisible(false);
+            this.textUnidade.setVisible(false);
+            this.textUnidade.setEnabled(true);
             if (this.comboCategoriaAtividades.getItemCount() > 0) {
                 this.comboCategoriaAtividades.setSelectedIndex(0);
             }
@@ -1250,11 +1270,11 @@ public class Janela extends javax.swing.JFrame {
         mostraCalculos(pedido);
         ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
 
-        if (listSelectionModel.isSelectionEmpty()){
+        if (listSelectionModel.isSelectionEmpty()) {
             botaoCarregarPedido.setEnabled(false);
             botaoRemoverPedido.setEnabled(false);
             this.tabelaPedidos.clearSelection();
-        }else{
+        } else {
             listaPedidos.get(selecionarPedido());
             botaoCarregarPedido.setEnabled(true);
             botaoRemoverPedido.setEnabled(true);
@@ -1266,32 +1286,14 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaPedidosMouseClicked
 
     private void tabelaAtividadesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaAtividadesKeyPressed
-        // Código necessário para selecionar linha da JTable e colocar nos textFields.
-        if ((evt.getKeyCode() == KeyEvent.VK_UP)
-                || (evt.getKeyCode() == KeyEvent.VK_DOWN)
-                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
-            int selected = tabelaAtividades.getSelectedRow();
-            Atividade a;
-            this.botaoLimpar.setText("Novo");
-            this.botaoCadastrar.setText("Salvar");
-            this.botaoRemoverAtividade.setEnabled(true);
-            this.flag = true;
-            ArrayList<Atividade> listaAtividades = this.pedidoAtual.getListaAtividadesComplementares();
-            if (selected < listaAtividades.size()) {
-                a = listaAtividades.get(selected);
-                this.textDescricao.setText(a.getDescricao());
-                this.comboTipoAtividadeAtividades.setSelectedItem(a.getTipoAtividade().getDescricao());
-                this.comboCategoriaAtividades.setSelectedItem(a.getCategoria().getNome());
-                this.textUnidade.setText(a.getUnidadeAtividade().toString());
-            }
-        }
+
     }//GEN-LAST:event_tabelaAtividadesKeyPressed
 
     private void tabelaAtividadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaAtividadesKeyReleased
         // Código necessário para selecionar linha da JTable e colocar nos textFields.
         if ((evt.getKeyCode() == KeyEvent.VK_UP)
                 || (evt.getKeyCode() == KeyEvent.VK_DOWN)
-                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
+                || (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
             int selected = tabelaAtividades.getSelectedRow();
             Atividade a;
             this.botaoLimpar.setText("Novo");
@@ -1310,18 +1312,23 @@ public class Janela extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaAtividadesKeyReleased
 
     private void tabelaPedidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaPedidosKeyPressed
+
+    }//GEN-LAST:event_tabelaPedidosKeyPressed
+
+    private void tabelaPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaPedidosKeyReleased
+        // TODO add your handling code here:
         if ((evt.getKeyCode() == KeyEvent.VK_UP)
                 || (evt.getKeyCode() == KeyEvent.VK_DOWN)
-                || (evt.getKeyCode() == KeyEvent.VK_ENTER)){
+                || (evt.getKeyCode() == KeyEvent.VK_ENTER)) {
             Pedido pedido = listaPedidos.get(selecionarPedido());
             mostraCalculos(pedido);
             ListSelectionModel listSelectionModel = this.tabelaPedidos.getSelectionModel();
 
-            if (listSelectionModel.isSelectionEmpty()){
+            if (listSelectionModel.isSelectionEmpty()) {
                 botaoCarregarPedido.setEnabled(false);
                 botaoRemoverPedido.setEnabled(false);
                 this.tabelaPedidos.clearSelection();
-            }else{
+            } else {
                 listaPedidos.get(selecionarPedido());
                 botaoCarregarPedido.setEnabled(true);
                 botaoRemoverPedido.setEnabled(true);
@@ -1331,11 +1338,15 @@ public class Janela extends javax.swing.JFrame {
             labelNome.setFont(boldFont);
             labelNome.setText(pedido.getAluno().getNome());
         }
-    }//GEN-LAST:event_tabelaPedidosKeyPressed
-
-    private void tabelaPedidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaPedidosKeyReleased
-        // TODO add your handling code here:
     }//GEN-LAST:event_tabelaPedidosKeyReleased
+
+    private void comboCategoriaAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriaAtividadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCategoriaAtividadesActionPerformed
+
+    private void textUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textUnidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textUnidadeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1462,8 +1473,7 @@ public class Janela extends javax.swing.JFrame {
      */
     private void carregaSistema() {
         ArrayList<Curso> listaCursos = new ArrayList<Curso>();
-        
-        
+
         Curso cursoCiencia = new Curso();
         Curso cursoEng = new Curso();
 
@@ -1473,7 +1483,7 @@ public class Janela extends javax.swing.JFrame {
         cursoCiencia.setCodigo(3900);
         cursoCiencia.setListaCategorias(Categoria.getListaCategorias());
         listaCursos.add(cursoCiencia);
-        
+
         Categoria.loadCategorias("ecomp");          // Carrega todas as categorias do arquivo ecomp
         cursoEng.setNome("Engenharia de Computação");
         cursoEng.setCodigo(3910);
@@ -1485,7 +1495,7 @@ public class Janela extends javax.swing.JFrame {
         //Quando o codigo for carregado do JSON deve ser alterado os metodos loadCategorias() e o loadTipoAtividades();
         //pois eles jah preenchem as listas
         TipoAtividade.loadTipoAtividades();
-        
+
         setComboCursoIdentificacao();
         setComboCursoAtividades();
         setComboTipoAtividadeAtividades();
@@ -1563,12 +1573,11 @@ public class Janela extends javax.swing.JFrame {
      dentro da tabela de pedidos.
      */
     private void carregarTabelaPedidos() {
-        
+
         // refresha a TableModel
         DefaultTableModel modelo = (DefaultTableModel) tabelaPedidos.getModel();
         modelo.setRowCount(0);
-        
-        
+
         if (!listaPedidos.isEmpty()) {
             listaPedidos.clear();
         }
@@ -1578,7 +1587,7 @@ public class Janela extends javax.swing.JFrame {
 
             modelo.addRow(new Object[]{aluno.getMatricula(), aluno.getNome(), aluno.getCurso().getNome()});
         }
-        
+
         this.tabelaPedidos.clearSelection();
         this.botaoCarregarPedido.setEnabled(false);
         this.botaoRemoverPedido.setEnabled(false);
@@ -1641,7 +1650,7 @@ public class Janela extends javax.swing.JFrame {
         this.botaoLimpar.setText("Limpar");
         this.botaoCadastrar.setText("Cadastrar");
         this.botaoRemoverAtividade.setEnabled(false);
-            
+
         this.comboCategoriaAtividades.setSelectedIndex(0);
         this.comboTipoAtividadeAtividades.setSelectedIndex(0);
         this.textDescricao.setText(null);
@@ -1696,7 +1705,7 @@ public class Janela extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void carregarAtividade(int index) {
         if (!this.pedidoAtual.getListaAtividadesComplementares().isEmpty()) {
             this.textDescricao.setText(this.pedidoAtual.getListaAtividadesComplementares().get(index).getDescricao());
@@ -1706,123 +1715,120 @@ public class Janela extends javax.swing.JFrame {
             this.flag = true;
         }
     }
-    
+
     private void novoPedido(String nomeAluno, String matriculaAluno, Curso cursoAluno) {
         Aluno aluno = new Aluno(nomeAluno, matriculaAluno, cursoAluno);
         this.pedidoAtual = new Pedido(aluno, 0, 0, new ArrayList<Atividade>());
     }
-    
+
     private Integer calculaHorasPorTipoAtividade(Atividade a) {
-       int aproveitamento; 
-       TipoAtividade tipoAtividade = TipoAtividade.getTipoAtividadeByCod(a.getTipoAtividade().getCod());
-        
-       
-       
-        if(a.getUnidadeAtividade() > tipoAtividade.getMinHoras()){
-            aproveitamento =  tipoAtividade.getMinHoras();
+        int aproveitamento;
+        TipoAtividade tipoAtividade = TipoAtividade.getTipoAtividadeByCod(a.getTipoAtividade().getCod());
+
+        if (a.getUnidadeAtividade() > tipoAtividade.getMinHoras()) {
+            aproveitamento = tipoAtividade.getMinHoras();
         } else {
             aproveitamento = a.getUnidadeAtividade();
         }
         return aproveitamento;
     }
-    
+
     private Integer calculaHorasPorTipoAtividade(ArrayList<Atividade> atividades, TipoAtividade tipoAtividade) {
         Integer retorno = 0;
-        
-        for(Atividade a : atividades) {
-            if(a.getTipoAtividade().equals(tipoAtividade)) {
+
+        for (Atividade a : atividades) {
+            if (a.getTipoAtividade().equals(tipoAtividade)) {
                 retorno += (retorno < tipoAtividade.getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
                 //retorno += ( tipoAtividade.getMinHoras() ? a.getUnidadeAtividadeAproveitada() : );
             }
         }
         return (retorno > tipoAtividade.getMaxHoras() ? tipoAtividade.getMaxHoras() : retorno);
     }
-    
+
     private int calculaHorasCategoria(ArrayList<Atividade> atividades, Categoria c) {
-        
+
         Integer retorno = 0;
-        
+
         int[] controle = new int[TipoAtividade.getListaTipoAtividades().size()];
-        
-        for(int i = 0; i < TipoAtividade.getListaTipoAtividades().size(); i++){
-            controle[i] = 0; 
+
+        for (int i = 0; i < TipoAtividade.getListaTipoAtividades().size(); i++) {
+            controle[i] = 0;
         }
-        
+
         // percorre todas as atividades
-        for(Atividade a : atividades) {
-            
+        for (Atividade a : atividades) {
+
             // verifica qual categoria 
             if (a.getCategoria().getNome().equals(c.getNome())) {
                 // hora da atividade
                 int hr = TipoAtividade.getTipoAtividadeByCod(a.getTipoAtividade().getCod()).getMinHoras();
-                
+
                     // verifica se a atividade corrente já ta cheia ou não
-                    // Se sim: nao adiciona nada
-                    // senão: adiciona em alguma situação  
-                    if(controle[(a.getTipoAtividade().getCod()-1)] < a.getTipoAtividade().getMaxHoras()){
-                        
+                // Se sim: nao adiciona nada
+                // senão: adiciona em alguma situação  
+                if (controle[(a.getTipoAtividade().getCod() - 1)] < a.getTipoAtividade().getMaxHoras()) {
+
                         // Verifica se a unidade cadastrada pelo usuario é maior que a entrada padrão do tipo que ele colocou
-                        // ex: Monitoria o defaul é 51 cada entrada
-                        // se o cara coloca Monitoria 200 -> vai ter equivalencia a 51hrs
-                        // se for menor sei lá 40 hrs fica valendo como 40hrs ao invés de 51hrs
-                        if(a.getUnidadeAtividade() < hr){
-                            controle[((a.getTipoAtividade().getCod()-1))] += a.getUnidadeAtividade(); 
-                             
-                        } else {
-                            controle[((a.getTipoAtividade().getCod()-1))] += hr;
-                        }
-                        
-                        // verifica se o controle é maior que o maxHoras da atividade
-                        // se for coloca para o maximo de atividades
-                        // se nao for continua adicionando normalmente.
-                        if(controle[((a.getTipoAtividade().getCod()-1))] > a.getTipoAtividade().getMaxHoras()){
-                            controle[((a.getTipoAtividade().getCod()-1))] = a.getTipoAtividade().getMaxHoras();
-                        } 
+                    // ex: Monitoria o defaul é 51 cada entrada
+                    // se o cara coloca Monitoria 200 -> vai ter equivalencia a 51hrs
+                    // se for menor sei lá 40 hrs fica valendo como 40hrs ao invés de 51hrs
+                    if (a.getUnidadeAtividade() < hr) {
+                        controle[((a.getTipoAtividade().getCod() - 1))] += a.getUnidadeAtividade();
+
+                    } else {
+                        controle[((a.getTipoAtividade().getCod() - 1))] += hr;
                     }
-                    
-        
-                
+
+                        // verifica se o controle é maior que o maxHoras da atividade
+                    // se for coloca para o maximo de atividades
+                    // se nao for continua adicionando normalmente.
+                    if (controle[((a.getTipoAtividade().getCod() - 1))] > a.getTipoAtividade().getMaxHoras()) {
+                        controle[((a.getTipoAtividade().getCod() - 1))] = a.getTipoAtividade().getMaxHoras();
+                    }
+                }
+
                 //retorno += (retorno < a.getTipoAtividade().getMaxHoras() ? a.getUnidadeAtividadeAproveitada() : 0);
             }
         }
-        
-        for(int i = 0; i < TipoAtividade.getListaTipoAtividades().size(); i++){
-           retorno += controle[i]; 
+
+        for (int i = 0; i < TipoAtividade.getListaTipoAtividades().size(); i++) {
+            retorno += controle[i];
         }
         /**
-        for(TipoAtividade tA : TipoAtividade.getListaTipoAtividades()) {
-            if (tA.getCategoria().getNome().equals(c.getNome())) {
-                retorno += calculaHorasPorTipoAtividade(atividades, tA);
-            }
-        }
-        **/
+         * for(TipoAtividade tA : TipoAtividade.getListaTipoAtividades()) { if
+         * (tA.getCategoria().getNome().equals(c.getNome())) { retorno +=
+         * calculaHorasPorTipoAtividade(atividades, tA); } }
+        *
+         */
         return (retorno > c.getCargaHoraria() ? c.getCargaHoraria() : retorno);
         //return retorno;
     }
+
     private void mostraCalculos(Pedido pedido) {
-        
+
         Categoria pesquisa = Categoria.getCategoria("Pesquisa");
         Categoria ensino = Categoria.getCategoria("Ensino");
         Categoria extensao = Categoria.getCategoria("Extensão");
         Integer horasPesquisa = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), pesquisa);
         Integer horasEnsino = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), ensino);
         Integer horasExtensao = calculaHorasCategoria(pedido.getListaAtividadesComplementares(), extensao);
-        
-        this.hrAprEns.setText(horasEnsino.toString()+ "  /");
-        this.hrAprEns1.setText(horasEnsino.toString()+ "  /");
-        this.hrAprPes.setText(horasPesquisa.toString()+ "  /");
-        this.hrAprPes1.setText(horasPesquisa.toString()+ "  /");
-        this.hrAprExt.setText(horasExtensao.toString()+ "  /");
-        this.hrAprExt1.setText(horasExtensao.toString()+ "  /");
-        
+
+        this.hrAprEns.setText(horasEnsino.toString() + "  /");
+        this.hrAprEns1.setText(horasEnsino.toString() + "  /");
+        this.hrAprPes.setText(horasPesquisa.toString() + "  /");
+        this.hrAprPes1.setText(horasPesquisa.toString() + "  /");
+        this.hrAprExt.setText(horasExtensao.toString() + "  /");
+        this.hrAprExt1.setText(horasExtensao.toString() + "  /");
+
         this.hrMinEns.setText(pesquisa.getCargaHoraria().toString());
         this.hrMinEns1.setText(ensino.getCargaHoraria().toString());
         this.hrMinPes.setText(pesquisa.getCargaHoraria().toString());
         this.hrMinPes1.setText(pesquisa.getCargaHoraria().toString());
         this.hrMinExt.setText(extensao.getCargaHoraria().toString());
         this.hrMinExt1.setText(extensao.getCargaHoraria().toString());
-        
+
     }
+
     private void limpaCamposAproveitamento() {
         this.labelNome.setText("Aluno");
         this.hrAprEns.setText("0  /");
@@ -1831,14 +1837,14 @@ public class Janela extends javax.swing.JFrame {
         this.hrAprPes1.setText("0");
         this.hrAprExt.setText("0  /");
         this.hrAprExt1.setText("0");
-        
+
         this.hrMinEns.setText("0");
         this.hrMinEns1.setText("0");
         this.hrMinPes.setText("0");
         this.hrMinPes1.setText("0");
         this.hrMinExt.setText("0");
         this.hrMinExt1.setText("0");
-    }   
+    }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++
