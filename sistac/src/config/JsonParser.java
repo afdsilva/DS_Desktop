@@ -316,7 +316,6 @@ public class JsonParser {
         System.out.println(f);
             try{
                 f.delete();
-                System.out.println("Arquivo deletado com sucesso.");
                 return true;
             } catch (Exception e){
                 e.printStackTrace();
