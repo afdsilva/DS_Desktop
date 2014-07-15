@@ -1224,9 +1224,6 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textMatriculaAtividadesActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboCursoAtividades">
               <Properties>
@@ -1254,9 +1251,6 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textNomeAtividadesActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelNomeAtividades">
               <Properties>
